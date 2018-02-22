@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_asset"
+        android:title="@string/nav_asset"
+        android:icon="@drawable/ic_home_black"
+        />
+
+    <item
+        android:id="@+id/menu_bill"
+        android:title="@string/nav_bill"
+        android:icon="@drawable/ic_search_black"
+        />
+
+    <item
+        android:id="@+id/menu_statement"
+        android:title="@string/nav_statement"
+        android:icon="@drawable/ic_notifications_black"
+        />
+
+    <item
+        android:id="@+id/menu_me"
+        android:title="@string/nav_me"
+        android:icon="@drawable/ic_me_black"
+        />
+</menu>

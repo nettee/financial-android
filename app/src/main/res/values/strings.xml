@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Financial</string>
+
+    <string name="nav_asset">资产</string>
+    <string name="nav_bill">账单</string>
+    <string name="nav_statement">报表</string>
+    <string name="nav_me">我</string>
+</resources>
