@@ -1,10 +1,12 @@
-package me.nettee.financial;
+package me.nettee.financial.ui;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import me.nettee.financial.R;
 
 public class MeFragment extends Fragment {
 

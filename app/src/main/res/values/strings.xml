@@ -5,4 +5,11 @@
     <string name="nav_bill">账单</string>
     <string name="nav_statement">报表</string>
     <string name="nav_me">我</string>
+
+    <string name="title_asset">资产</string>
+    <string name="title_bill">账单</string>
+    <string name="title_statement">报表</string>
+    <string name="title_me">我</string>
+
+    <string name="money_amount_template">¥%1$d.%2$02d</string>
 </resources>
