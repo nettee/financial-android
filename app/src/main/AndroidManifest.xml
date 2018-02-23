@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".ui.NewAccountActivity">
         </activity>
+        <activity android:name=".ui.NewCashAccountActivity">
+        </activity>
     </application>
 
 </manifest>

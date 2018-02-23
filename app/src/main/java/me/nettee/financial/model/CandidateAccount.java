@@ -1,11 +1,18 @@
 package me.nettee.financial.model;
 
+import android.content.Context;
+import android.content.Intent;
+
+import me.nettee.financial.ui.NewCashAccountActivity;
+
 public class CandidateAccount {
 
+    private int mType;
     private String mName;
     private int mImageId;
 
-    public CandidateAccount(String name, int imageId) {
+    public CandidateAccount(int type, String name, int imageId) {
+        mType = type;
         mName = name;
         mImageId = imageId;
     }
@@ -14,15 +21,15 @@ public class CandidateAccount {
         return mName;
     }
 
-    public void setName(String name) {
-        mName = name;
-    }
-
     public int getImageId() {
         return mImageId;
     }
 
-    public void setImageId(int imageId) {
-        mImageId = imageId;
+    public Class getActivityClass() {
+        if (mType == Account.CASH) {
+            return NewCashAccountActivity.class;
+        } else {
+            return null;
+        }
     }
 }

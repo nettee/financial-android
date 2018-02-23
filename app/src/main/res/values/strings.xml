@@ -12,6 +12,11 @@
     <string name="title_me">我</string>
 
     <string name="title_new_account">添加账户</string>
+    <string name="title_new_cash_account">新建现金钱包</string>
+
+    <string name="account_name_cash">现金钱包</string>
+
+    <string name="hint_new_account_subname">输入备注名</string>
 
     <string name="my_accounts">我的账户</string>
 

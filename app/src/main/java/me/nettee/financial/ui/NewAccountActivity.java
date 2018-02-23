@@ -1,14 +1,15 @@
 package me.nettee.financial.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class NewAccountActivity extends Activity {
         LayoutInflater inflater = LayoutInflater.from(this);
         List<CandidateAccount> candidateAccounts = AccountLab.getInstance().getCandidateAccounts();
 
-        for (CandidateAccount candidateAccount : candidateAccounts) {
+        for (final CandidateAccount candidateAccount : candidateAccounts) {
             View itemView = inflater.inflate(R.layout.candidate_account_list_item, null);
             itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 180));
 
@@ -49,6 +50,19 @@ public class NewAccountActivity extends Activity {
             candidateAccountNameTextView.setText(candidateAccount.getName());
 
             candidateAccountList.addView(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Class activityClass = candidateAccount.getActivityClass();
+                    if (activityClass != null) {
+                        Intent intent = new Intent(getApplicationContext(), activityClass);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "暂不支持", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
 
     }

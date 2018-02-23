@@ -6,6 +6,7 @@
 
     <color name="lightGray">#eeeeee</color>
 
+    <color name="linear_layout_divider">#aaa</color>
     <color name="toolbar_title_background">#eeeeee</color>
     <color name="title_bar_background">#e0e0e0</color>
 </resources>

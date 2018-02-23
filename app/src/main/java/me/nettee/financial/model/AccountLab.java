@@ -13,14 +13,14 @@ public class AccountLab {
 
     private static List<CandidateAccount> sCandidateAccounts = new ArrayList<CandidateAccount>() {
         {
-            add(new CandidateAccount("现金钱包", R.drawable.ic_wallet));
-            add(new CandidateAccount("信用卡", R.drawable.ic_card));
-            add(new CandidateAccount("借记卡", R.drawable.ic_card));
-            add(new CandidateAccount("支付宝", R.drawable.ic_alipay));
-            add(new CandidateAccount("微信钱包", R.drawable.ic_wxpay));
-            add(new CandidateAccount("校园卡", R.drawable.ic_campus_card));
-            add(new CandidateAccount("公交卡", R.drawable.ic_bus));
-            add(new CandidateAccount("其他账户", R.drawable.ic_account));
+            add(new CandidateAccount(Account.CASH, "现金钱包", R.drawable.ic_wallet));
+            add(new CandidateAccount(Account.BANK_CARD, "信用卡", R.drawable.ic_card));
+            add(new CandidateAccount(Account.BANK_CARD, "借记卡", R.drawable.ic_card));
+            add(new CandidateAccount(Account.ALIPAY, "支付宝", R.drawable.ic_alipay));
+            add(new CandidateAccount(Account.WEIXIN, "微信钱包", R.drawable.ic_wxpay));
+            add(new CandidateAccount(Account.CASH_CARD, "校园卡", R.drawable.ic_campus_card));
+            add(new CandidateAccount(Account.CASH_CARD, "公交卡", R.drawable.ic_bus));
+//            add(new CandidateAccount(Account.CASH, "其他账户", R.drawable.ic_account));
         }
     };
 
