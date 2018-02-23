@@ -19,13 +19,24 @@
             />
     </Toolbar>
 
-    <LinearLayout
-        android:id="@+id/account_list"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
         >
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/account_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:divider="@drawable/default_divider"
+            android:dividerPadding="@dimen/account_list_margin"
+            android:showDividers="middle"
+            >
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

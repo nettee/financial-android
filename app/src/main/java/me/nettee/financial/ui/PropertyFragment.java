@@ -52,7 +52,7 @@ public class PropertyFragment extends Fragment {
 
         for (Account account : accounts) {
             View itemView = inflater.inflate(R.layout.account_list_item, null);
-            itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 160));
+            itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 180));
 
             ImageView accountIconImageView = itemView.findViewById(R.id.account_list_item_image);
             TextView accountNameTextView = itemView.findViewById(R.id.account_list_item_name);
