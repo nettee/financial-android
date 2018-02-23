@@ -2,57 +2,31 @@ package me.nettee.financial.model;
 
 import java.util.UUID;
 
-public class Account {
+public abstract class Account {
 
-    public static final int OTHER = 0;
     public static final int CASH = 100;
-    public static final int BUS = 101;
-    public static final int CAMPUS_CARD = 102;
-    public static final int BANK_ICBC = 200;
+    public static final int CASH_CARD = 101;
+    public static final int BANK_CARD = 200;
     public static final int ALIPAY = 300;
-    public static final int WXPAY = 301;
-    public static final int HUABEI = 500;
-    public static final int ANT_FORTUNE = 601;
-    public static final int LUFAX = 602;
-    public static final int TIANTIAN_FUND = 603;
+    public static final int WEIXIN = 301;
+    public static final int INVESTMENT = 600;
 
     private final UUID mId;
-    private String mName;
-    private int mAmount;
-    private int mType;
 
-    public Account(String name, int amount, int type) {
+    public Account() {
         mId = UUID.randomUUID();
-        mName = name;
-        mAmount = amount;
-        mType = type;
     }
 
-    public UUID getId() {
+    public final UUID getId() {
         return mId;
     }
 
-    public String getName() {
-        return mName;
-    }
+    public abstract int getType();
 
-    public void setName(String name) {
-        mName = name;
-    }
+    public abstract String getName();
 
-    public int getAmount() {
-        return mAmount;
-    }
+    public abstract int getAmount();
 
-    public void setAmount(int amount) {
-        mAmount = amount;
-    }
+    public abstract int getImageId();
 
-    public int getType() {
-        return mType;
-    }
-
-    public void setType(int type) {
-        mType = type;
-    }
 }

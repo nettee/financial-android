@@ -22,22 +22,6 @@ import me.nettee.financial.model.Money;
 
 public class PropertyFragment extends Fragment {
 
-    private static Map<Integer, Integer> accountTypeToImage = new HashMap<Integer, Integer>() {
-        {
-            put(Account.OTHER, R.drawable.ic_account);
-            put(Account.CASH, R.drawable.ic_wallet);
-            put(Account.BANK_ICBC, R.drawable.ic_bank_icbc);
-            put(Account.ALIPAY, R.drawable.ic_alipay);
-            put(Account.WXPAY, R.drawable.ic_wxpay);
-            put(Account.CAMPUS_CARD, R.drawable.ic_campus_card);
-            put(Account.BUS, R.drawable.ic_bus);
-            put(Account.HUABEI, R.drawable.ic_huabei);
-            put(Account.ANT_FORTUNE, R.drawable.ic_ant_fortune);
-            put(Account.LUFAX, R.drawable.ic_lufax);
-            put(Account.TIANTIAN_FUND, R.drawable.ic_tiantian_fund);
-        }
-    };
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_asset, parent, false);
@@ -60,11 +44,7 @@ public class PropertyFragment extends Fragment {
             TextView accountNameTextView = itemView.findViewById(R.id.account_list_item_name);
             TextView accountAmountTextView = itemView.findViewById(R.id.account_list_item_amount);
 
-            Integer imageId = accountTypeToImage.get(account.getType());
-            if (imageId == null) {
-                imageId = R.drawable.ic_account;
-            }
-            accountIconImageView.setImageResource(imageId);
+            accountIconImageView.setImageResource(account.getImageId());
             accountNameTextView.setText(account.getName());
             accountAmountTextView.setText(Money.format(account.getAmount()));
 

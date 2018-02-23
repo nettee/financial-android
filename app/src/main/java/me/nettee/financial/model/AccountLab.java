@@ -26,16 +26,16 @@ public class AccountLab {
 
     private AccountLab() {
         mAccounts = new ArrayList<>();
-        mAccounts.add(new Account("现金钱包", 97600, Account.CASH));
-        mAccounts.add(new Account("工商银行", 613477, Account.BANK_ICBC));
-        mAccounts.add(new Account("支付宝", 1643191, Account.ALIPAY));
-        mAccounts.add(new Account("微信钱包", 9260, Account.WXPAY));
-        mAccounts.add(new Account("校园卡", 4920, Account.CAMPUS_CARD));
-        mAccounts.add(new Account("公交卡", 6703, Account.BUS));
-        mAccounts.add(new Account("花呗", 15043, Account.HUABEI));
-        mAccounts.add(new Account("蚂蚁财富", 434000, Account.ANT_FORTUNE));
-        mAccounts.add(new Account("陆金所", 100000, Account.LUFAX));
-        mAccounts.add(new Account("天天基金", 200000, Account.TIANTIAN_FUND));
+        mAccounts.add(new CashAccount(97600));
+        mAccounts.add(new BankCardAccount("工商银行", 613477, R.drawable.ic_bank_icbc));
+        mAccounts.add(new AlipayAccount(1643191));
+        mAccounts.add(new WeixinAccount(9260));
+        mAccounts.add(new CampusCardAccount(4920));
+        mAccounts.add(new BusCardAccount(6703));
+//        mAccounts.add(new Account("花呗", 15043, Account.HUABEI, R.drawable.ic_huabei));
+        mAccounts.add(new InvestmentAccount("蚂蚁财富", 434000, R.drawable.ic_ant_fortune));
+        mAccounts.add(new InvestmentAccount("陆金所", 100000, R.drawable.ic_lufax));
+        mAccounts.add(new InvestmentAccount("天天基金", 200000, R.drawable.ic_tiantian_fund));
 //        mAccounts.add(new Account("账户Z", 0, Account.OTHER));
     }
 
