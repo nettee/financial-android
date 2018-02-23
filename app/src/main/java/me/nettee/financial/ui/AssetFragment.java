@@ -2,13 +2,11 @@ package me.nettee.financial.ui;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -34,9 +32,6 @@ public class AssetFragment extends Fragment {
         }
     };
 
-    private RecyclerView mAccountRecyclerView;
-    private AccountAdapter mAccountAdapter;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_asset, parent, false);
@@ -44,63 +39,30 @@ public class AssetFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        mAccountRecyclerView = view.findViewById(R.id.asset_account_recycler_view);
-        mAccountRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAccountRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        mAccountAdapter = new AccountAdapter();
-        mAccountRecyclerView.setAdapter(mAccountAdapter);
-    }
 
-    private class AccountHolder extends RecyclerView.ViewHolder {
+        LinearLayout accoutList = view.findViewById(R.id.account_list);
 
-        private TextView mAccountNameTextView;
-        private TextView mAccountAmountTextView;
-        private ImageView mAccountIconImageView;
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
 
-        public AccountHolder(View itemView) {
-            super(itemView);
-            mAccountNameTextView = itemView.findViewById(R.id.account_list_item_name);
-            mAccountAmountTextView = itemView.findViewById(R.id.account_list_item_amount);
-            mAccountIconImageView = itemView.findViewById(R.id.account_list_item_image);
-        }
+        List<Account> accounts = AccountLab.getInstance().getAccounts();
 
-        public void bindAccount(Account account) {
+        for (Account account : accounts) {
+            View itemView = inflater.inflate(R.layout.account_list_item, null);
+            itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 160));
+
+            ImageView accountIconImageView = itemView.findViewById(R.id.account_list_item_image);
+            TextView accountNameTextView = itemView.findViewById(R.id.account_list_item_name);
+            TextView accountAmountTextView = itemView.findViewById(R.id.account_list_item_amount);
+
             Integer imageId = accountTypeToImage.get(account.getType());
             if (imageId == null) {
                 imageId = R.drawable.ic_account;
             }
-            mAccountIconImageView.setImageResource(imageId);
-            mAccountNameTextView.setText(account.getName());
-            mAccountAmountTextView.setText(Money.format(account.getAmount()));
+            accountIconImageView.setImageResource(imageId);
+            accountNameTextView.setText(account.getName());
+            accountAmountTextView.setText(Money.format(account.getAmount()));
+
+            accoutList.addView(itemView);
         }
     }
-
-    private class AccountAdapter extends RecyclerView.Adapter<AccountHolder> {
-
-        private List<Account> mAccountList;
-
-        public AccountAdapter() {
-            AccountLab accountLab = AccountLab.getInstance();
-            mAccountList = accountLab.getAccounts();
-        }
-
-        @Override
-        public AccountHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            View view = layoutInflater.inflate(R.layout.account_list_item, parent, false);
-            return new AccountHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(AccountHolder holder, int position) {
-            Account account = mAccountList.get(position);
-            holder.bindAccount(account);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mAccountList.size();
-        }
-    }
-
 }
