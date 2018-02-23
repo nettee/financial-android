@@ -12,6 +12,7 @@ public abstract class Account {
     public static final int INVESTMENT = 600;
 
     private final UUID mId;
+    private String mRemark;
 
     public Account() {
         mId = UUID.randomUUID();
@@ -24,6 +25,14 @@ public abstract class Account {
     public abstract int getType();
 
     public abstract String getName();
+
+    public final String getRemark() {
+        return mRemark;
+    }
+
+    public final void setRemark(String remark) {
+        mRemark = remark;
+    }
 
     public abstract int getAmount();
 

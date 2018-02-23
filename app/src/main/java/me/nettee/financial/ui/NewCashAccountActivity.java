@@ -5,12 +5,20 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.Account;
+import me.nettee.financial.model.CashAccount;
+import me.nettee.financial.model.Money;
 
 public class NewCashAccountActivity extends Activity {
+
+    private EditText mRemark;
+    private EditText mAccountBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +35,26 @@ public class NewCashAccountActivity extends Activity {
             }
         });
 
-        EditText accoutBalance = findViewById(R.id.account_balance);
-        accoutBalance.addTextChangedListener(new MoneyAmountInputWatcher(accoutBalance));
+        mRemark = findViewById(R.id.cash_account_remark);
+        mAccountBalance = findViewById(R.id.account_balance);
+
+        mAccountBalance.addTextChangedListener(new MoneyAmountInputWatcher(mAccountBalance));
+
+        Button saveButton = findViewById(R.id.button_save_new_cash_account);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String remark = mRemark.getText().toString();
+                String balance = mAccountBalance.getText().toString();
+                newCashAccount(remark, balance);
+            }
+        });
+
+    }
+
+    private void newCashAccount(String remark, String balance) {
+        int amount = Money.from(balance);
+        Account account = new CashAccount(amount);
+        account.setRemark(remark);
     }
 }
