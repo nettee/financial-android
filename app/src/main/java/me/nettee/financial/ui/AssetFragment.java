@@ -8,15 +8,31 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Account;
 import me.nettee.financial.model.AccountLab;
+import me.nettee.financial.model.Money;
 
 public class AssetFragment extends Fragment {
+
+    private static Map<Integer, Integer> accoutTypeToImage = new HashMap<Integer, Integer>() {
+        {
+            put(Account.OTHER, R.drawable.account);
+            put(Account.CASH, R.drawable.wallet);
+            put(Account.BUS, R.drawable.bus);
+            put(Account.CAMPUS_CARD, R.drawable.campus_card);
+            put(Account.ALIPAY, R.drawable.alipay);
+            put(Account.WXPAY, R.drawable.wxpay);
+            put(Account.BANK_ICBC, R.drawable.bank_icbc);
+        }
+    };
 
     private RecyclerView mAccountRecyclerView;
     private AccountAdapter mAccountAdapter;
@@ -39,17 +55,23 @@ public class AssetFragment extends Fragment {
 
         private TextView mAccountNameTextView;
         private TextView mAccountAmountTextView;
+        private ImageView mAccountIconImageView;
 
         public AccountHolder(View itemView) {
             super(itemView);
             mAccountNameTextView = itemView.findViewById(R.id.account_list_item_name);
             mAccountAmountTextView = itemView.findViewById(R.id.account_list_item_amount);
+            mAccountIconImageView = itemView.findViewById(R.id.account_list_item_image);
         }
 
         public void bindAccount(Account account) {
+            Integer imageId = accoutTypeToImage.get(account.getType());
+            if (imageId == null) {
+                imageId = R.drawable.account;
+            }
+            mAccountIconImageView.setImageResource(imageId);
             mAccountNameTextView.setText(account.getName());
-            int amount = account.getAmount();
-            mAccountAmountTextView.setText(String.format(getString(R.string.money_amount_template), amount / 100, amount % 100));
+            mAccountAmountTextView.setText(Money.format(account.getAmount()));
         }
     }
 
