@@ -2,7 +2,10 @@ package me.nettee.financial.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toolbar;
 
 import me.nettee.financial.R;
@@ -23,5 +26,8 @@ public class NewCashAccountActivity extends Activity {
                 finish();
             }
         });
+
+        EditText accoutBalance = findViewById(R.id.account_balance);
+        accoutBalance.addTextChangedListener(new MoneyAmountInputWatcher(accoutBalance));
     }
 }

@@ -68,6 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_height_large"
                 android:hint="@string/hint_new_account_subname"
+                android:inputType="text"
                 android:background="@null"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -103,13 +104,27 @@
             android:layout_marginStart="@dimen/margin_horizontal"
             />
 
+        <TextView
+            android:id="@+id/text_view_yuan"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/input_height_large"
+            android:gravity="center"
+            android:text="@string/yuan"
+            app:layout_constraintTop_toBottomOf="@id/text_view_account_balance"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/margin_vertical"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            />
+
         <EditText
+            android:id="@+id/account_balance"
             android:layout_width="match_parent"
             android:layout_height="@dimen/input_height_large"
             android:hint="@string/hint_money_amount"
+            android:inputType="numberDecimal"
             android:background="@null"
             app:layout_constraintTop_toBottomOf="@id/text_view_account_balance"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/text_view_yuan"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/margin_vertical"
             android:layout_marginStart="@dimen/margin_horizontal"
