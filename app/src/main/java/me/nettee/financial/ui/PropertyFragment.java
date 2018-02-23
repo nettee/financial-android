@@ -1,6 +1,7 @@
 package me.nettee.financial.ui;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,7 +75,8 @@ public class PropertyFragment extends Fragment {
         accountListAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "hey", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), NewAccountActivity.class);
+                startActivity(intent);
             }
         });
     }

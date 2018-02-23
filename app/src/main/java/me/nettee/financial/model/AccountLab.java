@@ -3,11 +3,26 @@ package me.nettee.financial.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.nettee.financial.R;
+
 public class AccountLab {
 
     private static AccountLab sAccountLab;
 
     private List<Account> mAccounts;
+
+    private static List<CandidateAccount> sCandidateAccounts = new ArrayList<CandidateAccount>() {
+        {
+            add(new CandidateAccount("现金钱包", R.drawable.ic_wallet));
+            add(new CandidateAccount("信用卡", R.drawable.ic_card));
+            add(new CandidateAccount("借记卡", R.drawable.ic_card));
+            add(new CandidateAccount("支付宝", R.drawable.ic_alipay));
+            add(new CandidateAccount("微信钱包", R.drawable.ic_wxpay));
+            add(new CandidateAccount("校园卡", R.drawable.ic_campus_card));
+            add(new CandidateAccount("公交卡", R.drawable.ic_bus));
+            add(new CandidateAccount("其他账户", R.drawable.ic_account));
+        }
+    };
 
     private AccountLab() {
         mAccounts = new ArrayList<>();
@@ -33,5 +48,9 @@ public class AccountLab {
 
     public List<Account> getAccounts() {
         return mAccounts;
+    }
+
+    public List<CandidateAccount> getCandidateAccounts() {
+        return sCandidateAccounts;
     }
 }
