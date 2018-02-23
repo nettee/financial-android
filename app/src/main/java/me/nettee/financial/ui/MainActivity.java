@@ -29,6 +29,7 @@ public class MainActivity extends Activity {
         bnve.enableAnimation(false);
         bnve.enableShiftingMode(false);
         bnve.enableItemShiftingMode(false);
+        bnve.setIconSize(20, 20);
 
         bnve.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

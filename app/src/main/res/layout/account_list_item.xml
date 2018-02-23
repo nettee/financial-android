@@ -11,7 +11,7 @@
         android:layout_width="@dimen/account_list_icon_size"
         android:layout_height="@dimen/account_list_icon_size"
         android:scaleType="fitXY"
-        android:src="@drawable/account"
+        android:src="@drawable/ic_account"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

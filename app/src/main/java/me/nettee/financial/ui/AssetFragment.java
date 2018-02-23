@@ -22,15 +22,15 @@ import me.nettee.financial.model.Money;
 
 public class AssetFragment extends Fragment {
 
-    private static Map<Integer, Integer> accoutTypeToImage = new HashMap<Integer, Integer>() {
+    private static Map<Integer, Integer> accountTypeToImage = new HashMap<Integer, Integer>() {
         {
-            put(Account.OTHER, R.drawable.account);
-            put(Account.CASH, R.drawable.wallet);
-            put(Account.BUS, R.drawable.bus);
-            put(Account.CAMPUS_CARD, R.drawable.campus_card);
-            put(Account.ALIPAY, R.drawable.alipay);
-            put(Account.WXPAY, R.drawable.wxpay);
-            put(Account.BANK_ICBC, R.drawable.bank_icbc);
+            put(Account.OTHER, R.drawable.ic_account);
+            put(Account.CASH, R.drawable.ic_wallet);
+            put(Account.BUS, R.drawable.ic_bus);
+            put(Account.CAMPUS_CARD, R.drawable.ic_campus_card);
+            put(Account.ALIPAY, R.drawable.ic_alipay);
+            put(Account.WXPAY, R.drawable.ic_wxpay);
+            put(Account.BANK_ICBC, R.drawable.ic_bank_icbc);
         }
     };
 
@@ -65,9 +65,9 @@ public class AssetFragment extends Fragment {
         }
 
         public void bindAccount(Account account) {
-            Integer imageId = accoutTypeToImage.get(account.getType());
+            Integer imageId = accountTypeToImage.get(account.getType());
             if (imageId == null) {
-                imageId = R.drawable.account;
+                imageId = R.drawable.ic_account;
             }
             mAccountIconImageView.setImageResource(imageId);
             mAccountNameTextView.setText(account.getName());
