@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -68,5 +69,13 @@ public class PropertyFragment extends Fragment {
 
             accoutList.addView(itemView);
         }
+
+        ImageView accountListAdd = view.findViewById(R.id.account_list_add);
+        accountListAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "hey", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
