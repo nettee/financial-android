@@ -16,6 +16,8 @@
 
     <string name="account_name_cash">现金钱包</string>
 
+    <string name="button_save">保存</string>
+
     <string name="hint_new_account_subname">输入备注名</string>
     <string name="hint_money_amount">¥0.00</string>
 

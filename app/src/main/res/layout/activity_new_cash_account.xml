@@ -124,4 +124,15 @@
         android:background="@drawable/divider_bar_large"
         />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_save"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_dark"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_marginEnd="@dimen/margin_horizontal"
+        />
+
 </LinearLayout>
