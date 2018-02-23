@@ -18,17 +18,21 @@ import me.nettee.financial.model.Account;
 import me.nettee.financial.model.AccountLab;
 import me.nettee.financial.model.Money;
 
-public class AssetFragment extends Fragment {
+public class PropertyFragment extends Fragment {
 
     private static Map<Integer, Integer> accountTypeToImage = new HashMap<Integer, Integer>() {
         {
             put(Account.OTHER, R.drawable.ic_account);
             put(Account.CASH, R.drawable.ic_wallet);
-            put(Account.BUS, R.drawable.ic_bus);
-            put(Account.CAMPUS_CARD, R.drawable.ic_campus_card);
+            put(Account.BANK_ICBC, R.drawable.ic_bank_icbc);
             put(Account.ALIPAY, R.drawable.ic_alipay);
             put(Account.WXPAY, R.drawable.ic_wxpay);
-            put(Account.BANK_ICBC, R.drawable.ic_bank_icbc);
+            put(Account.CAMPUS_CARD, R.drawable.ic_campus_card);
+            put(Account.BUS, R.drawable.ic_bus);
+            put(Account.HUABEI, R.drawable.ic_huabei);
+            put(Account.ANT_FORTUNE, R.drawable.ic_ant_fortune);
+            put(Account.LUFAX, R.drawable.ic_lufax);
+            put(Account.TIANTIAN_FUND, R.drawable.ic_tiantian_fund);
         }
     };
 

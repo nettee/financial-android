@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
 
     private void initFragments() {
 
-        mCurrentFragment = new AssetFragment();
+        mCurrentFragment = new PropertyFragment();
         mFragmentMap.put(R.id.menu_asset, mCurrentFragment);
         mFragmentMap.put(R.id.menu_bill, new BillFragment());
         mFragmentMap.put(R.id.menu_statement, new StatementFragment());

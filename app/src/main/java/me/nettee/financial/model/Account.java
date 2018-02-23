@@ -8,9 +8,13 @@ public class Account {
     public static final int CASH = 100;
     public static final int BUS = 101;
     public static final int CAMPUS_CARD = 102;
+    public static final int BANK_ICBC = 200;
     public static final int ALIPAY = 300;
     public static final int WXPAY = 301;
-    public static final int BANK_ICBC = 200;
+    public static final int HUABEI = 500;
+    public static final int ANT_FORTUNE = 601;
+    public static final int LUFAX = 602;
+    public static final int TIANTIAN_FUND = 603;
 
     private final UUID mId;
     private String mName;
