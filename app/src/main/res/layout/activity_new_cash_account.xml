@@ -64,13 +64,11 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/input_height_large">
 
-            <EditText
+            <EditText style="@style/RemarkEditText"
                 android:id="@+id/cash_account_remark"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_height_large"
                 android:hint="@string/hint_new_account_remark"
-                android:inputType="text"
-                android:background="@null"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -117,13 +115,10 @@
             android:layout_marginStart="@dimen/margin_horizontal"
             />
 
-        <EditText
+        <EditText style="@style/MoneyAmountEditText"
             android:id="@+id/account_balance"
             android:layout_width="match_parent"
             android:layout_height="@dimen/input_height_large"
-            android:hint="@string/hint_money_amount"
-            android:inputType="numberDecimal"
-            android:background="@null"
             app:layout_constraintTop_toBottomOf="@id/text_view_account_balance"
             app:layout_constraintStart_toStartOf="@id/text_view_yuan"
             app:layout_constraintEnd_toEndOf="parent"
@@ -140,13 +135,11 @@
         android:background="@drawable/divider_bar_large"
         />
 
-    <Button
+    <Button style="@style/DarkActionButton"
         android:id="@+id/button_save_new_cash_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_save"
-        android:textColor="@android:color/white"
-        android:background="@drawable/button_dark"
         android:layout_marginTop="@dimen/margin_vertical"
         android:layout_marginStart="@dimen/margin_horizontal"
         android:layout_marginEnd="@dimen/margin_horizontal"

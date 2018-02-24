@@ -26,7 +26,9 @@ public class AccountLab {
 
     private AccountLab() {
         mAccounts = new ArrayList<>();
-        mAccounts.add(new CashAccount(97600));
+        CashAccount cashAccount = new CashAccount(97600);
+        cashAccount.setRemark("钱包A");
+        mAccounts.add(cashAccount);
         mAccounts.add(new BankCardAccount("工商银行", 613477, R.drawable.ic_bank_icbc));
         mAccounts.add(new AlipayAccount(1643191));
         mAccounts.add(new WeixinAccount(9260));

@@ -48,7 +48,18 @@ public class PropertyFragment extends Fragment {
         List<Account> accounts = AccountLab.getInstance().getAccounts();
 
         for (final Account account : accounts) {
-            View itemView = inflater.inflate(R.layout.account_list_item, null);
+
+            boolean hasRemark = account.getRemark() != null && account.getRemark().length() > 0;
+
+            Integer layoutId;
+            if (hasRemark) {
+                layoutId = R.layout.account_list_item_with_remark;
+            } else {
+                layoutId = R.layout.account_list_item;
+            }
+
+            View itemView = inflater.inflate(layoutId, null);
+
             itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 180));
 
             ImageView accountIconImageView = itemView.findViewById(R.id.account_list_item_image);
@@ -58,6 +69,11 @@ public class PropertyFragment extends Fragment {
             accountIconImageView.setImageResource(account.getImageId());
             accountNameTextView.setText(account.getName());
             accountAmountTextView.setText(Money.formatWithYuan(account.getAmount()));
+
+            if (hasRemark) {
+                TextView accountRemark = itemView.findViewById(R.id.account_list_item_remark);
+                accountRemark.setText(account.getRemark());
+            }
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
