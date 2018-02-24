@@ -6,11 +6,8 @@
                                              android:orientation="vertical"
     >
 
-    <ImageView
+    <ImageView style="@style/AccountIcon"
         android:id="@+id/candidate_account_list_item_image"
-        android:layout_width="@dimen/account_list_icon_size"
-        android:layout_height="@dimen/account_list_icon_size"
-        android:scaleType="fitXY"
         android:src="@drawable/ic_account"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

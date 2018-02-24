@@ -3,12 +3,9 @@ package me.nettee.financial.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import android.widget.Toolbar;
 
 import me.nettee.financial.R;
@@ -42,7 +39,7 @@ public class NewCashAccountActivity extends Activity {
 
         mAccountBalance.addTextChangedListener(new MoneyAmountInputWatcher(mAccountBalance));
 
-        Button saveButton = findViewById(R.id.button_save_new_cash_account);
+        Button saveButton = findViewById(R.id.button_save);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

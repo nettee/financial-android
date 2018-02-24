@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import me.nettee.financial.ui.NewCashAccountActivity;
+import me.nettee.financial.ui.NewCreditCardAccountActivity;
 
 public class CandidateAccount {
 
@@ -28,6 +29,8 @@ public class CandidateAccount {
     public Class getActivityClass() {
         if (mType == Account.CASH) {
             return NewCashAccountActivity.class;
+        } else if (mType == Account.CREDIT_CARD) {
+            return NewCreditCardAccountActivity.class;
         } else {
             return null;
         }

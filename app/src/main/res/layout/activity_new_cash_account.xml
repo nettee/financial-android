@@ -16,77 +16,71 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/title_new_cash_account"
+            android:text="@string/title_new_account"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             />
 
     </Toolbar>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:divider="@drawable/default_divider"
-        android:dividerPadding="@dimen/margin_horizontal"
-        android:showDividers="middle"
+        android:layout_height="@dimen/input_height_large"
         >
 
-        <android.support.constraint.ConstraintLayout
+        <ImageView style="@style/AccountIcon"
+            android:id="@+id/new_cash_account_name_image"
+            android:src="@drawable/ic_wallet"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/account_name_cash"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/new_cash_account_name_image"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/input_height_large">
+
+        <TextView
+            style="@style/InputCaption"
+            android:id="@+id/new_cash_account_caption_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/caption_note_information"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            />
+
+        <EditText style="@style/Input"
+            android:id="@+id/cash_account_remark"
             android:layout_width="match_parent"
             android:layout_height="@dimen/input_height_large"
-            >
+            android:hint="@string/hint_new_account_remark"
+            android:inputType="text"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/new_cash_account_caption_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            android:layout_marginEnd="@dimen/margin_horizontal"
+            />
 
-            <ImageView
-                android:id="@+id/new_cash_account_name_image"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_wallet"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                />
+    </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/account_name_cash"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/new_cash_account_name_image"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                />
-
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_height_large">
-
-            <EditText style="@style/RemarkEditText"
-                android:id="@+id/cash_account_remark"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/input_height_large"
-                android:hint="@string/hint_new_account_remark"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                android:layout_marginEnd="@dimen/margin_horizontal"
-                />
-
-        </android.support.constraint.ConstraintLayout>
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divide_bar_height_large"
-        android:background="@drawable/divider_bar_large"
-        />
+    <include layout="@layout/divider_bar_large" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -129,20 +123,6 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divide_bar_height_large"
-        android:background="@drawable/divider_bar_large"
-        />
-
-    <Button style="@style/DarkActionButton"
-        android:id="@+id/button_save_new_cash_account"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_save"
-        android:layout_marginTop="@dimen/margin_vertical"
-        android:layout_marginStart="@dimen/margin_horizontal"
-        android:layout_marginEnd="@dimen/margin_horizontal"
-        />
+    <include layout="@layout/button_save"/>
 
 </LinearLayout>

@@ -12,23 +12,67 @@
     <string name="title_me">我</string>
 
     <string name="title_new_account">添加账户</string>
-    <string name="title_new_cash_account">新建现金钱包</string>
     <string name="title_account_detail">账户详情</string>
 
     <string name="account_name_cash">现金钱包</string>
+    <string name="account_name_credit_card">信用卡</string>
+    <string name="account_name_debit_card">借记卡</string>
+    <string name="account_name_alipay">支付宝</string>
+    <string name="account_name_weixin">微信钱包</string>
+    <string name="account_name_campus_card">校园卡</string>
+    <string name="account_name_bus_card">公交卡</string>
+
+    <string name="caption_note_information">备注信息</string>
+    <string name="caption_bank_card_number">银行卡号</string>
+    <string name="caption_credit_limit">信用额度</string>
+    <string name="caption_bill_date">账单日期</string>
+    <string name="caption_payment_date">还款日期</string>
 
     <string name="button_edit">编辑</string>
     <string name="button_save">保存</string>
 
-    <string name="hint_new_account_remark">输入备注名</string>
+    <string name="hint_new_account_remark">输入备注名（可不填）</string>
     <string name="hint_money_amount">0.00</string>
+    <string name="hint_bank_card_number">银行卡号（可不填）</string>
 
     <string name="default_money_amount">0.00</string>
 
     <string name="my_accounts">我的账户</string>
     <string name="account_balance">账户余额</string>
     <string name="account_total">账户总额</string>
+    <string name="current_arrears">当前欠款</string>
     <string name="yuan">¥</string>
     <string name="account_name_split">|</string>
+    
+    <string-array name="bill_dates_array">
+        <item>每月1日</item>
+        <item>每月2日</item>
+        <item>每月3日</item>
+        <item>每月4日</item>
+        <item>每月5日</item>
+        <item>每月6日</item>
+        <item>每月7日</item>
+        <item>每月8日</item>
+        <item>每月9日</item>
+        <item>每月10日</item>
+        <item>每月11日</item>
+        <item>每月12日</item>
+        <item>每月13日</item>
+        <item>每月14日</item>
+        <item>每月15日</item>
+        <item>每月16日</item>
+        <item>每月17日</item>
+        <item>每月18日</item>
+        <item>每月19日</item>
+        <item>每月20日</item>
+        <item>每月21日</item>
+        <item>每月22日</item>
+        <item>每月23日</item>
+        <item>每月24日</item>
+        <item>每月25日</item>
+        <item>每月26日</item>
+        <item>每月27日</item>
+        <item>每月28日</item>
+    </string-array>
 
 </resources>

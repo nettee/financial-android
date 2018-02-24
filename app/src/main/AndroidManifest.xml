@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".ui.AccountDetailActivity">
         </activity>
+        <activity android:name=".ui.NewCreditCardAccountActivity">
+        </activity>
     </application>
 
 </manifest>
