@@ -43,7 +43,7 @@
     <string name="current_arrears">当前欠款</string>
     <string name="yuan">¥</string>
     <string name="account_name_split">|</string>
-    
+
     <string-array name="bill_dates_array">
         <item>每月1日</item>
         <item>每月2日</item>

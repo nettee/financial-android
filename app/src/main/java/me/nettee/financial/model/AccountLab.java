@@ -30,7 +30,7 @@ public class AccountLab {
         {
             add(new CandidateAccount(Account.CASH, "现金钱包", R.drawable.ic_wallet));
             add(new CandidateAccount(Account.CREDIT_CARD, "信用卡", R.drawable.ic_bank_card));
-            add(new CandidateAccount(Account.BANK_CARD, "借记卡", R.drawable.ic_bank_card));
+            add(new CandidateAccount(Account.DEBIT_CARD, "借记卡", R.drawable.ic_bank_card));
             add(new CandidateAccount(Account.ALIPAY, "支付宝", R.drawable.ic_alipay));
             add(new CandidateAccount(Account.WEIXIN, "微信钱包", R.drawable.ic_wxpay));
             add(new CandidateAccount(Account.CASH_CARD, "校园卡", R.drawable.ic_campus_card));

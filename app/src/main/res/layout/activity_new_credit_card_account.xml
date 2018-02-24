@@ -5,133 +5,23 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
     >
-    <Toolbar
-        android:id="@+id/toolbar_new_cash_account"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:navigationIcon="@drawable/ic_action_back_v"
-        >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/title_new_account"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            />
+    <include layout="@layout/toolbar_new_account"/>
 
-    </Toolbar>
+    <include layout="@layout/bank_card_title_bar"/>
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/caption_height_large"
-        >
-        <ImageView
-            style="@style/AccountIcon"
-            android:id="@+id/new_credit_card_account_name_image"
-            android:src="@drawable/ic_bank_card"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_name_credit_card"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/new_credit_card_account_name_image"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            />
-        <TextView
-            android:id="@+id/new_credit_card_account_bank_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="工商银行"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/margin_horizontal"
-            />
-        <ImageView
-            style="@style/AccountIcon"
-            android:src="@drawable/ic_bank_icbc"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/new_credit_card_account_bank_text"
-            android:layout_marginEnd="@dimen/margin_horizontal"
-            />
-    </android.support.constraint.ConstraintLayout>
+    <LinearLayout style="@style/InputLines">
 
-    <LinearLayout
-        style="@style/InputLines"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_height_large">
-            <TextView
-                style="@style/InputCaption"
-                android:id="@+id/new_credit_card_account_caption_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/caption_note_information"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                />
-            <EditText
-                style="@style/Input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_new_account_remark"
-                android:inputType="text"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/new_credit_card_account_caption_1"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                />
-        </android.support.constraint.ConstraintLayout>
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_height_large">
-            <TextView
-                style="@style/InputCaption"
-                android:id="@+id/new_credit_card_account_caption_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/caption_bank_card_number"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                />
-            <EditText
-                style="@style/Input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_bank_card_number"
-                android:inputType="number"
-                android:maxLength="19"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/new_credit_card_account_caption_2"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                />
-        </android.support.constraint.ConstraintLayout>
+        <include layout="@layout/remark_input_bar"/>
+
+        <include layout="@layout/bank_card_number_input_bar"/>
+
     </LinearLayout>
 
     <include layout="@layout/divider_bar_large" />
 
-    <LinearLayout
-        style="@style/InputLines"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <LinearLayout style="@style/InputLines">
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/input_height_large">
@@ -170,6 +60,7 @@
                 android:layout_marginStart="@dimen/margin_horizontal_tiny"
                 />
         </android.support.constraint.ConstraintLayout>
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/input_height_large">
@@ -194,6 +85,7 @@
                 android:layout_marginStart="@dimen/margin_horizontal"
                 />
         </android.support.constraint.ConstraintLayout>
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/input_height_large">
@@ -218,50 +110,12 @@
                 android:layout_marginStart="@dimen/margin_horizontal"
                 />
         </android.support.constraint.ConstraintLayout>
+
     </LinearLayout>
 
     <include layout="@layout/divider_bar_large" />
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/new_credit_card_account_caption_6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/current_arrears"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/margin_vertical"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            />
-
-        <TextView
-            android:id="@+id/new_credit_card_account_caption_7"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/input_height_large"
-            android:gravity="center"
-            android:text="@string/yuan"
-            app:layout_constraintTop_toBottomOf="@id/new_credit_card_account_caption_6"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/margin_vertical"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            />
-
-        <EditText style="@style/MoneyAmountEditText"
-                  android:id="@+id/account_balance"
-                  android:layout_width="match_parent"
-                  android:layout_height="@dimen/input_height_large"
-                  app:layout_constraintTop_toBottomOf="@id/new_credit_card_account_caption_6"
-                  app:layout_constraintStart_toStartOf="@id/new_credit_card_account_caption_7"
-                  app:layout_constraintEnd_toEndOf="parent"
-                  android:layout_marginTop="@dimen/margin_vertical"
-                  android:layout_marginStart="@dimen/margin_horizontal"
-                  android:layout_marginEnd="@dimen/margin_horizontal"
-            />
-
-    </android.support.constraint.ConstraintLayout>
+    <include layout="@layout/account_amount_input_bar"/>
 
     <include layout="@layout/button_save"/>
 

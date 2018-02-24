@@ -1,10 +1,8 @@
 package me.nettee.financial.model;
 
-import android.content.Context;
-import android.content.Intent;
-
 import me.nettee.financial.ui.NewCashAccountActivity;
 import me.nettee.financial.ui.NewCreditCardAccountActivity;
+import me.nettee.financial.ui.NewDebitCardAccountActivity;
 
 public class CandidateAccount {
 
@@ -31,6 +29,8 @@ public class CandidateAccount {
             return NewCashAccountActivity.class;
         } else if (mType == Account.CREDIT_CARD) {
             return NewCreditCardAccountActivity.class;
+        } else if (mType == Account.DEBIT_CARD) {
+            return NewDebitCardAccountActivity.class;
         } else {
             return null;
         }

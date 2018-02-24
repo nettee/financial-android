@@ -14,7 +14,7 @@ public class BankCardAccount extends Account {
 
     @Override
     public int getType() {
-        return BANK_CARD;
+        return DEBIT_CARD;
     }
 
     @Override

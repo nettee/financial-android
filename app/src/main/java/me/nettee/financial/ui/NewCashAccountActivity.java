@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 import me.nettee.financial.R;
@@ -24,7 +25,7 @@ public class NewCashAccountActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_cash_account);
 
-        Toolbar toolbar = findViewById(R.id.toolbar_new_cash_account);
+        Toolbar toolbar = findViewById(R.id.new_account_toolbar);
         setActionBar(toolbar);
         getActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -34,8 +35,11 @@ public class NewCashAccountActivity extends Activity {
             }
         });
 
-        mRemark = findViewById(R.id.cash_account_remark);
-        mAccountBalance = findViewById(R.id.account_balance);
+        TextView accountAmountCaption = findViewById(R.id.account_amount_caption);
+        accountAmountCaption.setText(R.string.account_balance);
+
+        mRemark = findViewById(R.id.account_remark);
+        mAccountBalance = findViewById(R.id.account_amount);
 
         mAccountBalance.addTextChangedListener(new MoneyAmountInputWatcher(mAccountBalance));
 
