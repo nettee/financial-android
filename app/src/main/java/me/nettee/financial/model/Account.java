@@ -1,8 +1,9 @@
 package me.nettee.financial.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public abstract class Account {
+public abstract class Account implements Serializable {
 
     public static final int CASH = 100;
     public static final int CASH_CARD = 101;

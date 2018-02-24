@@ -9,11 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Account;
@@ -36,7 +33,7 @@ public class PropertyFragment extends Fragment {
 
         List<Account> accounts = AccountLab.getInstance().getAccounts();
 
-        for (Account account : accounts) {
+        for (final Account account : accounts) {
             View itemView = inflater.inflate(R.layout.account_list_item, null);
             itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 180));
 
@@ -46,12 +43,13 @@ public class PropertyFragment extends Fragment {
 
             accountIconImageView.setImageResource(account.getImageId());
             accountNameTextView.setText(account.getName());
-            accountAmountTextView.setText(Money.format(account.getAmount()));
+            accountAmountTextView.setText(Money.formatWithYuan(account.getAmount()));
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), AccountDetailActivity.class);
+                    intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_OBJECT, account);
                     startActivity(intent);
                 }
             });

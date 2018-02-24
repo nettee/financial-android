@@ -59,6 +59,7 @@ public class NewCashAccountActivity extends Activity {
         account.setRemark(remark);
 
         Intent intent = new Intent(getApplicationContext(), AccountDetailActivity.class);
+        intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_OBJECT, account);
         startActivity(intent);
     }
 }

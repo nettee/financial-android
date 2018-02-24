@@ -6,9 +6,15 @@ import java.text.DecimalFormat;
 
 public class Money {
 
-    public static String format(int amount) {
+    public static String formatWithYuan(int amount) {
         String a = new DecimalFormat(",###").format(amount / 100);
         String y = String.format("¥%s.%02d", a, amount % 100);
+        return y;
+    }
+
+    public static String formatWithoutYuan(int amount) {
+        String a = new DecimalFormat(",###").format(amount / 100);
+        String y = String.format("%s.%02d", a, amount % 100);
         return y;
     }
 
