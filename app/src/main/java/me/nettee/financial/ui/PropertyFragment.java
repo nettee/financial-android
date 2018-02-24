@@ -27,10 +27,24 @@ public class PropertyFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        LinearLayout accoutList = view.findViewById(R.id.account_list);
+        ImageView accountListAdd = view.findViewById(R.id.account_list_add);
+        accountListAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), NewAccountActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        LinearLayout accountList = getActivity().findViewById(R.id.account_list);
+        accountList.removeAllViews();
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-
         List<Account> accounts = AccountLab.getInstance().getAccounts();
 
         for (final Account account : accounts) {
@@ -54,16 +68,8 @@ public class PropertyFragment extends Fragment {
                 }
             });
 
-            accoutList.addView(itemView);
+            accountList.addView(itemView);
         }
 
-        ImageView accountListAdd = view.findViewById(R.id.account_list_add);
-        accountListAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), NewAccountActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 }

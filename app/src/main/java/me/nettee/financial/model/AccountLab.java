@@ -46,6 +46,10 @@ public class AccountLab {
         return sAccountLab;
     }
 
+    public void addAccount(Account account) {
+        mAccounts.add(account);
+    }
+
     public List<Account> getAccounts() {
         return mAccounts;
     }

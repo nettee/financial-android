@@ -20,6 +20,8 @@ import me.nettee.financial.model.CandidateAccount;
 
 public class NewAccountActivity extends Activity {
 
+    private static final int REQUEST_CODE_CREATE_ACCOUNT_STATUS = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,7 @@ public class NewAccountActivity extends Activity {
                     Class activityClass = candidateAccount.getActivityClass();
                     if (activityClass != null) {
                         Intent intent = new Intent(getApplicationContext(), activityClass);
-                        startActivity(intent);
+                        startActivityForResult(intent, REQUEST_CODE_CREATE_ACCOUNT_STATUS);
                     } else {
                         Toast.makeText(getApplicationContext(), "暂不支持", Toast.LENGTH_SHORT).show();
                     }
@@ -67,4 +69,14 @@ public class NewAccountActivity extends Activity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_CODE_CREATE_ACCOUNT_STATUS) {
+            Toast.makeText(getApplicationContext(), "result code = " + resultCode, Toast.LENGTH_SHORT).show();
+            if (resultCode == RESULT_OK) {
+                finish();
+            }
+        }
+    }
 }

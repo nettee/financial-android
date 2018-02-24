@@ -13,6 +13,7 @@ import android.widget.Toolbar;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Account;
+import me.nettee.financial.model.AccountLab;
 import me.nettee.financial.model.CashAccount;
 import me.nettee.financial.model.Money;
 
@@ -58,8 +59,12 @@ public class NewCashAccountActivity extends Activity {
         Account account = new CashAccount(amount);
         account.setRemark(remark);
 
+        AccountLab.getInstance().addAccount(account);
+
         Intent intent = new Intent(getApplicationContext(), AccountDetailActivity.class);
         intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_OBJECT, account);
         startActivity(intent);
+        setResult(RESULT_OK);
+        finish();
     }
 }
