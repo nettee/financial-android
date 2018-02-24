@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Financial</string>
+    <string name="app_name">财政大臣</string>
 
     <string name="nav_property">资产</string>
     <string name="nav_bill">账单</string>

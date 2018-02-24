@@ -21,7 +21,7 @@ public class PropertyFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_asset, parent, false);
+        return inflater.inflate(R.layout.fragment_property, parent, false);
     }
 
     @Override

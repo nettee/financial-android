@@ -6,10 +6,10 @@ import java.util.UUID;
 public abstract class Account implements Serializable {
 
     public static final int CASH = 100;
-    public static final int CASH_CARD = 101;
-    public static final int BANK_CARD = 200;
-    public static final int ALIPAY = 300;
-    public static final int WEIXIN = 301;
+    public static final int BANK_CARD = 300;
+    public static final int ALIPAY = 400;
+    public static final int WEIXIN = 401;
+    public static final int CASH_CARD = 500;
     public static final int INVESTMENT = 600;
 
     private final UUID mId;

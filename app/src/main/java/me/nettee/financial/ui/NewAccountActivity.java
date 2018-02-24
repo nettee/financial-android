@@ -73,7 +73,6 @@ public class NewAccountActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == REQUEST_CODE_CREATE_ACCOUNT_STATUS) {
-            Toast.makeText(getApplicationContext(), "result code = " + resultCode, Toast.LENGTH_SHORT).show();
             if (resultCode == RESULT_OK) {
                 finish();
             }

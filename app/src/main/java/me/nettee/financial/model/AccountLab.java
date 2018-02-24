@@ -1,6 +1,8 @@
 package me.nettee.financial.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import me.nettee.financial.R;
@@ -10,6 +12,19 @@ public class AccountLab {
     private static AccountLab sAccountLab;
 
     private List<Account> mAccounts;
+
+    private Comparator<Account> mAccountComparator = new Comparator<Account>() {
+        @Override
+        public int compare(Account one, Account another) {
+            if (one.getType() < another.getType()) {
+                return -1;
+            } else if (one.getType() > another.getType()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    };
 
     private static List<CandidateAccount> sCandidateAccounts = new ArrayList<CandidateAccount>() {
         {
@@ -50,6 +65,7 @@ public class AccountLab {
 
     public void addAccount(Account account) {
         mAccounts.add(account);
+        Collections.sort(mAccounts, mAccountComparator);
     }
 
     public List<Account> getAccounts() {
