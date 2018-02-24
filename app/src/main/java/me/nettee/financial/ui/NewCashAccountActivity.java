@@ -1,6 +1,7 @@
 package me.nettee.financial.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -56,5 +57,8 @@ public class NewCashAccountActivity extends Activity {
         int amount = Money.from(balance);
         Account account = new CashAccount(amount);
         account.setRemark(remark);
+
+        Intent intent = new Intent(getApplicationContext(), AccountDetailActivity.class);
+        startActivity(intent);
     }
 }

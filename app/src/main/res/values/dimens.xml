@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="toolbar_elevation">4dp</dimen>
+
+    <dimen name="text_size_small">12sp</dimen>
+
     <dimen name="account_list_icon_size">24dp</dimen>
     <dimen name="default_icon_size">24dp</dimen>
+
     <dimen name="account_list_margin">12dp</dimen>
 
     <dimen name="margin_vertical">8dp</dimen>
-    <dimen name="margin_vertical_large">24dp</dimen>
+    <dimen name="margin_vertical_large">16dp</dimen>
     <dimen name="margin_horizontal">12dp</dimen>
+
+    <dimen name="margin_ordinary">8dp</dimen>
+    <dimen name="margin_large">12dp</dimen>
 
     <dimen name="input_height_large">50dp</dimen>
     <dimen name="divide_bar_height_large">20dp</dimen>
+    <dimen name="account_card_height">200dp</dimen>
+    <dimen name="account_card_image_size">36dp</dimen>
+    <dimen name="account_card_image_padding">8dp</dimen>
 </resources>

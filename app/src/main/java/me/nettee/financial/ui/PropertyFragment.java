@@ -48,6 +48,14 @@ public class PropertyFragment extends Fragment {
             accountNameTextView.setText(account.getName());
             accountAmountTextView.setText(Money.format(account.getAmount()));
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), AccountDetailActivity.class);
+                    startActivity(intent);
+                }
+            });
+
             accoutList.addView(itemView);
         }
 

@@ -13,6 +13,9 @@ public class Money {
     }
 
     public static int from(String amountString) {
+        if (amountString.length() == 0) {
+            return 0;
+        }
         if (!amountString.contains(".")) {
             int yuan = Integer.valueOf(amountString);
             return yuan * 100;

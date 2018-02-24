@@ -68,7 +68,7 @@
                 android:id="@+id/cash_account_remark"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/input_height_large"
-                android:hint="@string/hint_new_account_subname"
+                android:hint="@string/hint_new_account_remark"
                 android:inputType="text"
                 android:background="@null"
                 app:layout_constraintTop_toTopOf="parent"

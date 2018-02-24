@@ -13,16 +13,22 @@
 
     <string name="title_new_account">添加账户</string>
     <string name="title_new_cash_account">新建现金钱包</string>
+    <string name="title_account_detail">账户详情</string>
 
     <string name="account_name_cash">现金钱包</string>
 
+    <string name="button_edit">编辑</string>
     <string name="button_save">保存</string>
 
-    <string name="hint_new_account_subname">输入备注名</string>
+    <string name="hint_new_account_remark">输入备注名</string>
     <string name="hint_money_amount">0.00</string>
+
+    <string name="default_money_amount">0.00</string>
 
     <string name="my_accounts">我的账户</string>
     <string name="account_balance">账户余额</string>
+    <string name="account_total">账户总额</string>
     <string name="yuan">¥</string>
+    <string name="account_name_split">|</string>
 
 </resources>
