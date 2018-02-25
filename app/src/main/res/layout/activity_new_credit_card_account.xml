@@ -1,122 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
     >
 
     <include layout="@layout/toolbar_new_account"/>
-
     <include layout="@layout/bank_card_title_bar"/>
 
     <LinearLayout style="@style/InputLines">
-
         <include layout="@layout/remark_input_bar"/>
-
         <include layout="@layout/bank_card_number_input_bar"/>
-
     </LinearLayout>
 
     <include layout="@layout/divider_bar_large" />
 
     <LinearLayout style="@style/InputLines">
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_height_large">
-            <TextView
-                style="@style/InputCaption"
-                android:id="@+id/new_credit_card_account_caption_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/caption_credit_limit"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                />
-            <TextView
-                style="@style/InputCaption"
-                android:id="@+id/new_credit_card_account_caption_3_1"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/input_height_large"
-                android:gravity="center"
-                android:text="@string/yuan"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/new_credit_card_account_caption_3"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                />
-            <EditText
-                style="@style/Input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_money_amount"
-                android:inputType="numberDecimal"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/new_credit_card_account_caption_3_1"
-                android:layout_marginStart="@dimen/margin_horizontal_tiny"
-                />
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_height_large">
-            <TextView
-                style="@style/InputCaption"
-                android:id="@+id/new_credit_card_account_caption_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/caption_bill_date"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                />
-            <Spinner
-                android:id="@+id/new_credit_card_account_bill_date_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/new_credit_card_account_caption_4"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                />
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_height_large">
-            <TextView
-                style="@style/InputCaption"
-                android:id="@+id/new_credit_card_account_caption_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/caption_payment_date"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                />
-            <Spinner
-                android:id="@+id/new_credit_card_account_payment_date_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/new_credit_card_account_caption_5"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                />
-        </android.support.constraint.ConstraintLayout>
-
+        <include layout="@layout/account_amount_input_bar" android:id="@+id/view_credit_limit"/>
+        <include layout="@layout/account_credit_date_input_bar" android:id="@+id/view_bill_date"/>
+        <include layout="@layout/account_credit_date_input_bar" android:id="@+id/view_payment_date"/>
     </LinearLayout>
 
     <include layout="@layout/divider_bar_large" />
-
-    <include layout="@layout/account_amount_input_bar"/>
-
+    <include layout="@layout/account_amount_input_bar" android:id="@+id/view_current_arrears"/>
     <include layout="@layout/button_save"/>
 
 </LinearLayout>

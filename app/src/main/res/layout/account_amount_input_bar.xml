@@ -2,45 +2,46 @@
 <android.support.constraint.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:showIn="@layout/activity_new_cash_account">
+    >
 
     <TextView
+        style="@style/InputCaption"
         android:id="@+id/account_amount_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/account_balance"
+        android:text="@string/caption_account_balance"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/margin_vertical"
         android:layout_marginStart="@dimen/margin_horizontal"
         />
 
     <TextView
+        style="@style/InputCaption"
         android:id="@+id/account_amount_yuan"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/input_height_large"
         android:gravity="center"
         android:text="@string/yuan"
-        app:layout_constraintTop_toBottomOf="@id/account_amount_caption"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/margin_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/account_amount_caption"
         android:layout_marginStart="@dimen/margin_horizontal"
         />
 
     <EditText
-        style="@style/MoneyAmountEditText"
+        style="@style/Input"
         android:id="@+id/account_amount"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/input_height_large"
-        app:layout_constraintTop_toBottomOf="@id/account_amount_caption"
-        app:layout_constraintStart_toStartOf="@id/account_amount_yuan"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/margin_vertical"
-        android:layout_marginStart="@dimen/margin_horizontal"
-        android:layout_marginEnd="@dimen/margin_horizontal"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_money_amount"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/account_amount_yuan"
+        android:layout_marginStart="@dimen/margin_horizontal_tiny"
         />
 
 </android.support.constraint.ConstraintLayout>

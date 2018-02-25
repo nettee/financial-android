@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/input_height_large"
+    >
+
+    <ImageView
+        style="@style/AccountIcon"
+        android:id="@+id/account_name_image"
+        android:src="@drawable/ic_wallet"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        />
+
+    <TextView
+        android:id="@+id/account_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/account_name_cash"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/account_name_image"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        />
+
+</android.support.constraint.ConstraintLayout>

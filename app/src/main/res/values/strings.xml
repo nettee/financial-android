@@ -24,6 +24,8 @@
 
     <string name="caption_note_information">备注信息</string>
     <string name="caption_bank_card_number">银行卡号</string>
+    <string name="caption_account_balance">账户余额</string>
+    <string name="caption_current_arrears">当前欠款</string>
     <string name="caption_credit_limit">信用额度</string>
     <string name="caption_bill_date">账单日期</string>
     <string name="caption_payment_date">还款日期</string>

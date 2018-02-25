@@ -1,20 +1,27 @@
 package me.nettee.financial.ui;
 
 import android.app.Activity;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
-import org.w3c.dom.Text;
-
 import me.nettee.financial.R;
+import me.nettee.financial.model.CreditCardAccount;
 
 public class NewCreditCardAccountActivity extends Activity {
+
+    private EditText mRemark;
+    private EditText mBankCardNumber;
+    private EditText mCreditLimit;
+    private Spinner mBillDate;
+    private Spinner mPaymentDate;
+    private EditText mCurrentArrears;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,28 +38,54 @@ public class NewCreditCardAccountActivity extends Activity {
             }
         });
 
-        ImageView accountNameImage = findViewById(R.id.account_name_image);
-        TextView accountNameText = findViewById(R.id.account_name_text);
-        accountNameImage.setImageResource(R.drawable.ic_bank_card);
-        accountNameText.setText(R.string.account_name_credit_card);
+        this.<ImageView>findViewById(R.id.account_name_image)
+                .setImageResource(R.drawable.ic_bank_card);
+        this.<TextView>findViewById(R.id.account_name_text)
+                .setText(R.string.account_name_credit_card);
 
-        TextView accountAmountCaption = findViewById(R.id.account_amount_caption);
-        accountAmountCaption.setText(R.string.current_arrears);
+        findViewById(R.id.view_credit_limit)
+                .<TextView>findViewById(R.id.account_amount_caption)
+                .setText(R.string.caption_credit_limit);
 
-        Spinner billDateSpinner = findViewById(R.id.new_credit_card_account_bill_date_spinner);
+        findViewById(R.id.view_current_arrears)
+                .<TextView>findViewById(R.id.account_amount_caption)
+                .setText(R.string.caption_current_arrears);
+
+        findViewById(R.id.view_bill_date)
+                .<TextView>findViewById(R.id.account_credit_date_caption)
+                .setText(R.string.caption_bill_date);
+
+        findViewById(R.id.view_payment_date)
+                .<TextView>findViewById(R.id.account_credit_date_caption)
+                .setText(R.string.caption_payment_date);
+
+        mRemark = findViewById(R.id.account_remark);
+        mBankCardNumber = findViewById(R.id.account_bank_card_number);
+        mCreditLimit = findViewById(R.id.view_credit_limit).findViewById(R.id.account_amount);
+        mBillDate = findViewById(R.id.view_bill_date).findViewById(R.id.account_credit_date);
+        mPaymentDate = findViewById(R.id.view_payment_date).findViewById(R.id.account_credit_date);
+        mCurrentArrears = findViewById(R.id.view_current_arrears).findViewById(R.id.account_amount);
+
         {
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                     R.array.bill_dates_array, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            billDateSpinner.setAdapter(adapter);
+            mBillDate.setAdapter(adapter);
         }
 
-        Spinner paymentDateSpinner = findViewById(R.id.new_credit_card_account_payment_date_spinner);
         {
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                     R.array.bill_dates_array, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            paymentDateSpinner.setAdapter(adapter);
+            mPaymentDate.setAdapter(adapter);
         }
+
+        Button saveButton = findViewById(R.id.button_save);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CreditCardAccount account = new CreditCardAccount();
+            }
+        });
     }
 }

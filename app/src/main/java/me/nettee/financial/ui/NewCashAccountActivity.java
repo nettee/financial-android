@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -35,8 +36,16 @@ public class NewCashAccountActivity extends Activity {
             }
         });
 
-        TextView accountAmountCaption = findViewById(R.id.account_amount_caption);
-        accountAmountCaption.setText(R.string.account_balance);
+        findViewById(R.id.new_cash_account_title_bar)
+                .<ImageView>findViewById(R.id.account_name_image)
+                .setImageResource(R.drawable.ic_wallet);
+
+        findViewById(R.id.new_cash_account_title_bar)
+                .<TextView>findViewById(R.id.account_name_text)
+                .setText(R.string.account_name_cash);
+
+        this.<TextView>findViewById(R.id.account_amount_caption)
+                .setText(R.string.account_balance);
 
         mRemark = findViewById(R.id.account_remark);
         mAccountBalance = findViewById(R.id.account_amount);
@@ -49,17 +58,17 @@ public class NewCashAccountActivity extends Activity {
             public void onClick(View view) {
                 String remark = mRemark.getText().toString();
                 String balance = mAccountBalance.getText().toString();
-                newCashAccount(remark, balance);
+                int amount = Money.from(balance);
+                Account account = new CashAccount(amount);
+                account.setRemark(remark);
+
+                newAccount(account);
             }
         });
 
     }
 
-    private void newCashAccount(String remark, String balance) {
-        int amount = Money.from(balance);
-        Account account = new CashAccount(amount);
-        account.setRemark(remark);
-
+    private void newAccount(Account account) {
         AccountLab.getInstance().addAccount(account);
 
         Intent intent = new Intent(getApplicationContext(), AccountDetailActivity.class);
