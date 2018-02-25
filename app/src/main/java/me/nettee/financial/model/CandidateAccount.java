@@ -16,6 +16,10 @@ public class CandidateAccount {
         mImageId = imageId;
     }
 
+    public int getType() {
+        return mType;
+    }
+
     public String getName() {
         return mName;
     }

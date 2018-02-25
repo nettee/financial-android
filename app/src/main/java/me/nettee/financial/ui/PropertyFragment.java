@@ -31,7 +31,7 @@ public class PropertyFragment extends Fragment {
         accountListAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), NewAccountActivity.class);
+                Intent intent = new Intent(getActivity(), NewAccountCandidateActivity.class);
                 startActivity(intent);
             }
         });

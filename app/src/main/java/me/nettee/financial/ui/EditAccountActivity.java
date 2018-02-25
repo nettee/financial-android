@@ -41,7 +41,7 @@ public class EditAccountActivity extends Activity {
             accountInputsLayoutResource = R.layout.account_inputs_debit_card;
         }
 
-        ViewStub stub = findViewById(R.id.account_inputs_container);
+        ViewStub stub = findViewById(R.id.account_inputs_stub);
         if (accountInputsLayoutResource != null) {
             stub.setLayoutResource(accountInputsLayoutResource);
             stub.inflate();

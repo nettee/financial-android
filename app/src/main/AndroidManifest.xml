@@ -16,7 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.NewAccountActivity">
+        <activity android:name=".ui.NewAccountCandidateActivity">
         </activity>
         <activity android:name=".ui.NewCashAccountActivity">
         </activity>
@@ -27,6 +27,8 @@
         <activity android:name=".ui.NewDebitCardAccountActivity">
         </activity>
         <activity android:name=".ui.EditAccountActivity">
+        </activity>
+        <activity android:name=".ui.NewAccountActivity">
         </activity>
     </application>
 
