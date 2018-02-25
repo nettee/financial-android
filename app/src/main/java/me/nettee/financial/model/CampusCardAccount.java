@@ -4,13 +4,7 @@ import me.nettee.financial.R;
 
 public class CampusCardAccount extends CashCardAccount {
 
-    public CampusCardAccount() {
-        this(0);
-    }
-
-    public CampusCardAccount(int amount) {
-        super(amount);
-    }
+    private Amount mBalance = Amount.zero();
 
     @Override
     public int getCashCardType() {
@@ -25,5 +19,18 @@ public class CampusCardAccount extends CashCardAccount {
     @Override
     public int getCandidateImageResource() {
         return R.drawable.ic_campus_card;
+    }
+
+    @Override
+    public Amount getDefaultAmount() {
+        return getBalance();
+    }
+
+    public Amount getBalance() {
+        return mBalance;
+    }
+
+    public void setBalance(Amount balance) {
+        mBalance = balance;
     }
 }

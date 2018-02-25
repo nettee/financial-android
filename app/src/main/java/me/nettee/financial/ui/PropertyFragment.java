@@ -15,7 +15,6 @@ import java.util.List;
 import me.nettee.financial.R;
 import me.nettee.financial.model.Account;
 import me.nettee.financial.model.AccountLab;
-import me.nettee.financial.model.Money;
 
 public class PropertyFragment extends Fragment {
 
@@ -68,20 +67,17 @@ public class PropertyFragment extends Fragment {
 
             accountIconImageView.setImageResource(account.getCandidateImageResource());
             accountNameTextView.setText(account.getCandidateName());
-            accountAmountTextView.setText(Money.formatWithYuan(account.getDefaultAmount()));
+            accountAmountTextView.setText(account.getDefaultAmount().toString());
 
             if (hasRemark) {
                 TextView accountRemark = itemView.findViewById(R.id.account_list_item_remark);
                 accountRemark.setText(account.getRemark());
             }
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), AccountDetailActivity.class);
-                    intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_OBJECT, account);
-                    startActivity(intent);
-                }
+            itemView.setOnClickListener(view -> {
+                Intent intent = new Intent(getActivity(), AccountDetailActivity.class);
+                intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_OBJECT, account);
+                startActivity(intent);
             });
 
             accountList.addView(itemView);

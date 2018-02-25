@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/input_height_large"
-    tools:showIn="@layout/activity_new_credit_card_account">
+    >
 
     <TextView
         style="@style/InputCaption"

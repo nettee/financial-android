@@ -4,13 +4,10 @@ import me.nettee.financial.R;
 
 public final class CreditCardAccount extends BankCardAccount {
 
-    private int mCreditLimit;
-    private int mBillDate;
-    private int mPaymentDate;
-    private int mCurrentArrears;
-
-    public CreditCardAccount() {
-    }
+    private Amount mCreditLimit = Amount.zero();
+    private CreditDate mBillDate = CreditDate.first();
+    private CreditDate mPaymentDate = CreditDate.first();
+    private Amount mCurrentArrears = Amount.zero();
 
     @Override
     public int getType() {
@@ -22,44 +19,45 @@ public final class CreditCardAccount extends BankCardAccount {
         return "信用卡";
     }
 
-    public int getDefaultAmount() {
-        return getCreditLimit();
-    }
-
-    public void setCreditLimit(int creditLimit) {
-        mCreditLimit = creditLimit;
-    }
-
-    public int getCreditLimit() {
-        return mCreditLimit;
-    }
-
-    public int getBillDate() {
-        return mBillDate;
-    }
-
-    public void setBillDate(int billDate) {
-        mBillDate = billDate;
-    }
-
-    public int getPaymentDate() {
-        return mPaymentDate;
-    }
-
-    public void setPaymentDate(int paymentDate) {
-        mPaymentDate = paymentDate;
-    }
-
-    public int getCurrentArrears() {
-        return mCurrentArrears;
-    }
-
-    public void setCurrentArrears(int currentArrears) {
-        mCurrentArrears = currentArrears;
-    }
-
     @Override
     public int getCandidateImageResource() {
         return R.drawable.ic_bank_card;
+    }
+
+    @Override
+    public Amount getDefaultAmount() {
+        return getCurrentArrears();
+    }
+
+    public Amount getCreditLimit() {
+        return mCreditLimit;
+    }
+
+    public void setCreditLimit(Amount creditLimit) {
+        mCreditLimit = creditLimit;
+    }
+
+    public CreditDate getBillDate() {
+        return mBillDate;
+    }
+
+    public void setBillDate(CreditDate billDate) {
+        mBillDate = billDate;
+    }
+
+    public CreditDate getPaymentDate() {
+        return mPaymentDate;
+    }
+
+    public void setPaymentDate(CreditDate paymentDate) {
+        mPaymentDate = paymentDate;
+    }
+
+    public Amount getCurrentArrears() {
+        return mCurrentArrears;
+    }
+
+    public void setCurrentArrears(Amount currentArrears) {
+        mCurrentArrears = currentArrears;
     }
 }

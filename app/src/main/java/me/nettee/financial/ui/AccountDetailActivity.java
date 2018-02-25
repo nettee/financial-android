@@ -12,7 +12,6 @@ import android.widget.Toolbar;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Account;
-import me.nettee.financial.model.Money;
 
 public class AccountDetailActivity extends Activity {
 
@@ -89,6 +88,6 @@ public class AccountDetailActivity extends Activity {
         } else {
             mAccountCardRemark.setText(remark);
         }
-        mAccountCardAmount.setText(Money.formatWithoutYuan(account.getDefaultAmount()));
+        mAccountCardAmount.setText(account.getDefaultAmount().toString());
     }
 }

@@ -4,15 +4,7 @@ import me.nettee.financial.R;
 
 public class WeixinAccount extends Account {
 
-    private int mAmount;
-
-    public WeixinAccount() {
-        this(0);
-    }
-
-    public WeixinAccount(int amount) {
-        mAmount = amount;
-    }
+    private Amount mBalance = Amount.zero();
 
     @Override
     public int getType() {
@@ -24,12 +16,21 @@ public class WeixinAccount extends Account {
         return "微信钱包";
     }
 
-    public int getDefaultAmount() {
-        return mAmount;
-    }
-
     @Override
     public int getCandidateImageResource() {
         return R.drawable.ic_wxpay;
+    }
+
+    @Override
+    public Amount getDefaultAmount() {
+        return getBalance();
+    }
+
+    public Amount getBalance() {
+        return mBalance;
+    }
+
+    public void setBalance(Amount balance) {
+        mBalance = balance;
     }
 }

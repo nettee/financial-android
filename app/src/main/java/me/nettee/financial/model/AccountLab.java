@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.UUID;
 
 import me.nettee.financial.R;
 
@@ -43,19 +42,31 @@ public class AccountLab {
     private AccountLab() {
         mAccounts = new ArrayList<>();
         CashAccount cashAccount = new CashAccount();
-        cashAccount.setBalanceAmount(97600);
+        cashAccount.setBalance(Amount.integer(976));
         cashAccount.setRemark("钱包A");
         mAccounts.add(cashAccount);
-        mAccounts.add(new CreditCardAccount());
-        mAccounts.add(new DebitCardAccount("工商银行", 613477, R.drawable.ic_bank_icbc));
-        mAccounts.add(new AlipayAccount(1643191));
-        mAccounts.add(new WeixinAccount(9260));
-        mAccounts.add(new CampusCardAccount(4920));
-        mAccounts.add(new BusCardAccount(6703));
+        CreditCardAccount creditCardAccount = new CreditCardAccount();
+        creditCardAccount.setCurrentArrears(Amount.integer(1234));
+        mAccounts.add(creditCardAccount);
+        DebitCardAccount debitCardAccount = new DebitCardAccount();
+        debitCardAccount.setBalance(Amount.decimal(6134, 77));
+        mAccounts.add(debitCardAccount);
+        AlipayAccount alipayAccount = new AlipayAccount();
+        alipayAccount.setBalance(Amount.decimal(16431, 91));
+        mAccounts.add(alipayAccount);
+        WeixinAccount weixinAccount = new WeixinAccount();
+        weixinAccount.setBalance(Amount.decimal(92, 60));
+        mAccounts.add(weixinAccount);
+        CampusCardAccount campusCardAccount = new CampusCardAccount();
+        campusCardAccount.setBalance(Amount.decimal(49, 20));
+        mAccounts.add(campusCardAccount);
+        BusCardAccount busCardAccount = new BusCardAccount();
+        busCardAccount.setBalance(Amount.decimal(67, 3));
+        mAccounts.add(busCardAccount);
 //        mAccounts.add(new Account("花呗", 15043, Account.HUABEI, R.drawable.ic_huabei));
-        mAccounts.add(new InvestmentAccount("蚂蚁财富", 434000, R.drawable.ic_ant_fortune));
-        mAccounts.add(new InvestmentAccount("陆金所", 100000, R.drawable.ic_lufax));
-        mAccounts.add(new InvestmentAccount("天天基金", 200000, R.drawable.ic_tiantian_fund));
+        mAccounts.add(new InvestmentAccount());
+//        mAccounts.add(new InvestmentAccount("陆金所", 100000, R.drawable.ic_lufax));
+//        mAccounts.add(new InvestmentAccount("天天基金", 200000, R.drawable.ic_tiantian_fund));
 //        mAccounts.add(new Account("账户Z", 0, Account.OTHER));
     }
 

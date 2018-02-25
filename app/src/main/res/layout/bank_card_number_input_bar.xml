@@ -2,10 +2,9 @@
 <android.support.constraint.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/input_height_large"
-    tools:showIn="@layout/activity_new_credit_card_account">
+    >
 
     <TextView
         style="@style/InputCaption"

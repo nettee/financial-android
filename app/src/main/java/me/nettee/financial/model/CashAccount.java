@@ -4,7 +4,7 @@ import me.nettee.financial.R;
 
 public class CashAccount extends Account {
 
-    private int mBalanceAmount;
+    private Amount mBalance = Amount.zero();
 
     @Override
     public int getType() {
@@ -17,16 +17,20 @@ public class CashAccount extends Account {
     }
 
     @Override
-    public int getDefaultAmount() {
-        return mBalanceAmount;
-    }
-
-    public void setBalanceAmount(int amount) {
-        mBalanceAmount = amount;
+    public int getCandidateImageResource() {
+        return R.drawable.ic_wallet;
     }
 
     @Override
-    public int getCandidateImageResource() {
-        return R.drawable.ic_wallet;
+    public Amount getDefaultAmount() {
+        return getBalance();
+    }
+
+    public Amount getBalance() {
+        return mBalance;
+    }
+
+    public void setBalance(Amount amount) {
+        mBalance = amount;
     }
 }

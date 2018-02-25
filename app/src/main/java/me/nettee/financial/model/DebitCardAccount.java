@@ -1,16 +1,10 @@
 package me.nettee.financial.model;
 
+import me.nettee.financial.R;
+
 public class DebitCardAccount extends Account {
 
-    private String mName;
-    private int mAmount;
-    private int mImageId;
-
-    public DebitCardAccount(String name, int amount, int imageId) {
-        mName = name;
-        mAmount = amount;
-        mImageId = imageId;
-    }
+    private Amount mBalance = Amount.zero();
 
     @Override
     public int getType() {
@@ -19,15 +13,23 @@ public class DebitCardAccount extends Account {
 
     @Override
     public String getCandidateName() {
-        return mName;
-    }
-
-    public int getDefaultAmount() {
-        return mAmount;
+        return "借记卡";
     }
 
     @Override
     public int getCandidateImageResource() {
-        return mImageId;
+        return R.drawable.ic_bank_card;
+    }
+
+    public Amount getDefaultAmount() {
+        return getBalance();
+    }
+
+    public Amount getBalance() {
+        return mBalance;
+    }
+
+    public void setBalance(Amount balance) {
+        mBalance = balance;
     }
 }

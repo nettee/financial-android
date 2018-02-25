@@ -4,15 +4,7 @@ import me.nettee.financial.R;
 
 public class AlipayAccount extends Account {
 
-    private int mAmount;
-
-    public AlipayAccount() {
-        this(0);
-    }
-
-    public AlipayAccount(int amount) {
-        mAmount = amount;
-    }
+    private Amount mBalance = Amount.zero();
 
     @Override
     public int getType() {
@@ -24,12 +16,21 @@ public class AlipayAccount extends Account {
         return "支付宝";
     }
 
-    public int getDefaultAmount() {
-        return mAmount;
-    }
-
     @Override
     public int getCandidateImageResource() {
         return R.drawable.ic_alipay;
+    }
+
+    @Override
+    public Amount getDefaultAmount() {
+        return getBalance();
+    }
+
+    public Amount getBalance() {
+        return mBalance;
+    }
+
+    public void setBalance(Amount balance) {
+        mBalance = balance;
     }
 }

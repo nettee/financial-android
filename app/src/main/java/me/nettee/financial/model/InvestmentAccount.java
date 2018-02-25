@@ -1,16 +1,8 @@
 package me.nettee.financial.model;
 
+import me.nettee.financial.R;
+
 public class InvestmentAccount extends Account {
-
-    private String mName;
-    private int mAmount;
-    private int mImageId;
-
-    public InvestmentAccount(String name, int amount, int imageId) {
-        mName = name;
-        mAmount = amount;
-        mImageId = imageId;
-    }
 
     @Override
     public int getType() {
@@ -19,15 +11,15 @@ public class InvestmentAccount extends Account {
 
     @Override
     public String getCandidateName() {
-        return mName;
-    }
-
-    public int getDefaultAmount() {
-        return mAmount;
+        return "投资账户";
     }
 
     @Override
     public int getCandidateImageResource() {
-        return mImageId;
+        return R.drawable.ic_account;
+    }
+
+    public Amount getDefaultAmount() {
+        return Amount.integer(0);
     }
 }

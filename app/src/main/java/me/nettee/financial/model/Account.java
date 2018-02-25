@@ -37,7 +37,7 @@ public abstract class Account implements Serializable {
         mRemark = remark;
     }
 
-    public abstract int getDefaultAmount();
+    public abstract Amount getDefaultAmount();
 
     public abstract int getCandidateImageResource();
 

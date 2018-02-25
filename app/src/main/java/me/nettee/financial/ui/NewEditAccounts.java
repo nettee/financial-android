@@ -14,9 +14,10 @@ import java.util.Map;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Account;
+import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.CashAccount;
 import me.nettee.financial.model.CreditCardAccount;
-import me.nettee.financial.model.Money;
+import me.nettee.financial.model.CreditDate;
 
 public class NewEditAccounts {
 
@@ -60,7 +61,7 @@ public class NewEditAccounts {
         public Account extract(View accountInputs) {
             pre(accountInputs);
             CashAccount account = new CashAccount();
-            account.setBalanceAmount(Money.from(mBalanceAmount.getText().toString()));
+            account.setBalance(Amount.valueOf(mBalanceAmount.getText().toString()));
             account.setRemark(mRemark.getText().toString());
             return account;
         }
@@ -99,10 +100,10 @@ public class NewEditAccounts {
             CreditCardAccount account = new CreditCardAccount();
             account.setRemark(mRemark.getText().toString());
             account.setBankCardNumber(mBankCardNumber.getText().toString());
-            account.setCreditLimit(Money.from(mCreditLimit.getText().toString()));
-            account.setBillDate(mBillDate.getSelectedItemPosition() + 1);
-            account.setPaymentDate(mPaymentDate.getSelectedItemPosition() + 1);
-            account.setCurrentArrears(Money.from(mCurrentArrears.getText().toString()));
+            account.setCreditLimit(Amount.valueOf(mCreditLimit.getText().toString()));
+            account.setBillDate(CreditDate.fromSpinner(mBillDate));
+            account.setPaymentDate(CreditDate.fromSpinner(mPaymentDate));
+            account.setCurrentArrears(Amount.valueOf(mCurrentArrears.getText().toString()));
             return account;
         }
     }

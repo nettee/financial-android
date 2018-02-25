@@ -18,13 +18,7 @@
         </activity>
         <activity android:name=".ui.NewAccountCandidateActivity">
         </activity>
-        <activity android:name=".ui.NewCashAccountActivity">
-        </activity>
         <activity android:name=".ui.AccountDetailActivity">
-        </activity>
-        <activity android:name=".ui.NewCreditCardAccountActivity">
-        </activity>
-        <activity android:name=".ui.NewDebitCardAccountActivity">
         </activity>
         <activity android:name=".ui.EditAccountActivity">
         </activity>

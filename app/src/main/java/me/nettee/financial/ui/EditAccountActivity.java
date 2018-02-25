@@ -4,15 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -24,7 +18,6 @@ import me.nettee.financial.model.Account;
 import me.nettee.financial.model.AccountLab;
 import me.nettee.financial.model.CashAccount;
 import me.nettee.financial.model.CreditCardAccount;
-import me.nettee.financial.model.Money;
 
 public class EditAccountActivity extends Activity {
 
@@ -53,8 +46,8 @@ public class EditAccountActivity extends Activity {
                 mOldAccount.getCandidateImageResource(),
                 mOldAccount.getCandidateName());
 
-        Log.d("TAG", String.format("Old account: amount = %d, remark = %s",
-                mOldAccount.getDefaultAmount(),
+        Log.d("TAG", String.format("Old account: amount = %s, remark = %s",
+                mOldAccount.getDefaultAmount().toString(),
                 mOldAccount.getRemark()));
 
         AccountFiller filler = sAccountFillerMap
@@ -124,7 +117,7 @@ public class EditAccountActivity extends Activity {
             pre(accountInputs);
             CashAccount cashAccount = (CashAccount) account;
             mRemark.setText(cashAccount.getRemark());
-            mBalanceAmount.setText(Money.formatWithoutYuan(cashAccount.getDefaultAmount()));
+            mBalanceAmount.setText(cashAccount.getDefaultAmount().toString());
         }
     }
 
@@ -137,10 +130,10 @@ public class EditAccountActivity extends Activity {
             CreditCardAccount creditCardAccount = (CreditCardAccount) account;
             mRemark.setText(creditCardAccount.getRemark());
             mBankCardNumber.setText(creditCardAccount.getBankCardNumber());
-            mCreditLimit.setText(Money.formatWithoutYuan(creditCardAccount.getCreditLimit()));
-            mBillDate.setSelection(creditCardAccount.getBillDate() - 1);
-            mPaymentDate.setSelection(creditCardAccount.getPaymentDate() - 1);
-            mCurrentArrears.setText(Money.formatWithoutYuan(creditCardAccount.getCurrentArrears()));
+            mCreditLimit.setText(creditCardAccount.getCreditLimit().toString());
+            mBillDate.setSelection(creditCardAccount.getBillDate().toPosition());
+            mPaymentDate.setSelection(creditCardAccount.getPaymentDate().toPosition());
+            mCurrentArrears.setText(creditCardAccount.getCurrentArrears().toString());
         }
     }
 
