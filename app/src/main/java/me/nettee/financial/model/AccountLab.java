@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 
 import me.nettee.financial.R;
 
@@ -68,6 +69,10 @@ public class AccountLab {
     public void addAccount(Account account) {
         mAccounts.add(account);
         Collections.sort(mAccounts, mAccountComparator);
+    }
+
+    public void deleteAccount(Account account) {
+        mAccounts.removeIf(acc -> acc.getId().equals(account.getId()));
     }
 
     public List<Account> getAccounts() {
