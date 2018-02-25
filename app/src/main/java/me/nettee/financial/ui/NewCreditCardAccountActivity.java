@@ -63,8 +63,8 @@ public class NewCreditCardAccountActivity extends Activity {
         mRemark = findViewById(R.id.account_remark);
         mBankCardNumber = findViewById(R.id.account_bank_card_number);
         mCreditLimit = findViewById(R.id.view_credit_limit).findViewById(R.id.account_amount);
-        mBillDate = findViewById(R.id.view_bill_date).findViewById(R.id.account_credit_date);
-        mPaymentDate = findViewById(R.id.view_payment_date).findViewById(R.id.account_credit_date);
+        mBillDate = findViewById(R.id.view_bill_date).findViewById(R.id.account_credit_date_spinner);
+        mPaymentDate = findViewById(R.id.view_payment_date).findViewById(R.id.account_credit_date_spinner);
         mCurrentArrears = findViewById(R.id.view_current_arrears).findViewById(R.id.account_amount);
 
         {

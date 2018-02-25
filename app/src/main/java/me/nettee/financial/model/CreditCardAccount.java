@@ -7,6 +7,7 @@ public final class CreditCardAccount extends BankCardAccount {
     private int mCreditLimit;
     private int mBillDate;
     private int mPaymentDate;
+    private int mCurrentArrears;
 
     public CreditCardAccount() {
     }
@@ -22,11 +23,15 @@ public final class CreditCardAccount extends BankCardAccount {
     }
 
     public int getDefaultAmount() {
-        return mCreditLimit;
+        return getCreditLimit();
     }
 
     public void setCreditLimit(int creditLimit) {
         mCreditLimit = creditLimit;
+    }
+
+    public int getCreditLimit() {
+        return mCreditLimit;
     }
 
     public int getBillDate() {
@@ -43,6 +48,14 @@ public final class CreditCardAccount extends BankCardAccount {
 
     public void setPaymentDate(int paymentDate) {
         mPaymentDate = paymentDate;
+    }
+
+    public int getCurrentArrears() {
+        return mCurrentArrears;
+    }
+
+    public void setCurrentArrears(int currentArrears) {
+        mCurrentArrears = currentArrears;
     }
 
     @Override

@@ -20,7 +20,7 @@
         />
 
     <Spinner
-        android:id="@+id/account_credit_date"
+        android:id="@+id/account_credit_date_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"

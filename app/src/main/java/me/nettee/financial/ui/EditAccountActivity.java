@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -15,6 +17,7 @@ import java.util.Map;
 import me.nettee.financial.R;
 import me.nettee.financial.model.Account;
 import me.nettee.financial.model.CashAccount;
+import me.nettee.financial.model.CreditCardAccount;
 import me.nettee.financial.model.Money;
 
 public class EditAccountActivity extends Activity {
@@ -37,7 +40,10 @@ public class EditAccountActivity extends Activity {
 
         mOldAccount = (Account) getIntent().getSerializableExtra(EXTRA_EDIT_ACCOUNT_OBJECT);
 
-        constructView(mOldAccount.getType());
+        mAccountInputs = NewAccountActivity.constructView(this,
+                mOldAccount.getType(),
+                mOldAccount.getCandidateImageResource(),
+                mOldAccount.getCandidateName());
 
         Log.d("TAG", String.format("Old account: amount = %d, remark = %s",
                 mOldAccount.getDefaultAmount(),
@@ -49,40 +55,10 @@ public class EditAccountActivity extends Activity {
 
     }
 
-    // TODO copied
-    private void constructView(int accountType) {
-
-        // Inflate two stubs.
-        Integer accountInputsLayoutResource = NewAccountActivity.accountInputsMap.get(accountType);
-        if (accountInputsLayoutResource == null) {
-            return;
-        }
-
-        Integer accountTitleBarLayoutResource;
-        if (accountType == Account.CREDIT_CARD || accountType == Account.DEBIT_CARD) {
-            accountTitleBarLayoutResource = R.layout.account_title_bar_bank_card;
-        } else {
-            accountTitleBarLayoutResource = R.layout.account_title_bar_ordinary;
-        }
-
-        ViewStub accountTitleBarStub = findViewById(R.id.account_title_bar_stub);
-        accountTitleBarStub.setLayoutResource(accountTitleBarLayoutResource);
-        View accountTitleBar = accountTitleBarStub.inflate();
-
-        ViewStub accountInputsStub = findViewById(R.id.account_inputs_stub);
-        accountInputsStub.setLayoutResource(accountInputsLayoutResource);
-        mAccountInputs = accountInputsStub.inflate();
-
-        // Fill in account information.
-        accountTitleBar.<ImageView>findViewById(R.id.account_name_image)
-                .setImageResource(mOldAccount.getCandidateImageResource());
-        accountTitleBar.<TextView>findViewById(R.id.account_name_text)
-                .setText(mOldAccount.getCandidateName());
-    }
-
     private static Map<Integer, AccountFiller> sAccountFillerMap = new HashMap<Integer, AccountFiller>() {
         {
             put(Account.CASH, new CashAccountFiller());
+            put(Account.CREDIT_CARD, new CreditCardFiller());
         }
     };
 
@@ -101,6 +77,31 @@ public class EditAccountActivity extends Activity {
             CashAccount cashAccount = (CashAccount) account;
             accountRemark.setText(cashAccount.getRemark());
             accountAmount.setText(Money.formatWithoutYuan(cashAccount.getDefaultAmount()));
+        }
+    }
+
+    public static class CreditCardFiller implements AccountFiller {
+
+        @Override
+        public void fill(View accountInputs, Account account) {
+            EditText remark = accountInputs.findViewById(R.id.account_remark);
+            EditText bankCardNumber = accountInputs.findViewById(R.id.account_bank_card_number);
+            EditText creditLimit = accountInputs.findViewById(R.id.view_credit_limit)
+                    .findViewById(R.id.account_amount);
+            Spinner billDate = accountInputs.findViewById(R.id.view_bill_date)
+                    .findViewById(R.id.account_credit_date_spinner);
+            Spinner paymentDate = accountInputs.findViewById(R.id.view_payment_date)
+                    .findViewById(R.id.account_credit_date_spinner);
+            EditText currentArrears = accountInputs.findViewById(R.id.view_current_arrears)
+                    .findViewById(R.id.account_amount);
+
+            CreditCardAccount creditCardAccount = (CreditCardAccount) account;
+            remark.setText(creditCardAccount.getRemark());
+            bankCardNumber.setText(creditCardAccount.getBankCardNumber());
+            creditLimit.setText(Money.formatWithoutYuan(creditCardAccount.getCreditLimit()));
+            billDate.setSelection(creditCardAccount.getBillDate() - 1);
+            paymentDate.setSelection(creditCardAccount.getPaymentDate() - 1);
+            currentArrears.setText(Money.formatWithoutYuan(creditCardAccount.getCurrentArrears()));
         }
     }
 
