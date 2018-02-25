@@ -4,6 +4,8 @@ import me.nettee.financial.R;
 
 public class InvestmentAccount extends Account {
 
+    private static final long serialVersionUID = 1L;
+
     @Override
     public int getType() {
         return INVESTMENT;

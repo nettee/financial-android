@@ -98,6 +98,7 @@ public class EditAccountActivity extends Activity {
     }
 
     private static Map<Integer, AccountFiller> sAccountFillerMap = new HashMap<Integer, AccountFiller>() {
+        private static final long serialVersionUID = 1L;
         {
             put(Account.CASH, new CashAccountFiller());
             put(Account.CREDIT_CARD, new CreditCardFiller());

@@ -4,6 +4,8 @@ import me.nettee.financial.R;
 
 public final class CreditCardAccount extends BankCardAccount {
 
+    private static final long serialVersionUID = 1L;
+
     private Amount mCreditLimit = Amount.zero();
     private CreditDate mBillDate = CreditDate.first();
     private CreditDate mPaymentDate = CreditDate.first();

@@ -11,13 +11,12 @@ import android.widget.Toolbar;
 import me.nettee.financial.R;
 import me.nettee.financial.model.Account;
 import me.nettee.financial.model.AccountLab;
-import me.nettee.financial.model.CandidateAccount;
 
 public class NewAccountActivity extends Activity {
 
     public static final String EXTRA_CANDIDATE_ACCOUNT_OBJECT = "me.nettee.financial.extra_candidate_account_object";
 
-    private CandidateAccount mCandidateAccount;
+    private Account mCandidateAccount;
 
     private View mAccountInputs;
     private Button mSaveButton;
@@ -32,7 +31,7 @@ public class NewAccountActivity extends Activity {
         getActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationOnClickListener(view -> finish());
 
-        mCandidateAccount = (CandidateAccount) getIntent().getSerializableExtra(EXTRA_CANDIDATE_ACCOUNT_OBJECT);
+        mCandidateAccount = (Account) getIntent().getSerializableExtra(EXTRA_CANDIDATE_ACCOUNT_OBJECT);
 
         mAccountInputs = NewEditAccounts.constructView(this,
                 mCandidateAccount.getType(),

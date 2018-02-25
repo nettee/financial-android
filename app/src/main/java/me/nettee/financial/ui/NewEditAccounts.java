@@ -22,6 +22,7 @@ import me.nettee.financial.model.CreditDate;
 public class NewEditAccounts {
 
     private static final Map<Integer, Integer> sAccountInputsMap = new HashMap<Integer, Integer>() {
+        private static final long serialVersionUID = 1L;
         {
             put(Account.CASH, R.layout.account_inputs_cash);
             put(Account.CREDIT_CARD, R.layout.account_inputs_credit_card);
@@ -32,6 +33,7 @@ public class NewEditAccounts {
     };
 
     public static Map<Integer, AccountExtractor> sAccountExtractorMap = new HashMap<Integer, AccountExtractor>() {
+        private static final long serialVersionUID = 1L;
         {
             put(Account.CASH, new CashAccountExtractor());
             put(Account.CREDIT_CARD, new CreditCardAccountExtractor());

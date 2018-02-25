@@ -70,8 +70,7 @@ public class AccountDetailActivity extends Activity {
             if (resultCode == RESULT_CODE_DELETED) {
                 finish();
             } else if (resultCode == RESULT_CODE_EDITED) {
-                Account editedAccount = (Account) data.getSerializableExtra(EXTRA_EDITED_ACCOUNT_OBJECT);
-                mAccount = editedAccount;
+                mAccount = (Account) data.getSerializableExtra(EXTRA_EDITED_ACCOUNT_OBJECT);
                 updateView(mAccount);
             }
         }

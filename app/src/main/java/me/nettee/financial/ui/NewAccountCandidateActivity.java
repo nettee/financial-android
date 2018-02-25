@@ -14,8 +14,8 @@ import android.widget.Toolbar;
 import java.util.List;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.Account;
 import me.nettee.financial.model.AccountLab;
-import me.nettee.financial.model.CandidateAccount;
 
 public class NewAccountCandidateActivity extends Activity {
 
@@ -38,9 +38,9 @@ public class NewAccountCandidateActivity extends Activity {
 
         LinearLayout candidateAccountList = findViewById(R.id.candidate_account_list);
         LayoutInflater inflater = LayoutInflater.from(this);
-        List<CandidateAccount> candidateAccounts = AccountLab.getInstance().getCandidateAccounts();
+        List<Account> candidateAccounts = AccountLab.getInstance().getCandidateAccounts();
 
-        for (final CandidateAccount candidateAccount : candidateAccounts) {
+        for (final Account candidateAccount : candidateAccounts) {
             View itemView = inflater.inflate(R.layout.candidate_account_list_item, null);
             itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 180));
 

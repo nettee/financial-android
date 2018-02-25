@@ -13,29 +13,27 @@ public class AccountLab {
 
     private List<Account> mAccounts;
 
-    private Comparator<Account> mAccountComparator = new Comparator<Account>() {
-        @Override
-        public int compare(Account one, Account another) {
-            if (one.getType() < another.getType()) {
-                return -1;
-            } else if (one.getType() > another.getType()) {
-                return 1;
-            } else {
-                return 0;
-            }
+    private Comparator<Account> mAccountComparator = (one, another) -> {
+        if (one.getType() < another.getType()) {
+            return -1;
+        } else if (one.getType() > another.getType()) {
+            return 1;
+        } else {
+            return 0;
         }
     };
 
-    private static List<CandidateAccount> sCandidateAccounts = new ArrayList<CandidateAccount>() {
+    private static List<Account> sCandidateAccounts = new ArrayList<Account>() {
+        private static final long serialVersionUID = 1L;
         {
-            add(new CandidateAccount(Account.CASH, "现金钱包", R.drawable.ic_wallet));
-            add(new CandidateAccount(Account.CREDIT_CARD, "信用卡", R.drawable.ic_bank_card));
-            add(new CandidateAccount(Account.DEBIT_CARD, "借记卡", R.drawable.ic_bank_card));
-            add(new CandidateAccount(Account.ALIPAY, "支付宝", R.drawable.ic_alipay));
-            add(new CandidateAccount(Account.WEIXIN, "微信钱包", R.drawable.ic_wxpay));
-            add(new CandidateAccount(Account.CASH_CARD, "校园卡", R.drawable.ic_campus_card));
-            add(new CandidateAccount(Account.CASH_CARD, "公交卡", R.drawable.ic_bus));
-//            add(new CandidateAccount(Account.CASH, "其他账户", R.drawable.ic_account));
+            add(Account.candidate(Account.CASH, "现金钱包", R.drawable.ic_wallet));
+            add(Account.candidate(Account.CREDIT_CARD, "信用卡", R.drawable.ic_bank_card));
+            add(Account.candidate(Account.DEBIT_CARD, "借记卡", R.drawable.ic_bank_card));
+            add(Account.candidate(Account.ALIPAY, "支付宝", R.drawable.ic_alipay));
+            add(Account.candidate(Account.WEIXIN, "微信钱包", R.drawable.ic_wxpay));
+            add(Account.candidate(Account.CASH_CARD, "校园卡", R.drawable.ic_campus_card));
+            add(Account.candidate(Account.CASH_CARD, "公交卡", R.drawable.ic_bus));
+//            add(Account.candidate(Account.CASH, "其他账户", R.drawable.ic_account));
         }
     };
 
@@ -90,7 +88,7 @@ public class AccountLab {
         return mAccounts;
     }
 
-    public List<CandidateAccount> getCandidateAccounts() {
+    public List<Account> getCandidateAccounts() {
         return sCandidateAccounts;
     }
 }
