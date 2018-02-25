@@ -36,13 +36,13 @@ public class NewCashAccountActivity extends Activity {
             }
         });
 
-        findViewById(R.id.new_cash_account_title_bar)
-                .<ImageView>findViewById(R.id.account_name_image)
-                .setImageResource(R.drawable.ic_wallet);
-
-        findViewById(R.id.new_cash_account_title_bar)
-                .<TextView>findViewById(R.id.account_name_text)
-                .setText(R.string.account_name_cash);
+//        findViewById(R.id.cash_account_title_bar)
+//                .<ImageView>findViewById(R.id.account_name_image)
+//                .setImageResource(R.drawable.ic_wallet);
+//
+//        findViewById(R.id.cash_account_title_bar)
+//                .<TextView>findViewById(R.id.account_name_text)
+//                .setText(R.string.account_name_cash);
 
         this.<TextView>findViewById(R.id.account_amount_caption)
                 .setText(R.string.account_balance);

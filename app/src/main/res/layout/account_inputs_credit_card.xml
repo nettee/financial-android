@@ -7,8 +7,6 @@
     android:orientation="vertical"
     tools:showIn="@layout/activity_new_credit_card_account">
 
-    <include layout="@layout/bank_card_title_bar"/>
-
     <LinearLayout style="@style/InputLines">
 
         <include layout="@layout/remark_input_bar"/>

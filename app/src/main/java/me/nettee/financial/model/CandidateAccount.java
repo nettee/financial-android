@@ -1,10 +1,12 @@
 package me.nettee.financial.model;
 
+import java.io.Serializable;
+
 import me.nettee.financial.ui.NewCashAccountActivity;
 import me.nettee.financial.ui.NewCreditCardAccountActivity;
 import me.nettee.financial.ui.NewDebitCardAccountActivity;
 
-public class CandidateAccount {
+public class CandidateAccount implements Serializable {
 
     private int mType;
     private String mName;

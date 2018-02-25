@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.Toolbar;
 
 import java.util.List;
@@ -57,7 +56,7 @@ public class NewAccountCandidateActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getApplicationContext(), NewAccountActivity.class);
-                    intent.putExtra(NewAccountActivity.EXTRA_ACCOUNT_TYPE, candidateAccount.getType());
+                    intent.putExtra(NewAccountActivity.EXTRA_CANDIDATE_ACCOUNT_OBJECT, candidateAccount);
                     startActivityForResult(intent, REQUEST_CODE_CREATE_ACCOUNT_STATUS);
                 }
             });
