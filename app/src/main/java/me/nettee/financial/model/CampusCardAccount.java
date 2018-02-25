@@ -18,12 +18,12 @@ public class CampusCardAccount extends CashCardAccount {
     }
 
     @Override
-    public String getName() {
+    public String getCandidateName() {
         return "校园卡";
     }
 
     @Override
-    public int getImageId() {
+    public int getCandidateImageResource() {
         return R.drawable.ic_campus_card;
     }
 }

@@ -86,7 +86,7 @@
         />
 
     <TextView
-        android:id="@+id/account_card_total"
+        android:id="@+id/account_card_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/default_money_amount"

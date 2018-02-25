@@ -56,13 +56,13 @@ public class NewCashAccountActivity extends Activity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String remark = mRemark.getText().toString();
-                String balance = mAccountBalance.getText().toString();
-                int amount = Money.from(balance);
-                Account account = new CashAccount(amount);
-                account.setRemark(remark);
-
-                newAccount(account);
+//                String remark = mRemark.getText().toString();
+//                String balance = mAccountBalance.getText().toString();
+//                int amount = Money.from(balance);
+//                Account account = new CashAccount(amount);
+//                account.setRemark(remark);
+//
+//                newAccount(account);
             }
         });
 

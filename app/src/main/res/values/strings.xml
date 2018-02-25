@@ -47,6 +47,7 @@
     <string name="current_arrears">当前欠款</string>
     <string name="yuan">¥</string>
     <string name="account_name_split">|</string>
+    <string name="error_fail_new_account">添加账户失败</string>
 
     <string-array name="bill_dates_array">
         <item>每月1日</item>

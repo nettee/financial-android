@@ -23,12 +23,12 @@ public abstract class CashCardAccount extends Account {
     public abstract int getCashCardType();
 
     @Override
-    public abstract String getName();
+    public abstract String getCandidateName();
 
-    public int getAmount() {
+    public int getDefaultAmount() {
         return mAmount;
     }
 
     @Override
-    public abstract int getImageId();
+    public abstract int getCandidateImageResource();
 }

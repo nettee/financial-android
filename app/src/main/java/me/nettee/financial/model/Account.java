@@ -27,7 +27,7 @@ public abstract class Account implements Serializable {
 
     public abstract int getType();
 
-    public abstract String getName();
+    public abstract String getCandidateName();
 
     public final String getRemark() {
         return mRemark;
@@ -37,8 +37,8 @@ public abstract class Account implements Serializable {
         mRemark = remark;
     }
 
-    public abstract int getAmount();
+    public abstract int getDefaultAmount();
 
-    public abstract int getImageId();
+    public abstract int getCandidateImageResource();
 
 }

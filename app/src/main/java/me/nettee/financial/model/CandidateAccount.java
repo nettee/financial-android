@@ -2,43 +2,27 @@ package me.nettee.financial.model;
 
 import java.io.Serializable;
 
-import me.nettee.financial.ui.NewCashAccountActivity;
-import me.nettee.financial.ui.NewCreditCardAccountActivity;
-import me.nettee.financial.ui.NewDebitCardAccountActivity;
-
 public class CandidateAccount implements Serializable {
 
     private int mType;
-    private String mName;
-    private int mImageId;
+    private String mCandidateName;
+    private int mCandidateImageResource;
 
-    public CandidateAccount(int type, String name, int imageId) {
+    public CandidateAccount(int type, String candidateName, int candidateImageResource) {
         mType = type;
-        mName = name;
-        mImageId = imageId;
+        mCandidateName = candidateName;
+        mCandidateImageResource = candidateImageResource;
     }
 
     public int getType() {
         return mType;
     }
 
-    public String getName() {
-        return mName;
+    public String getCandidateName() {
+        return mCandidateName;
     }
 
-    public int getImageId() {
-        return mImageId;
-    }
-
-    public Class getActivityClass() {
-        if (mType == Account.CASH) {
-            return NewCashAccountActivity.class;
-        } else if (mType == Account.CREDIT_CARD) {
-            return NewCreditCardAccountActivity.class;
-        } else if (mType == Account.DEBIT_CARD) {
-            return NewDebitCardAccountActivity.class;
-        } else {
-            return null;
-        }
+    public int getCandidateImageResource() {
+        return mCandidateImageResource;
     }
 }

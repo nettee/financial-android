@@ -41,7 +41,8 @@ public class AccountLab {
 
     private AccountLab() {
         mAccounts = new ArrayList<>();
-        CashAccount cashAccount = new CashAccount(97600);
+        CashAccount cashAccount = new CashAccount();
+        cashAccount.setBalanceAmount(97600);
         cashAccount.setRemark("钱包A");
         mAccounts.add(cashAccount);
         mAccounts.add(new CreditCardAccount());

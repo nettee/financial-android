@@ -66,9 +66,9 @@ public class PropertyFragment extends Fragment {
             TextView accountNameTextView = itemView.findViewById(R.id.account_list_item_name);
             TextView accountAmountTextView = itemView.findViewById(R.id.account_list_item_amount);
 
-            accountIconImageView.setImageResource(account.getImageId());
-            accountNameTextView.setText(account.getName());
-            accountAmountTextView.setText(Money.formatWithYuan(account.getAmount()));
+            accountIconImageView.setImageResource(account.getCandidateImageResource());
+            accountNameTextView.setText(account.getCandidateName());
+            accountAmountTextView.setText(Money.formatWithYuan(account.getDefaultAmount()));
 
             if (hasRemark) {
                 TextView accountRemark = itemView.findViewById(R.id.account_list_item_remark);

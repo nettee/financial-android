@@ -47,8 +47,8 @@ public class NewAccountCandidateActivity extends Activity {
             ImageView candidateAccountIconImageView = itemView.findViewById(R.id.candidate_account_list_item_image);
             TextView candidateAccountNameTextView = itemView.findViewById(R.id.candidate_account_list_item_name);
 
-            candidateAccountIconImageView.setImageResource(candidateAccount.getImageId());
-            candidateAccountNameTextView.setText(candidateAccount.getName());
+            candidateAccountIconImageView.setImageResource(candidateAccount.getCandidateImageResource());
+            candidateAccountNameTextView.setText(candidateAccount.getCandidateName());
 
             candidateAccountList.addView(itemView);
 

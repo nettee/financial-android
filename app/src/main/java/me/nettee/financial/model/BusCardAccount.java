@@ -18,12 +18,12 @@ public class BusCardAccount extends CashCardAccount {
     }
 
     @Override
-    public String getName() {
+    public String getCandidateName() {
         return "公交卡";
     }
 
     @Override
-    public int getImageId() {
+    public int getCandidateImageResource() {
         return R.drawable.ic_bus;
     }
 }

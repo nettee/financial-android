@@ -17,11 +17,11 @@ public final class CreditCardAccount extends BankCardAccount {
     }
 
     @Override
-    public String getName() {
+    public String getCandidateName() {
         return "信用卡";
     }
 
-    public int getAmount() {
+    public int getDefaultAmount() {
         return mCreditLimit;
     }
 
@@ -46,7 +46,7 @@ public final class CreditCardAccount extends BankCardAccount {
     }
 
     @Override
-    public int getImageId() {
+    public int getCandidateImageResource() {
         return R.drawable.ic_bank_card;
     }
 }

@@ -18,16 +18,16 @@ public class DebitCardAccount extends Account {
     }
 
     @Override
-    public String getName() {
+    public String getCandidateName() {
         return mName;
     }
 
-    public int getAmount() {
+    public int getDefaultAmount() {
         return mAmount;
     }
 
     @Override
-    public int getImageId() {
+    public int getCandidateImageResource() {
         return mImageId;
     }
 }

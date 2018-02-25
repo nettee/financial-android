@@ -20,16 +20,16 @@ public class AlipayAccount extends Account {
     }
 
     @Override
-    public String getName() {
+    public String getCandidateName() {
         return "支付宝";
     }
 
-    public int getAmount() {
+    public int getDefaultAmount() {
         return mAmount;
     }
 
     @Override
-    public int getImageId() {
+    public int getCandidateImageResource() {
         return R.drawable.ic_alipay;
     }
 }

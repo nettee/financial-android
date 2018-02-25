@@ -42,10 +42,10 @@ public class AccountDetailActivity extends Activity {
         TextView accountCardName = findViewById(R.id.account_card_name);
         TextView accountCardNameSplit = findViewById(R.id.account_card_name_split);
         TextView accountCardRemark = findViewById(R.id.account_card_remark);
-        TextView accountCardTotal = findViewById(R.id.account_card_total);
+        TextView accountCardAmount = findViewById(R.id.account_card_amount);
 
-        accountCardImage.setImageResource(mAccount.getImageId());
-        accountCardName.setText(mAccount.getName());
+        accountCardImage.setImageResource(mAccount.getCandidateImageResource());
+        accountCardName.setText(mAccount.getCandidateName());
         String remark = mAccount.getRemark();
         if (remark == null || remark.length() == 0) {
             accountCardNameSplit.setVisibility(View.INVISIBLE);
@@ -53,7 +53,7 @@ public class AccountDetailActivity extends Activity {
         } else {
             accountCardRemark.setText(remark);
         }
-        accountCardTotal.setText(Money.formatWithoutYuan(mAccount.getAmount()));
+        accountCardAmount.setText(Money.formatWithoutYuan(mAccount.getDefaultAmount()));
 
         Button editButton = findViewById(R.id.account_card_edit);
         editButton.setOnClickListener(new View.OnClickListener() {
