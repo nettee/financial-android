@@ -24,7 +24,6 @@ public class WeixinAccount extends Account {
         return "微信钱包";
     }
 
-    @Override
     public int getAmount() {
         return mAmount;
     }

@@ -2,12 +2,13 @@ package me.nettee.financial.model;
 
 import me.nettee.financial.R;
 
-public class CreditCardAccount extends Account {
+public final class CreditCardAccount extends BankCardAccount {
 
-    private int mAmount;
+    private int mCreditLimit;
+    private int mBillDate;
+    private int mPaymentDate;
 
     public CreditCardAccount() {
-
     }
 
     @Override
@@ -20,13 +21,28 @@ public class CreditCardAccount extends Account {
         return "信用卡";
     }
 
-    @Override
     public int getAmount() {
-        return mAmount;
+        return mCreditLimit;
     }
 
-    public void setAmount(int amount) {
-        mAmount = amount;
+    public void setCreditLimit(int creditLimit) {
+        mCreditLimit = creditLimit;
+    }
+
+    public int getBillDate() {
+        return mBillDate;
+    }
+
+    public void setBillDate(int billDate) {
+        mBillDate = billDate;
+    }
+
+    public int getPaymentDate() {
+        return mPaymentDate;
+    }
+
+    public void setPaymentDate(int paymentDate) {
+        mPaymentDate = paymentDate;
     }
 
     @Override

@@ -6,10 +6,9 @@
     >
 
     <include layout="@layout/toolbar_new_account"/>
-    <include layout="@layout/account_title_bar" android:id="@+id/new_cash_account_title_bar"/>
-    <include layout="@layout/remark_input_bar"/>
-    <include layout="@layout/divider_bar_large" />
-    <include layout="@layout/account_amount_input_bar"/>
+
+    <include layout="@layout/account_inputs_cash"/>
+
     <include layout="@layout/button_save"/>
 
 </LinearLayout>

@@ -1,34 +1,14 @@
 package me.nettee.financial.model;
 
-public class BankCardAccount extends Account {
+public abstract class BankCardAccount extends Account {
 
-    private String mName;
-    private int mAmount;
-    private int mImageId;
+    private String mBankCardNumber;
 
-    public BankCardAccount(String name, int amount, int imageId) {
-        mName = name;
-        mAmount = amount;
-        mImageId = imageId;
+    public final String getBankCardNumber() {
+        return mBankCardNumber;
     }
 
-    @Override
-    public int getType() {
-        return DEBIT_CARD;
-    }
-
-    @Override
-    public String getName() {
-        return mName;
-    }
-
-    @Override
-    public int getAmount() {
-        return mAmount;
-    }
-
-    @Override
-    public int getImageId() {
-        return mImageId;
+    public final void setBankCardNumber(String bankCardNumber) {
+        mBankCardNumber = bankCardNumber;
     }
 }

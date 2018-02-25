@@ -13,6 +13,7 @@ import android.widget.Toolbar;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.CreditCardAccount;
+import me.nettee.financial.model.Money;
 
 public class NewCreditCardAccountActivity extends Activity {
 
@@ -85,7 +86,22 @@ public class NewCreditCardAccountActivity extends Activity {
             @Override
             public void onClick(View view) {
                 CreditCardAccount account = new CreditCardAccount();
+                account.setRemark(mRemark.getText().toString());
+                account.setBankCardNumber(mBankCardNumber.getText().toString());
+                account.setCreditLimit(Money.from(mCreditLimit.getText().toString()));
+                account.setBillDate(getBillDate());
+                account.setPaymentDate(getPaymentDate());
             }
         });
+    }
+
+    private int getBillDate() {
+        int i = mBillDate.getSelectedItemPosition();
+        return i + 1;
+    }
+
+    private int getPaymentDate() {
+        int i = mPaymentDate.getSelectedItemPosition();
+        return i + 1;
     }
 }

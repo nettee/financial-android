@@ -6,23 +6,9 @@
     >
 
     <include layout="@layout/toolbar_new_account"/>
-    <include layout="@layout/bank_card_title_bar"/>
 
-    <LinearLayout style="@style/InputLines">
-        <include layout="@layout/remark_input_bar"/>
-        <include layout="@layout/bank_card_number_input_bar"/>
-    </LinearLayout>
+    <include layout="@layout/account_inputs_credit_card"/>
 
-    <include layout="@layout/divider_bar_large" />
-
-    <LinearLayout style="@style/InputLines">
-        <include layout="@layout/account_amount_input_bar" android:id="@+id/view_credit_limit"/>
-        <include layout="@layout/account_credit_date_input_bar" android:id="@+id/view_bill_date"/>
-        <include layout="@layout/account_credit_date_input_bar" android:id="@+id/view_payment_date"/>
-    </LinearLayout>
-
-    <include layout="@layout/divider_bar_large" />
-    <include layout="@layout/account_amount_input_bar" android:id="@+id/view_current_arrears"/>
     <include layout="@layout/button_save"/>
 
 </LinearLayout>

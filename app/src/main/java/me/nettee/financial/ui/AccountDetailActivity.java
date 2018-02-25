@@ -1,8 +1,10 @@
 package me.nettee.financial.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -14,6 +16,10 @@ import me.nettee.financial.model.Money;
 public class AccountDetailActivity extends Activity {
 
     public static final String EXTRA_ACCOUNT_OBJECT = "me.nettee.financial.Account";
+
+    private static final int REQUEST_CODE_EDITED_ACCOUNT = 1;
+
+    private Account mAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +36,7 @@ public class AccountDetailActivity extends Activity {
             }
         });
 
-        Account account = (Account) getIntent().getSerializableExtra(EXTRA_ACCOUNT_OBJECT);
+        mAccount = (Account) getIntent().getSerializableExtra(EXTRA_ACCOUNT_OBJECT);
 
         ImageView accountCardImage = findViewById(R.id.account_card_image);
         TextView accountCardName = findViewById(R.id.account_card_name);
@@ -38,15 +44,25 @@ public class AccountDetailActivity extends Activity {
         TextView accountCardRemark = findViewById(R.id.account_card_remark);
         TextView accountCardTotal = findViewById(R.id.account_card_total);
 
-        accountCardImage.setImageResource(account.getImageId());
-        accountCardName.setText(account.getName());
-        String remark = account.getRemark();
+        accountCardImage.setImageResource(mAccount.getImageId());
+        accountCardName.setText(mAccount.getName());
+        String remark = mAccount.getRemark();
         if (remark == null || remark.length() == 0) {
             accountCardNameSplit.setVisibility(View.INVISIBLE);
             accountCardRemark.setVisibility(View.INVISIBLE);
         } else {
             accountCardRemark.setText(remark);
         }
-        accountCardTotal.setText(Money.formatWithoutYuan(account.getAmount()));
+        accountCardTotal.setText(Money.formatWithoutYuan(mAccount.getAmount()));
+
+        Button editButton = findViewById(R.id.account_card_edit);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), EditAccountActivity.class);
+                intent.putExtra(EditAccountActivity.EXTRA_EDIT_ACCOUNT_OBJECT, mAccount);
+                startActivityForResult(intent, REQUEST_CODE_EDITED_ACCOUNT);
+            }
+        });
     }
 }

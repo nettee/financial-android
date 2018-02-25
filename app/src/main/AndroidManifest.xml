@@ -26,6 +26,8 @@
         </activity>
         <activity android:name=".ui.NewDebitCardAccountActivity">
         </activity>
+        <activity android:name=".ui.EditAccountActivity">
+        </activity>
     </application>
 
 </manifest>

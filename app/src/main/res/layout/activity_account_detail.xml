@@ -1,122 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
     >
 
-    <Toolbar
-        android:id="@+id/toolbar_account_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:navigationIcon="@drawable/ic_action_back_v"
-        >
+    <include layout="@layout/toolbar_account_detail"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/title_account_detail"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            />
-
-    </Toolbar>
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/account_card_height"
-        android:background="@drawable/account_card_dark"
-        android:elevation="4dp"
-        android:layout_marginStart="@dimen/margin_horizontal"
-        android:layout_marginEnd="@dimen/margin_horizontal"
-        >
-
-        <ImageView style="@style/AccountCardImage"
-            android:id="@+id/account_card_image"
-            android:layout_width="@dimen/account_card_image_size"
-            android:layout_height="@dimen/account_card_image_size"
-            android:src="@drawable/ic_wallet"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/margin_vertical"
-            android:layout_marginStart="@dimen/margin_horizontal"
-        />
-
-        <TextView
-            android:id="@+id/account_card_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="现金钱包"
-            android:textColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="@id/account_card_image"
-            app:layout_constraintBottom_toBottomOf="@id/account_card_image"
-            app:layout_constraintStart_toEndOf="@id/account_card_image"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            />
-
-        <TextView
-            android:id="@+id/account_card_name_split"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_name_split"
-            android:textColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="@id/account_card_image"
-            app:layout_constraintBottom_toBottomOf="@id/account_card_image"
-            app:layout_constraintStart_toEndOf="@id/account_card_name"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            />
-
-        <TextView
-            android:id="@+id/account_card_remark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="稻草人"
-            android:textSize="@dimen/text_size_small"
-            android:textColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="@id/account_card_image"
-            app:layout_constraintBottom_toBottomOf="@id/account_card_image"
-            app:layout_constraintStart_toEndOf="@id/account_card_name_split"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            />
-
-        <Button style="@style/AccountCardButton"
-            android:id="@+id/account_card_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/button_edit"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/margin_large"
-            android:layout_marginEnd="@dimen/margin_large"
-            />
-
-        <TextView
-            android:id="@+id/account_card_total_caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_total"
-            android:textSize="@dimen/text_size_small"
-            android:textColor="@android:color/white"
-            app:layout_constraintTop_toBottomOf="@id/account_card_image"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/margin_vertical_large"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            />
-
-        <TextView
-            android:id="@+id/account_card_total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/default_money_amount"
-            android:textSize="32sp"
-            android:textColor="@android:color/white"
-            app:layout_constraintTop_toBottomOf="@id/account_card_total_caption"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="0dp"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            />
-
-    </android.support.constraint.ConstraintLayout>
+    <include layout="@layout/account_card"/>
 
 </LinearLayout>

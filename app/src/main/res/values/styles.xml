@@ -43,6 +43,10 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="DarkActionButton.Danger">
+        <item name="android:background">@drawable/button_danger</item>
+    </style>
+
     <style name="InputCaption">
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:textColor">@color/textGray</item>

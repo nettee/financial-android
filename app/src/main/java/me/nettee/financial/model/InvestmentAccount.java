@@ -22,7 +22,6 @@ public class InvestmentAccount extends Account {
         return mName;
     }
 
-    @Override
     public int getAmount() {
         return mAmount;
     }

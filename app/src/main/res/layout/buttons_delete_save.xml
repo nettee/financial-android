@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Button
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/DarkActionButton.Danger"
+        android:id="@+id/button_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/button_delete"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_marginEnd="@dimen/margin_horizontal_half"
+        />
+
+    <Button
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/DarkActionButton"
+        android:id="@+id/button_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/button_save"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginStart="@dimen/margin_horizontal_half"
+        android:layout_marginEnd="@dimen/margin_horizontal"
+        />
+
+</LinearLayout>

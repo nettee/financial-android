@@ -25,7 +25,6 @@ public abstract class CashCardAccount extends Account {
     @Override
     public abstract String getName();
 
-    @Override
     public int getAmount() {
         return mAmount;
     }

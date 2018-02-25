@@ -24,7 +24,6 @@ public class AlipayAccount extends Account {
         return "支付宝";
     }
 
-    @Override
     public int getAmount() {
         return mAmount;
     }

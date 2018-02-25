@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#182263</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="danger">#cc3333</color>
+
     <color name="lightGray">#eeeeee</color>
 
     <color name="textGray">#999999</color>

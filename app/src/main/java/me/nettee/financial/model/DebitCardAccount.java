@@ -1,27 +1,25 @@
 package me.nettee.financial.model;
 
-import me.nettee.financial.R;
+public class DebitCardAccount extends Account {
 
-public class CashAccount extends Account {
-
+    private String mName;
     private int mAmount;
+    private int mImageId;
 
-    public CashAccount() {
-        this(0);
-    }
-
-    public CashAccount(int amount) {
+    public DebitCardAccount(String name, int amount, int imageId) {
+        mName = name;
         mAmount = amount;
+        mImageId = imageId;
     }
 
     @Override
     public int getType() {
-        return CASH;
+        return DEBIT_CARD;
     }
 
     @Override
     public String getName() {
-        return "现金钱包";
+        return mName;
     }
 
     public int getAmount() {
@@ -30,6 +28,6 @@ public class CashAccount extends Account {
 
     @Override
     public int getImageId() {
-        return R.drawable.ic_wallet;
+        return mImageId;
     }
 }

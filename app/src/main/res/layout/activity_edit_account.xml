@@ -5,10 +5,13 @@
               android:orientation="vertical"
     >
 
-    <include layout="@layout/toolbar_new_account"/>
+    <include layout="@layout/toolbar_edit_account"/>
 
-    <include layout="@layout/account_inputs_debit_card"/>
+    <ViewStub
+        android:id="@+id/account_inputs_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <include layout="@layout/button_save"/>
+    <include layout="@layout/buttons_delete_save"/>
 
 </LinearLayout>
