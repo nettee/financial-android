@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/input_height_large"
+    >
+
+    <TextView
+        style="@style/InputCaption"
+        android:id="@+id/account_investment_platform_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/caption_investment_platform"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        />
+
+    <AutoCompleteTextView
+        style="@style/Input"
+        android:id="@+id/account_investment_platform"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_new_investment_platform_name"
+        android:inputType="text"
+        android:completionThreshold="1"
+        android:dropDownVerticalOffset="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/account_investment_platform_caption"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        />
+
+    <ImageView
+        style="@style/AccountIcon"
+        android:id="@+id/account_investment_platform_image"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/margin_horizontal"
+        />
+
+</android.support.constraint.ConstraintLayout>

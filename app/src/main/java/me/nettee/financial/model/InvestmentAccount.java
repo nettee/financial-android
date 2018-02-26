@@ -6,6 +6,10 @@ public class InvestmentAccount extends Account {
 
     private static final long serialVersionUID = 1L;
 
+    private InvestmentPlatform mPlatform;
+
+    // TODO For test only.
+    private Amount mAmount;
     @Override
     public int getType() {
         return INVESTMENT;
@@ -13,15 +17,31 @@ public class InvestmentAccount extends Account {
 
     @Override
     public String getCandidateName() {
-        return "投资账户";
+        return getPlatform().getName();
     }
 
     @Override
     public int getCandidateImageResource() {
-        return R.drawable.ic_account;
+        return getPlatform().getImageResource();
     }
 
     public Amount getDefaultAmount() {
-        return Amount.integer(0);
+        return mAmount;
+    }
+
+    public InvestmentPlatform getPlatform() {
+        return mPlatform;
+    }
+
+    public void setPlatform(InvestmentPlatform platform) {
+        mPlatform = platform;
+    }
+
+    public Amount getAmount() {
+        return mAmount;
+    }
+
+    public void setAmount(Amount amount) {
+        mAmount = amount;
     }
 }

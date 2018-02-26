@@ -52,7 +52,7 @@ public class PropertyFragment extends Fragment {
             int imageResource = account.getDisplayImageResource();
             String name = account.getDisplayName();
             String remark = account.getDisplayRemark();
-            String amount = account.getDefaultAmount().toString();
+            String amount = account.getDefaultAmount().toYuanString();
 
             Integer layoutId;
             if (StringUtils.isNotEmpty(remark)) {

@@ -52,9 +52,14 @@ public class Amount implements Serializable {
         }
     }
 
+    @Override
     public String toString() {
         String a = new DecimalFormat(",###").format(yuan);
         String y = String.format("%s.%02d", a, cent);
         return y;
+    }
+
+    public String toYuanString() {
+        return "¥" + toString();
     }
 }

@@ -33,6 +33,7 @@ public class AccountLab {
             add(Account.candidate(Account.WEIXIN, "微信钱包", R.drawable.ic_wxpay));
             add(Account.candidate(Account.CASH_CARD, "校园卡", R.drawable.ic_campus_card));
             add(Account.candidate(Account.CASH_CARD, "公交卡", R.drawable.ic_bus));
+            add(Account.candidate(Account.INVESTMENT, "投资账户", R.drawable.ic_account_investment));
 //            add(Account.candidate(Account.CASH, "其他账户", R.drawable.ic_account));
         }
     };
@@ -63,10 +64,18 @@ public class AccountLab {
         busCardAccount.setBalance(Amount.decimal(67, 3));
         mAccounts.add(busCardAccount);
 //        mAccounts.add(new Account("花呗", 15043, Account.HUABEI, R.drawable.ic_huabei));
-        mAccounts.add(new InvestmentAccount());
-//        mAccounts.add(new InvestmentAccount("陆金所", 100000, R.drawable.ic_lufax));
-//        mAccounts.add(new InvestmentAccount("天天基金", 200000, R.drawable.ic_tiantian_fund));
-//        mAccounts.add(new Account("账户Z", 0, Account.OTHER));
+        InvestmentAccount investmentAccount1 = new InvestmentAccount();
+        investmentAccount1.setPlatform(InvestmentPlatform.antFortune);
+        investmentAccount1.setAmount(Amount.integer(4050));
+        mAccounts.add(investmentAccount1);
+        InvestmentAccount investmentAccount2 = new InvestmentAccount();
+        investmentAccount2.setPlatform(InvestmentPlatform.lufax);
+        investmentAccount2.setAmount(Amount.integer(1000));
+        mAccounts.add(investmentAccount2);
+        InvestmentAccount investmentAccount3 = new InvestmentAccount();
+        investmentAccount3.setPlatform(InvestmentPlatform.tiantianFund);
+        investmentAccount3.setAmount(Amount.integer(2000));
+        mAccounts.add(investmentAccount3);
     }
 
     public static AccountLab getInstance() {

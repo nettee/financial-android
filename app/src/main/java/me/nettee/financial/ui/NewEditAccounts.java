@@ -1,16 +1,32 @@
 package me.nettee.financial.ui;
 
 import android.app.Activity;
+import android.content.Context;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Account;
@@ -18,6 +34,9 @@ import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.CashAccount;
 import me.nettee.financial.model.CreditCardAccount;
 import me.nettee.financial.model.CreditDate;
+import me.nettee.financial.model.InvestmentPlatform;
+
+import static android.view.View.GONE;
 
 public class NewEditAccounts {
 
@@ -29,6 +48,7 @@ public class NewEditAccounts {
             put(Account.DEBIT_CARD, R.layout.account_inputs_debit_card);
             put(Account.ALIPAY, R.layout.account_inputs_alipay);
             put(Account.WEIXIN, R.layout.account_inputs_weixin);
+            put(Account.INVESTMENT, R.layout.account_inputs_investment);
         }
     };
 
@@ -184,12 +204,104 @@ public class NewEditAccounts {
                             .<Spinner>findViewById(R.id.account_credit_date_spinner)
                             .setAdapter(adapter);
                 }
+            } else if (accountType == Account.INVESTMENT) {
+                AutoCompleteTextView investmentPlatform = accountInputs.findViewById(R.id.account_investment_platform);
+                ImageView investmentPlatformImage = accountInputs.findViewById(R.id.account_investment_platform_image);
+                InvestmentPlatformAdapter adapter = new InvestmentPlatformAdapter(activity, InvestmentPlatform.getPlatforms());
+                investmentPlatform.setAdapter(adapter);
+                investmentPlatform.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        // Do nothing.
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence text, int i, int i1, int i2) {
+                        InvestmentPlatform platform = InvestmentPlatform.getPlatformByName(text.toString());
+                        if (platform != null) {
+                            investmentPlatformImage.setVisibility(View.VISIBLE);
+                            investmentPlatformImage.setImageResource(platform.getImageResource());
+                        } else {
+                            investmentPlatformImage.setVisibility(GONE);
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        // Do nothing.
+                    }
+                });
             }
 
             return accountInputs;
         }
     }
 
+    private static class InvestmentPlatformAdapter extends ArrayAdapter<InvestmentPlatform> {
+
+        private List<InvestmentPlatform> mPlatforms;
+
+        public InvestmentPlatformAdapter(@NonNull Context context, List<InvestmentPlatform> platforms) {
+            super(context, 0, platforms);
+            // Note: copy a list here, otherwise no suggestions for the second time.
+            mPlatforms = new ArrayList<>(platforms);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+            InvestmentPlatform platform = getItem(position);
+
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext())
+                        .inflate(R.layout.dropdown_item_investment_platform, parent, false);
+            }
+
+            convertView.<ImageView>findViewById(R.id.investment_platform_image)
+                    .setImageResource(platform.getImageResource());
+            convertView.<TextView>findViewById(R.id.investment_platform_text)
+                    .setText(platform.getName());
+
+            return convertView;
+        }
+
+        @NonNull
+        @Override
+        public Filter getFilter() {
+            return new Filter() {
+
+                @Override
+                public CharSequence convertResultToString(Object resultValue) {
+                    return ((InvestmentPlatform) resultValue).getName();
+                }
+
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    List<InvestmentPlatform> suggestions = mPlatforms.stream()
+                            .filter(platform -> platform.getName().contains(constraint))
+                            .collect(Collectors.toList());
+                    FilterResults filterResults = new FilterResults();
+                    filterResults.values = suggestions;
+                    filterResults.count = suggestions.size();
+                    return filterResults;
+                }
+
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults filterResults) {
+                    if (filterResults == null || filterResults.count <= 0) {
+                        return;
+                    }
+                    ArrayList<InvestmentPlatform> values = (ArrayList<InvestmentPlatform>) filterResults.values;
+                    clear();
+                    for (InvestmentPlatform platform : values) {
+                        add(platform);
+                    }
+                    notifyDataSetChanged();
+                }
+            };
+        }
+    }
 
 
 
