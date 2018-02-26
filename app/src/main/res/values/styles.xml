@@ -52,6 +52,11 @@
         <item name="android:textColor">@color/textGray</item>
     </style>
 
+    <style name="Remark">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/textGray</item>
+    </style>
+
     <style name="Input">
         <item name="android:background">@null</item>
     </style>

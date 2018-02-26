@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import org.apache.commons.lang3.StringUtils;
+
 import me.nettee.financial.R;
 import me.nettee.financial.model.Account;
 
@@ -78,10 +80,10 @@ public class AccountDetailActivity extends Activity {
 
     private void updateView(Account account) {
         Log.d("TAG", "Update view");
-        mAccountCardImage.setImageResource(account.getCandidateImageResource());
-        mAccountCardName.setText(account.getCandidateName());
-        String remark = account.getRemark();
-        if (remark == null || remark.length() == 0) {
+        mAccountCardImage.setImageResource(account.getDisplayImageResource());
+        mAccountCardName.setText(account.getDisplayName());
+        String remark = account.getDisplayRemark();
+        if (StringUtils.isEmpty(remark)) {
             mAccountCardNameSplit.setVisibility(View.INVISIBLE);
             mAccountCardRemark.setVisibility(View.INVISIBLE);
         } else {

@@ -29,6 +29,10 @@ public abstract class Account implements Serializable {
 
     public abstract String getCandidateName();
 
+    public abstract int getCandidateImageResource();
+
+    public abstract Amount getDefaultAmount();
+
     public final String getRemark() {
         return mRemark;
     }
@@ -37,9 +41,31 @@ public abstract class Account implements Serializable {
         mRemark = remark;
     }
 
-    public abstract Amount getDefaultAmount();
+    /**
+     * Displayed in account list, and account detail card.
+     * Sub-classes can override this default implementation.
+     * @return account name
+     */
+    public String getDisplayName() {
+        return getCandidateName();
+    }
 
-    public abstract int getCandidateImageResource();
+    /**
+     * Displayed in account list, and account detail card.
+     * Sub-classes can override this default implementation.
+     * @return account image (icon)
+     */
+    public int getDisplayImageResource() {
+        return getCandidateImageResource();
+    }
+
+    /** Displayed in account list, and account detail card.
+     * Sub-classes can override this default implementation.
+     * @return remark
+     */
+    public String getDisplayRemark() {
+        return getRemark();
+    }
 
     public static CandidateAccount candidate(int type, String candidateName, int candidateImageResource) {
         return new CandidateAccount(type, candidateName, candidateImageResource);

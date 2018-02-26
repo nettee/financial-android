@@ -47,6 +47,7 @@ public class AccountLab {
         creditCardAccount.setCurrentArrears(Amount.integer(1234));
         mAccounts.add(creditCardAccount);
         DebitCardAccount debitCardAccount = new DebitCardAccount();
+        debitCardAccount.setBankCardNumber("669395");
         debitCardAccount.setBalance(Amount.decimal(6134, 77));
         mAccounts.add(debitCardAccount);
         AlipayAccount alipayAccount = new AlipayAccount();

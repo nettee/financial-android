@@ -30,11 +30,10 @@
         />
 
     <TextView
+        style="@style/Remark"
         android:id="@+id/account_list_item_remark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="大萌萌"
-        android:textSize="@dimen/text_size_small"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/account_list_item_name"

@@ -62,4 +62,5 @@ public final class CreditCardAccount extends BankCardAccount {
     public void setCurrentArrears(Amount currentArrears) {
         mCurrentArrears = currentArrears;
     }
+
 }

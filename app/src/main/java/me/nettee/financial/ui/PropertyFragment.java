@@ -10,11 +10,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Account;
 import me.nettee.financial.model.AccountLab;
+import me.nettee.financial.model.Bank;
+import me.nettee.financial.model.BankCardAccount;
 
 public class PropertyFragment extends Fragment {
 
@@ -27,12 +31,9 @@ public class PropertyFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         ImageView accountListAdd = view.findViewById(R.id.account_list_add);
-        accountListAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), NewAccountCandidateActivity.class);
-                startActivity(intent);
-            }
+        accountListAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), NewAccountCandidateActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -48,30 +49,27 @@ public class PropertyFragment extends Fragment {
 
         for (final Account account : accounts) {
 
-            boolean hasRemark = account.getRemark() != null && account.getRemark().length() > 0;
+            int imageResource = account.getDisplayImageResource();
+            String name = account.getDisplayName();
+            String remark = account.getDisplayRemark();
+            String amount = account.getDefaultAmount().toString();
 
             Integer layoutId;
-            if (hasRemark) {
+            if (StringUtils.isNotEmpty(remark)) {
                 layoutId = R.layout.account_list_item_with_remark;
             } else {
                 layoutId = R.layout.account_list_item;
             }
 
             View itemView = inflater.inflate(layoutId, null);
-
             itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 180));
 
-            ImageView accountIconImageView = itemView.findViewById(R.id.account_list_item_image);
-            TextView accountNameTextView = itemView.findViewById(R.id.account_list_item_name);
-            TextView accountAmountTextView = itemView.findViewById(R.id.account_list_item_amount);
+            itemView.<ImageView>findViewById(R.id.account_list_item_image).setImageResource(imageResource);
+            itemView.<TextView>findViewById(R.id.account_list_item_name).setText(name);
+            itemView.<TextView>findViewById(R.id.account_list_item_amount).setText(amount);
 
-            accountIconImageView.setImageResource(account.getCandidateImageResource());
-            accountNameTextView.setText(account.getCandidateName());
-            accountAmountTextView.setText(account.getDefaultAmount().toString());
-
-            if (hasRemark) {
-                TextView accountRemark = itemView.findViewById(R.id.account_list_item_remark);
-                accountRemark.setText(account.getRemark());
+            if (StringUtils.isNotEmpty(remark)) {
+                itemView.<TextView>findViewById(R.id.account_list_item_remark).setText(remark);
             }
 
             itemView.setOnClickListener(view -> {
