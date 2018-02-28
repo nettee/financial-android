@@ -2,7 +2,6 @@ package me.nettee.financial.ui;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -11,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -19,8 +17,6 @@ import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +30,7 @@ import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.CashAccount;
 import me.nettee.financial.model.CreditCardAccount;
 import me.nettee.financial.model.CreditDate;
+import me.nettee.financial.model.InvestmentAccount;
 import me.nettee.financial.model.InvestmentPlatform;
 
 import static android.view.View.GONE;
@@ -57,6 +54,7 @@ public class NewEditAccounts {
         {
             put(Account.CASH, new CashAccountExtractor());
             put(Account.CREDIT_CARD, new CreditCardAccountExtractor());
+            put(Account.INVESTMENT, new InvestmentAccountExtractor());
         }
     };
 
@@ -113,7 +111,7 @@ public class NewEditAccounts {
     }
 
 
-    public static class CreditCardAccountExtractor extends NewEditAccounts.CreditCardAccountInout
+    public static class CreditCardAccountExtractor extends CreditCardAccountInout
             implements AccountExtractor {
 
         @Override
@@ -126,6 +124,27 @@ public class NewEditAccounts {
             account.setBillDate(CreditDate.fromSpinner(mBillDate));
             account.setPaymentDate(CreditDate.fromSpinner(mPaymentDate));
             account.setCurrentArrears(Amount.valueOf(mCurrentArrears.getText().toString()));
+            return account;
+        }
+    }
+
+    public static abstract class InvestmentAccountInout {
+
+        protected AutoCompleteTextView mPlatform;
+
+        public void pre(View accountInputs) {
+            mPlatform = accountInputs.findViewById(R.id.account_investment_platform);
+        }
+    }
+
+    public static class InvestmentAccountExtractor extends InvestmentAccountInout
+            implements AccountExtractor {
+
+        @Override
+        public Account extract(View accountInputs) {
+            pre(accountInputs);
+            InvestmentAccount account = new InvestmentAccount();
+            account.setPlatform(InvestmentPlatform.getPlatformOrDefault(mPlatform.getText().toString()));
             return account;
         }
     }

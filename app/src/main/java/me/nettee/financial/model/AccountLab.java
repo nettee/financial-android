@@ -64,18 +64,18 @@ public class AccountLab {
         busCardAccount.setBalance(Amount.decimal(67, 3));
         mAccounts.add(busCardAccount);
 //        mAccounts.add(new Account("花呗", 15043, Account.HUABEI, R.drawable.ic_huabei));
-        InvestmentAccount investmentAccount1 = new InvestmentAccount();
-        investmentAccount1.setPlatform(InvestmentPlatform.antFortune);
-        investmentAccount1.setAmount(Amount.integer(4050));
-        mAccounts.add(investmentAccount1);
-        InvestmentAccount investmentAccount2 = new InvestmentAccount();
-        investmentAccount2.setPlatform(InvestmentPlatform.lufax);
-        investmentAccount2.setAmount(Amount.integer(1000));
-        mAccounts.add(investmentAccount2);
-        InvestmentAccount investmentAccount3 = new InvestmentAccount();
-        investmentAccount3.setPlatform(InvestmentPlatform.tiantianFund);
-        investmentAccount3.setAmount(Amount.integer(2000));
-        mAccounts.add(investmentAccount3);
+//        InvestmentAccount investmentAccount1 = new InvestmentAccount();
+//        investmentAccount1.setPlatform(InvestmentPlatform.antFortune);
+//        investmentAccount1.setAmount(Amount.integer(4050));
+//        mAccounts.add(investmentAccount1);
+//        InvestmentAccount investmentAccount2 = new InvestmentAccount();
+//        investmentAccount2.setPlatform(InvestmentPlatform.lufax);
+//        investmentAccount2.setAmount(Amount.integer(1000));
+//        mAccounts.add(investmentAccount2);
+//        InvestmentAccount investmentAccount3 = new InvestmentAccount();
+//        investmentAccount3.setPlatform(InvestmentPlatform.tiantianFund);
+//        investmentAccount3.setAmount(Amount.integer(2000));
+//        mAccounts.add(investmentAccount3);
     }
 
     public static AccountLab getInstance() {

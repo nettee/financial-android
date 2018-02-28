@@ -33,14 +33,23 @@ public class InvestmentPlatform implements Serializable {
         return platforms;
     }
 
+    public static final InvestmentPlatform getPlatformOrDefault(String name) {
+        return getPlatformByName(name, InvestmentPlatform.antFortune);
+    }
+
     public static final InvestmentPlatform getPlatformByName(String name) {
+        return getPlatformByName(name, null);
+    }
+
+    private static final InvestmentPlatform getPlatformByName(String name, InvestmentPlatform defaultPlatform) {
         for (InvestmentPlatform platform : platforms) {
             if (platform.getName().equals(name)) {
                 return platform;
             }
         }
-        return null;
+        return defaultPlatform;
     }
+
 
     private final int mType;
     private final String mName;

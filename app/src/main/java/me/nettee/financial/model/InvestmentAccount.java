@@ -9,7 +9,8 @@ public class InvestmentAccount extends Account {
     private InvestmentPlatform mPlatform;
 
     // TODO For test only.
-    private Amount mAmount;
+    private Amount mAmount = Amount.zero();
+
     @Override
     public int getType() {
         return INVESTMENT;
