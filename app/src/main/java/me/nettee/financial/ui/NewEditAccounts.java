@@ -144,7 +144,7 @@ public class NewEditAccounts {
         public Account extract(View accountInputs) {
             pre(accountInputs);
             InvestmentAccount account = new InvestmentAccount();
-            account.setPlatform(InvestmentPlatform.getPlatformOrDefault(mPlatform.getText().toString()));
+            account.setPlatform(InvestmentPlatform.getPlatformOrGeneral(mPlatform.getText().toString()));
             return account;
         }
     }
