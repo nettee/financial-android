@@ -2,6 +2,7 @@ package me.nettee.financial.ui;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,11 @@ import me.nettee.financial.model.BankCardAccount;
 
 public class PropertyFragment extends Fragment {
 
+    private LinearLayout mAccountList;
+
+    private boolean mAccountListCollapsed;
+    private boolean mPropertyListCollapsed;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_property, parent, false);
@@ -30,19 +36,45 @@ public class PropertyFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
+        mAccountListCollapsed = false;
+        mPropertyListCollapsed = false;
+
+        ImageView accountListCollapse = view.findViewById(R.id.account_list_collapse);
+        accountListCollapse.setOnClickListener(v -> {
+            if (mAccountListCollapsed) {
+                accountListCollapse.setImageResource(R.drawable.ic_status_expanded);
+                mAccountList.setVisibility(View.VISIBLE);
+            } else {
+                accountListCollapse.setImageResource(R.drawable.ic_status_collapsed);
+                mAccountList.setVisibility(View.GONE);
+            }
+            mAccountListCollapsed = !mAccountListCollapsed;
+        });
+
+        ImageView propertyListCollapse = view.findViewById(R.id.property_list_collapse);
+        propertyListCollapse.setOnClickListener(v -> {
+            if (mPropertyListCollapsed) {
+                propertyListCollapse.setImageResource(R.drawable.ic_status_expanded);
+            } else {
+                propertyListCollapse.setImageResource(R.drawable.ic_status_collapsed);
+            }
+            mPropertyListCollapsed = !mPropertyListCollapsed;
+        });
+
         ImageView accountListAdd = view.findViewById(R.id.account_list_add);
         accountListAdd.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), NewAccountCandidateActivity.class);
             startActivity(intent);
         });
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        LinearLayout accountList = getActivity().findViewById(R.id.account_list);
-        accountList.removeAllViews();
+        mAccountList = getActivity().findViewById(R.id.account_list);
+        mAccountList.removeAllViews();
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         List<Account> accounts = AccountLab.getInstance().getAccounts();
@@ -78,7 +110,7 @@ public class PropertyFragment extends Fragment {
                 startActivity(intent);
             });
 
-            accountList.addView(itemView);
+            mAccountList.addView(itemView);
         }
 
     }

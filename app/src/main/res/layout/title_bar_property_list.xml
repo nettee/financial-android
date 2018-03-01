@@ -8,7 +8,7 @@
     >
 
     <ImageView
-        android:id="@+id/account_list_collapse"
+        android:id="@+id/property_list_collapse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_status_expanded"
@@ -21,18 +21,20 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/my_accounts"
+        android:text="@string/my_properties"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/account_list_collapse"
+        app:layout_constraintStart_toEndOf="@id/property_list_collapse"
         android:layout_marginStart="@dimen/margin_horizontal_tiny"
         />
 
     <ImageView
-        android:id="@+id/account_list_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_action_add"
+        android:id="@+id/property_list_setting"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:scaleType="fitXY"
+        android:padding="4dp"
+        android:src="@drawable/ic_action_setting"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

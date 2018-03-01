@@ -31,7 +31,7 @@
             android:orientation="vertical"
             >
 
-            <include layout="@layout/account_list_title_bar" />
+            <include layout="@layout/account_list_title_bar"/>
 
             <LinearLayout
                 android:id="@+id/account_list"
@@ -41,12 +41,12 @@
                 android:divider="@drawable/default_divider"
                 android:dividerPadding="@dimen/account_list_margin"
                 android:showDividers="middle"
-                >
+                />
+
+            <include layout="@layout/title_bar_property_list"/>
 
         </LinearLayout>
 
-        </LinearLayout>
     </ScrollView>
-
 
 </LinearLayout>
