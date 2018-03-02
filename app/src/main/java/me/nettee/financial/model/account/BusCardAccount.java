@@ -7,10 +7,8 @@ public class BusCardAccount extends CashCardAccount {
 
     private static final long serialVersionUID = 1L;
 
-    private Amount mBalance = Amount.zero();
-
     @Override
-    public int getCashCardType() {
+    public int getType() {
         return BUS_CARD;
     }
 
@@ -24,16 +22,4 @@ public class BusCardAccount extends CashCardAccount {
         return R.drawable.ic_bus;
     }
 
-    @Override
-    public Amount getDefaultAmount() {
-        return getBalance();
-    }
-
-    public Amount getBalance() {
-        return mBalance;
-    }
-
-    public void setBalance(Amount balance) {
-        mBalance = balance;
-    }
 }

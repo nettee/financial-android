@@ -27,13 +27,17 @@ import java.util.stream.Collectors;
 import me.nettee.financial.R;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.account.BusCardAccount;
+import me.nettee.financial.model.account.CampusCardAccount;
 import me.nettee.financial.model.account.CashAccount;
+import me.nettee.financial.model.account.CashCardAccount;
 import me.nettee.financial.model.account.CreditCardAccount;
 import me.nettee.financial.model.CreditDate;
 import me.nettee.financial.model.account.DebitCardAccount;
 import me.nettee.financial.model.account.InvestmentAccount;
 import me.nettee.financial.model.InvestmentPlatform;
 
+import static android.view.View.ACCESSIBILITY_LIVE_REGION_ASSERTIVE;
 import static android.view.View.GONE;
 
 public abstract class WriteAccountBaseActivity extends Activity {
@@ -46,6 +50,8 @@ public abstract class WriteAccountBaseActivity extends Activity {
             put(Account.DEBIT_CARD, R.layout.account_inputs_debit_card);
             put(Account.ALIPAY, R.layout.account_inputs_alipay);
             put(Account.WEIXIN, R.layout.account_inputs_weixin);
+            put(Account.CAMPUS_CARD, R.layout.account_inputs_cash_card);
+            put(Account.BUS_CARD, R.layout.account_inputs_cash_card);
             put(Account.INVESTMENT, R.layout.account_inputs_investment);
         }
     };
@@ -56,6 +62,8 @@ public abstract class WriteAccountBaseActivity extends Activity {
             put(Account.CASH, new CashAccountExtractor());
             put(Account.CREDIT_CARD, new CreditCardAccountExtractor());
             put(Account.DEBIT_CARD, new DebitCardAccountExtractor());
+            put(Account.CAMPUS_CARD, new CampusCardAccountExtractor());
+            put(Account.BUS_CARD, new BusCardAccountExtractor());
             put(Account.INVESTMENT, new InvestmentAccountExtractor());
         }
     };
@@ -66,6 +74,8 @@ public abstract class WriteAccountBaseActivity extends Activity {
             put(Account.CASH, new CashAccountFiller());
             put(Account.CREDIT_CARD, new CreditCardFiller());
             put(Account.DEBIT_CARD, new DebitCardAccountFiller());
+            put(Account.CAMPUS_CARD, new CashCardAccountFiller());
+            put(Account.BUS_CARD, new CashCardAccountFiller());
             put(Account.INVESTMENT, new InvestmentAccountFiller());
         }
     };
@@ -181,11 +191,11 @@ public abstract class WriteAccountBaseActivity extends Activity {
     static abstract class CashAccountInout {
 
         protected EditText mRemark;
-        protected EditText mBalanceAmount;
+        protected EditText mBalance;
 
         public void pre(View accountInputs) {
             mRemark = accountInputs.findViewById(R.id.account_remark);
-            mBalanceAmount = accountInputs.findViewById(R.id.account_amount);
+            mBalance = accountInputs.findViewById(R.id.account_amount);
         }
     }
 
@@ -195,7 +205,7 @@ public abstract class WriteAccountBaseActivity extends Activity {
         public Account extract(View accountInputs) {
             pre(accountInputs);
             CashAccount account = new CashAccount();
-            account.setBalance(Amount.valueOf(mBalanceAmount.getText().toString()));
+            account.setBalance(Amount.valueOf(mBalance.getText().toString()));
             account.setRemark(mRemark.getText().toString());
             return account;
         }
@@ -208,7 +218,7 @@ public abstract class WriteAccountBaseActivity extends Activity {
             pre(accountInputs);
             CashAccount cashAccount = (CashAccount) account;
             mRemark.setText(cashAccount.getRemark());
-            mBalanceAmount.setText(cashAccount.getDefaultAmount().toString());
+            mBalance.setText(cashAccount.getBalance().toString());
         }
     }
 
@@ -269,10 +279,11 @@ public abstract class WriteAccountBaseActivity extends Activity {
     }
 
     static abstract class DebitCardAccountInout {
+
         protected EditText mRemark;
         protected EditText mBankCardNumber;
-
         protected EditText mBalance;
+
         public void pre(View accountInputs) {
             mRemark = accountInputs.findViewById(R.id.account_remark);
             mBankCardNumber = accountInputs.findViewById(R.id.account_bank_card_number);
@@ -304,6 +315,52 @@ public abstract class WriteAccountBaseActivity extends Activity {
             mRemark.setText(debitCardAccount.getRemark());
             mBankCardNumber.setText(debitCardAccount.getBankCardNumber());
             mBalance.setText(debitCardAccount.getBalance().toString());
+        }
+    }
+
+    static abstract class CashCardAccountInout {
+
+        protected EditText mRemark;
+        protected EditText mBalance;
+
+        public void pre(View accountInputs) {
+            mRemark = accountInputs.findViewById(R.id.account_remark);
+            mBalance = accountInputs.findViewById(R.id.account_amount);
+        }
+    }
+
+    static class CampusCardAccountExtractor extends CashCardAccountInout implements AccountExtractor {
+
+        @Override
+        public Account extract(View accountInputs) {
+            pre(accountInputs);
+            CashCardAccount account = new CampusCardAccount();
+            account.setRemark(mRemark.getText().toString());
+            account.setBalance(Amount.valueOf(mBalance.getText().toString()));
+            return account;
+        }
+    }
+
+    static class BusCardAccountExtractor extends CashCardAccountInout implements AccountExtractor {
+
+        @Override
+        public Account extract(View accountInputs) {
+            pre(accountInputs);
+            CashCardAccount account = new BusCardAccount();
+            account.setRemark(mRemark.getText().toString());
+            account.setBalance(Amount.valueOf(mBalance.getText().toString()));
+            return account;
+        }
+    }
+
+    static class CashCardAccountFiller extends CashCardAccountInout implements AccountFiller {
+
+        @Override
+        public void fill(View accountInputs, Account account) {
+            pre(accountInputs);
+            CashCardAccount cashCardAccount = (CashCardAccount) account;
+            mRemark.setText(cashCardAccount.getRemark());
+            mBalance.setText(cashCardAccount.getBalance().toString());
         }
     }
 

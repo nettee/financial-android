@@ -16,7 +16,8 @@ public abstract class Account implements Serializable {
     public static final int DEBIT_CARD = 300;
     public static final int ALIPAY = 400;
     public static final int WEIXIN = 401;
-    public static final int CASH_CARD = 500;
+    public static final int CAMPUS_CARD = 500;
+    public static final int BUS_CARD = 501;
     public static final int INVESTMENT = 600;
 
     private final UUID mId;

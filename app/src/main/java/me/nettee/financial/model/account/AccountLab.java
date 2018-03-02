@@ -32,8 +32,8 @@ public class AccountLab {
             add(Account.candidate(Account.DEBIT_CARD, "借记卡", R.drawable.ic_bank_card));
             add(Account.candidate(Account.ALIPAY, "支付宝", R.drawable.ic_alipay));
             add(Account.candidate(Account.WEIXIN, "微信钱包", R.drawable.ic_wxpay));
-            add(Account.candidate(Account.CASH_CARD, "校园卡", R.drawable.ic_campus_card));
-            add(Account.candidate(Account.CASH_CARD, "公交卡", R.drawable.ic_bus));
+            add(Account.candidate(Account.CAMPUS_CARD, "校园卡", R.drawable.ic_campus_card));
+            add(Account.candidate(Account.BUS_CARD, "公交卡", R.drawable.ic_bus));
             add(Account.candidate(Account.INVESTMENT, "投资账户", R.drawable.ic_account_investment));
 //            add(Account.candidate(Account.CASH, "其他账户", R.drawable.ic_account));
         }

@@ -1,34 +1,21 @@
 package me.nettee.financial.model.account;
 
+import me.nettee.financial.model.Amount;
+
 public abstract class CashCardAccount extends Account {
 
-    public static final int BUS_CARD = 0;
-    public static final int CAMPUS_CARD = 1;
+    private Amount mBalance;
 
-    private int mAmount;
-
-    public CashCardAccount() {
-        this(0);
+    public Amount getBalance() {
+        return mBalance;
     }
 
-    public CashCardAccount(int amount) {
-        mAmount = amount;
+    public void setBalance(Amount balance) {
+        mBalance = balance;
     }
 
     @Override
-    public int getType() {
-        return CASH_CARD;
+    public Amount getDefaultAmount() {
+        return getBalance();
     }
-
-    public abstract int getCashCardType();
-
-    @Override
-    public abstract String getCandidateName();
-
-    public int getDefaultAmount0() {
-        return mAmount;
-    }
-
-    @Override
-    public abstract int getCandidateImageResource();
 }
