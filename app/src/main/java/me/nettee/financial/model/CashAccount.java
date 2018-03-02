@@ -2,7 +2,7 @@ package me.nettee.financial.model;
 
 import me.nettee.financial.R;
 
-public class CashAccount extends Account {
+public final class CashAccount extends Account {
 
     private Amount mBalance = Amount.zero();
 

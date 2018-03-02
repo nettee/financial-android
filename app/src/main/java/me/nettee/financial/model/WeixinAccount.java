@@ -2,7 +2,7 @@ package me.nettee.financial.model;
 
 import me.nettee.financial.R;
 
-public class WeixinAccount extends Account {
+public final class WeixinAccount extends Account {
 
     private static final long serialVersionUID = 1L;
 

@@ -2,7 +2,6 @@ package me.nettee.financial.ui;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +17,6 @@ import java.util.List;
 import me.nettee.financial.R;
 import me.nettee.financial.model.Account;
 import me.nettee.financial.model.AccountLab;
-import me.nettee.financial.model.Bank;
-import me.nettee.financial.model.BankCardAccount;
 
 public class PropertyFragment extends Fragment {
 

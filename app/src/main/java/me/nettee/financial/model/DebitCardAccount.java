@@ -2,7 +2,7 @@ package me.nettee.financial.model;
 
 import me.nettee.financial.R;
 
-public class DebitCardAccount extends BankCardAccount {
+public final class DebitCardAccount extends BankCardAccount {
 
     private static final long serialVersionUID = 1L;
 

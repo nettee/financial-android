@@ -2,7 +2,7 @@ package me.nettee.financial.model;
 
 import me.nettee.financial.R;
 
-public class AlipayAccount extends Account {
+public final class AlipayAccount extends Account {
 
     private static final long serialVersionUID = 1L;
 

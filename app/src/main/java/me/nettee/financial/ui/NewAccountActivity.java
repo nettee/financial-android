@@ -1,9 +1,7 @@
 package me.nettee.financial.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -12,13 +10,12 @@ import me.nettee.financial.R;
 import me.nettee.financial.model.Account;
 import me.nettee.financial.model.AccountLab;
 
-public class NewAccountActivity extends Activity {
+public class NewAccountActivity extends WriteAccountBaseActivity {
 
     public static final String EXTRA_CANDIDATE_ACCOUNT_OBJECT = "me.nettee.financial.extra_candidate_account_object";
 
     private Account mCandidateAccount;
 
-    private View mAccountInputs;
     private Button mSaveButton;
 
     @Override
@@ -33,16 +30,15 @@ public class NewAccountActivity extends Activity {
 
         mCandidateAccount = (Account) getIntent().getSerializableExtra(EXTRA_CANDIDATE_ACCOUNT_OBJECT);
 
-        mAccountInputs = NewEditAccounts.constructView(this,
-                mCandidateAccount.getType(),
+        constructView(mCandidateAccount.getType(),
                 mCandidateAccount.getCandidateImageResource(),
                 mCandidateAccount.getCandidateName());
 
         mSaveButton = findViewById(R.id.button_save);
         mSaveButton.setOnClickListener(view -> {
 
-            NewEditAccounts.AccountExtractor extractor = NewEditAccounts.sAccountExtractorMap
-                    .getOrDefault(mCandidateAccount.getType(), new NewEditAccounts.NullAccountExtractor());
+            AccountExtractor extractor = sAccountExtractorMap
+                    .getOrDefault(mCandidateAccount.getType(), new NullAccountExtractor());
             Account account = extractor.extract(mAccountInputs);
 
             if (account == null) {

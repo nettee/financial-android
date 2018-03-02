@@ -30,12 +30,13 @@ import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.CashAccount;
 import me.nettee.financial.model.CreditCardAccount;
 import me.nettee.financial.model.CreditDate;
+import me.nettee.financial.model.DebitCardAccount;
 import me.nettee.financial.model.InvestmentAccount;
 import me.nettee.financial.model.InvestmentPlatform;
 
 import static android.view.View.GONE;
 
-public class NewEditAccounts {
+public abstract class WriteAccountBaseActivity extends Activity {
 
     private static final Map<Integer, Integer> sAccountInputsMap = new HashMap<Integer, Integer>() {
         private static final long serialVersionUID = 1L;
@@ -49,118 +50,28 @@ public class NewEditAccounts {
         }
     };
 
-    public static Map<Integer, AccountExtractor> sAccountExtractorMap = new HashMap<Integer, AccountExtractor>() {
+    protected static Map<Integer, AccountExtractor> sAccountExtractorMap = new HashMap<Integer, AccountExtractor>() {
         private static final long serialVersionUID = 1L;
         {
             put(Account.CASH, new CashAccountExtractor());
             put(Account.CREDIT_CARD, new CreditCardAccountExtractor());
+            put(Account.DEBIT_CARD, new DebitCardAccountExtractor());
             put(Account.INVESTMENT, new InvestmentAccountExtractor());
         }
     };
 
-    @FunctionalInterface
-    public interface AccountExtractor {
-        Account extract(View accountInputs);
-    }
-
-    public static abstract class CashAccountInout {
-
-        protected EditText mRemark;
-        protected EditText mBalanceAmount;
-
-        public void pre(View accountInputs) {
-            mRemark = accountInputs.findViewById(R.id.account_remark);
-            mBalanceAmount = accountInputs.findViewById(R.id.account_amount);
+    protected static Map<Integer, AccountFiller> sAccountFillerMap = new HashMap<Integer, AccountFiller>() {
+        private static final long serialVersionUID = 1L;
+        {
+            put(Account.CASH, new CashAccountFiller());
+            put(Account.CREDIT_CARD, new CreditCardFiller());
+            put(Account.DEBIT_CARD, new DebitCardAccountFiller());
         }
-    }
+    };
 
-    public static class CashAccountExtractor extends NewEditAccounts.CashAccountInout
-            implements AccountExtractor {
+    protected View mAccountInputs;
 
-        @Override
-        public Account extract(View accountInputs) {
-            pre(accountInputs);
-            CashAccount account = new CashAccount();
-            account.setBalance(Amount.valueOf(mBalanceAmount.getText().toString()));
-            account.setRemark(mRemark.getText().toString());
-            return account;
-        }
-    }
-
-    public static abstract class CreditCardAccountInout {
-
-        protected EditText mRemark;
-        protected EditText mBankCardNumber;
-        protected EditText mCreditLimit;
-        protected Spinner mBillDate;
-        protected Spinner mPaymentDate;
-        protected EditText mCurrentArrears;
-
-        public void pre(View accountInputs) {
-            mRemark = accountInputs.findViewById(R.id.account_remark);
-            mBankCardNumber = accountInputs.findViewById(R.id.account_bank_card_number);
-            mCreditLimit = accountInputs.findViewById(R.id.view_credit_limit)
-                    .findViewById(R.id.account_amount);
-            mBillDate = accountInputs.findViewById(R.id.view_bill_date)
-                    .findViewById(R.id.account_credit_date_spinner);
-            mPaymentDate = accountInputs.findViewById(R.id.view_payment_date)
-                    .findViewById(R.id.account_credit_date_spinner);
-            mCurrentArrears = accountInputs.findViewById(R.id.view_current_arrears)
-                    .findViewById(R.id.account_amount);
-        }
-    }
-
-
-    public static class CreditCardAccountExtractor extends CreditCardAccountInout
-            implements AccountExtractor {
-
-        @Override
-        public Account extract(View accountInputs) {
-            pre(accountInputs);
-            CreditCardAccount account = new CreditCardAccount();
-            account.setRemark(mRemark.getText().toString());
-            account.setBankCardNumber(mBankCardNumber.getText().toString());
-            account.setCreditLimit(Amount.valueOf(mCreditLimit.getText().toString()));
-            account.setBillDate(CreditDate.fromSpinner(mBillDate));
-            account.setPaymentDate(CreditDate.fromSpinner(mPaymentDate));
-            account.setCurrentArrears(Amount.valueOf(mCurrentArrears.getText().toString()));
-            return account;
-        }
-    }
-
-    public static abstract class InvestmentAccountInout {
-
-        protected AutoCompleteTextView mPlatform;
-
-        public void pre(View accountInputs) {
-            mPlatform = accountInputs.findViewById(R.id.account_investment_platform);
-        }
-    }
-
-    public static class InvestmentAccountExtractor extends InvestmentAccountInout
-            implements AccountExtractor {
-
-        @Override
-        public Account extract(View accountInputs) {
-            pre(accountInputs);
-            InvestmentAccount account = new InvestmentAccount();
-            account.setPlatform(InvestmentPlatform.getPlatformOrGeneral(mPlatform.getText().toString()));
-            return account;
-        }
-    }
-
-    public static class NullAccountExtractor implements AccountExtractor {
-
-        @Override
-        public Account extract(View accountInputs) {
-            return null;
-        }
-    }
-
-    public static View constructView(Activity activity,
-                                     int accountType,
-                                     int candidateImageResource,
-                                     String candidateName) {
+    protected void constructView(int accountType, int candidateImageResource, String candidateName) {
 
         // Construct account title bar.
         {
@@ -171,7 +82,7 @@ public class NewEditAccounts {
                 layoutResource = R.layout.account_title_bar_ordinary;
             }
 
-            ViewStub stub = activity.findViewById(R.id.account_title_bar_stub);
+            ViewStub stub = findViewById(R.id.account_title_bar_stub);
             stub.setLayoutResource(layoutResource);
             View accountTitleBar = stub.inflate();
 
@@ -186,7 +97,7 @@ public class NewEditAccounts {
             Integer layoutResource = sAccountInputsMap
                     .getOrDefault(accountType, R.layout.account_inputs_cash);
 
-            ViewStub stub = activity.findViewById(R.id.account_inputs_stub);
+            ViewStub stub = findViewById(R.id.account_inputs_stub);
             stub.setLayoutResource(layoutResource);
             View accountInputs = stub.inflate();
 
@@ -206,7 +117,7 @@ public class NewEditAccounts {
                         .<TextView>findViewById(R.id.account_credit_date_caption)
                         .setText(R.string.caption_payment_date);
                 {
-                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
+                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                             R.array.bill_dates_array,
                             android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -215,7 +126,7 @@ public class NewEditAccounts {
                             .setAdapter(adapter);
                 }
                 {
-                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
+                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                             R.array.bill_dates_array,
                             android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -226,7 +137,7 @@ public class NewEditAccounts {
             } else if (accountType == Account.INVESTMENT) {
                 AutoCompleteTextView investmentPlatform = accountInputs.findViewById(R.id.account_investment_platform);
                 ImageView investmentPlatformImage = accountInputs.findViewById(R.id.account_investment_platform_image);
-                InvestmentPlatformAdapter adapter = new InvestmentPlatformAdapter(activity, InvestmentPlatform.getPlatforms());
+                InvestmentPlatformAdapter adapter = new InvestmentPlatformAdapter(this, InvestmentPlatform.getPlatforms());
                 investmentPlatform.setAdapter(adapter);
                 investmentPlatform.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -252,11 +163,168 @@ public class NewEditAccounts {
                 });
             }
 
-            return accountInputs;
+            mAccountInputs = accountInputs;
         }
     }
 
-    private static class InvestmentPlatformAdapter extends ArrayAdapter<InvestmentPlatform> {
+    @FunctionalInterface
+    interface AccountExtractor {
+        Account extract(View accountInputs);
+    }
+
+    @FunctionalInterface
+    interface AccountFiller {
+        void fill(View accountInputs, Account account);
+    }
+
+    static abstract class CashAccountInout {
+
+        protected EditText mRemark;
+        protected EditText mBalanceAmount;
+
+        public void pre(View accountInputs) {
+            mRemark = accountInputs.findViewById(R.id.account_remark);
+            mBalanceAmount = accountInputs.findViewById(R.id.account_amount);
+        }
+    }
+
+    static class CashAccountExtractor extends CashAccountInout implements AccountExtractor {
+
+        @Override
+        public Account extract(View accountInputs) {
+            pre(accountInputs);
+            CashAccount account = new CashAccount();
+            account.setBalance(Amount.valueOf(mBalanceAmount.getText().toString()));
+            account.setRemark(mRemark.getText().toString());
+            return account;
+        }
+    }
+
+    static class CashAccountFiller extends CashAccountInout implements AccountFiller {
+
+        @Override
+        public void fill(View accountInputs, Account account) {
+            pre(accountInputs);
+            CashAccount cashAccount = (CashAccount) account;
+            mRemark.setText(cashAccount.getRemark());
+            mBalanceAmount.setText(cashAccount.getDefaultAmount().toString());
+        }
+    }
+
+    static abstract class CreditCardAccountInout {
+
+        protected EditText mRemark;
+        protected EditText mBankCardNumber;
+        protected EditText mCreditLimit;
+        protected Spinner mBillDate;
+        protected Spinner mPaymentDate;
+        protected EditText mCurrentArrears;
+
+        public void pre(View accountInputs) {
+            mRemark = accountInputs.findViewById(R.id.account_remark);
+            mBankCardNumber = accountInputs.findViewById(R.id.account_bank_card_number);
+            mCreditLimit = accountInputs.findViewById(R.id.view_credit_limit)
+                    .findViewById(R.id.account_amount);
+            mBillDate = accountInputs.findViewById(R.id.view_bill_date)
+                    .findViewById(R.id.account_credit_date_spinner);
+            mPaymentDate = accountInputs.findViewById(R.id.view_payment_date)
+                    .findViewById(R.id.account_credit_date_spinner);
+            mCurrentArrears = accountInputs.findViewById(R.id.view_current_arrears)
+                    .findViewById(R.id.account_amount);
+        }
+    }
+
+    static class CreditCardAccountExtractor extends CreditCardAccountInout implements AccountExtractor {
+        @Override
+        public Account extract(View accountInputs) {
+            pre(accountInputs);
+            CreditCardAccount account = new CreditCardAccount();
+            account.setRemark(mRemark.getText().toString());
+            account.setBankCardNumber(mBankCardNumber.getText().toString());
+            account.setCreditLimit(Amount.valueOf(mCreditLimit.getText().toString()));
+            account.setBillDate(CreditDate.fromSpinner(mBillDate));
+            account.setPaymentDate(CreditDate.fromSpinner(mPaymentDate));
+            account.setCurrentArrears(Amount.valueOf(mCurrentArrears.getText().toString()));
+            return account;
+        }
+
+    }
+
+    static class CreditCardFiller extends CreditCardAccountInout implements AccountFiller {
+
+        @Override
+        public void fill(View accountInputs, Account account) {
+            pre(accountInputs);
+            CreditCardAccount creditCardAccount = (CreditCardAccount) account;
+            mRemark.setText(creditCardAccount.getRemark());
+            mBankCardNumber.setText(creditCardAccount.getBankCardNumber());
+            mCreditLimit.setText(creditCardAccount.getCreditLimit().toString());
+            mBillDate.setSelection(creditCardAccount.getBillDate().toPosition());
+            mPaymentDate.setSelection(creditCardAccount.getPaymentDate().toPosition());
+            mCurrentArrears.setText(creditCardAccount.getCurrentArrears().toString());
+        }
+    }
+
+    static abstract class DebitCardAccountInout {
+        protected EditText mRemark;
+        protected EditText mBankCardNumber;
+
+        protected EditText mBalance;
+        public void pre(View accountInputs) {
+            mRemark = accountInputs.findViewById(R.id.account_remark);
+            mBankCardNumber = accountInputs.findViewById(R.id.account_bank_card_number);
+            mBalance = accountInputs.findViewById(R.id.view_balance)
+                    .findViewById(R.id.account_amount);
+        }
+
+    }
+
+    static class DebitCardAccountExtractor extends DebitCardAccountInout implements AccountExtractor {
+        @Override
+        public Account extract(View accountInputs) {
+            pre(accountInputs);
+            DebitCardAccount account = new DebitCardAccount();
+            account.setRemark(mRemark.getText().toString());
+            account.setBankCardNumber(mBankCardNumber.getText().toString());
+            account.setBalance(Amount.valueOf(mBalance.getText().toString()));
+            return account;
+        }
+
+    }
+
+    static class DebitCardAccountFiller extends DebitCardAccountInout implements AccountFiller {
+
+        @Override
+        public void fill(View accountInputs, Account account) {
+            pre(accountInputs);
+            DebitCardAccount debitCardAccount = (DebitCardAccount) account;
+            mRemark.setText(debitCardAccount.getRemark());
+            mBankCardNumber.setText(debitCardAccount.getBankCardNumber());
+            mBalance.setText(debitCardAccount.getBalance().toString());
+        }
+    }
+
+    static abstract class InvestmentAccountInout {
+
+        protected AutoCompleteTextView mPlatform;
+        public void pre(View accountInputs) {
+            mPlatform = accountInputs.findViewById(R.id.account_investment_platform);
+        }
+
+    }
+
+    static class InvestmentAccountExtractor extends InvestmentAccountInout implements AccountExtractor {
+        @Override
+        public Account extract(View accountInputs) {
+            pre(accountInputs);
+            InvestmentAccount account = new InvestmentAccount();
+            account.setPlatform(InvestmentPlatform.getPlatformOrGeneral(mPlatform.getText().toString()));
+            return account;
+        }
+
+    }
+
+    static class InvestmentPlatformAdapter extends ArrayAdapter<InvestmentPlatform> {
 
         private List<InvestmentPlatform> mPlatforms;
 
@@ -284,7 +352,6 @@ public class NewEditAccounts {
 
             return convertView;
         }
-
         @NonNull
         @Override
         public Filter getFilter() {
@@ -320,8 +387,24 @@ public class NewEditAccounts {
                 }
             };
         }
+
     }
 
+    static class NullAccountExtractor implements AccountExtractor {
+        @Override
+        public Account extract(View accountInputs) {
+            return null;
+        }
+
+    }
+
+    static class NullAccountFiller implements AccountFiller {
+
+        @Override
+        public void fill(View accountInputs, Account account) {
+            // Do nothing.
+        }
+    }
 
 
 }

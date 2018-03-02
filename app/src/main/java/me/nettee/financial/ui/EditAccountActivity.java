@@ -1,31 +1,23 @@
 package me.nettee.financial.ui;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import me.nettee.financial.R;
 import me.nettee.financial.model.Account;
 import me.nettee.financial.model.AccountLab;
-import me.nettee.financial.model.CashAccount;
-import me.nettee.financial.model.CreditCardAccount;
 
-public class EditAccountActivity extends Activity {
+public class EditAccountActivity extends WriteAccountBaseActivity {
 
     public static final String EXTRA_EDIT_ACCOUNT_OBJECT = "me.nettee.financial.Account.edit";
 
     private Account mOldAccount;
 
-    private View mAccountInputs;
     private Button mSaveButton;
     private Button mDeleteButton;
 
@@ -41,8 +33,7 @@ public class EditAccountActivity extends Activity {
 
         mOldAccount = (Account) getIntent().getSerializableExtra(EXTRA_EDIT_ACCOUNT_OBJECT);
 
-        mAccountInputs = NewEditAccounts.constructView(this,
-                mOldAccount.getType(),
+        constructView(mOldAccount.getType(),
                 mOldAccount.getCandidateImageResource(),
                 mOldAccount.getCandidateName());
 
@@ -58,8 +49,8 @@ public class EditAccountActivity extends Activity {
         mDeleteButton = findViewById(R.id.button_delete);
 
         mSaveButton.setOnClickListener(view -> {
-            NewEditAccounts.AccountExtractor extractor = NewEditAccounts.sAccountExtractorMap
-                    .getOrDefault(mOldAccount.getType(), new NewEditAccounts.NullAccountExtractor());
+            AccountExtractor extractor = sAccountExtractorMap
+                    .getOrDefault(mOldAccount.getType(), new NullAccountExtractor());
             Account newAccount = extractor.extract(mAccountInputs);
 
             if (newAccount == null) {
@@ -97,52 +88,7 @@ public class EditAccountActivity extends Activity {
 
     }
 
-    private static Map<Integer, AccountFiller> sAccountFillerMap = new HashMap<Integer, AccountFiller>() {
-        private static final long serialVersionUID = 1L;
-        {
-            put(Account.CASH, new CashAccountFiller());
-            put(Account.CREDIT_CARD, new CreditCardFiller());
-        }
-    };
 
-    @FunctionalInterface
-    public interface AccountFiller {
-        void fill(View accountInputs, Account account);
-    }
 
-    public static class CashAccountFiller extends NewEditAccounts.CashAccountInout
-            implements AccountFiller {
 
-        @Override
-        public void fill(View accountInputs, Account account) {
-            pre(accountInputs);
-            CashAccount cashAccount = (CashAccount) account;
-            mRemark.setText(cashAccount.getRemark());
-            mBalanceAmount.setText(cashAccount.getDefaultAmount().toString());
-        }
-    }
-
-    public static class CreditCardFiller extends NewEditAccounts.CreditCardAccountInout
-            implements AccountFiller {
-
-        @Override
-        public void fill(View accountInputs, Account account) {
-            pre(accountInputs);
-            CreditCardAccount creditCardAccount = (CreditCardAccount) account;
-            mRemark.setText(creditCardAccount.getRemark());
-            mBankCardNumber.setText(creditCardAccount.getBankCardNumber());
-            mCreditLimit.setText(creditCardAccount.getCreditLimit().toString());
-            mBillDate.setSelection(creditCardAccount.getBillDate().toPosition());
-            mPaymentDate.setSelection(creditCardAccount.getPaymentDate().toPosition());
-            mCurrentArrears.setText(creditCardAccount.getCurrentArrears().toString());
-        }
-    }
-
-    public static class NullAccountFiller implements AccountFiller {
-
-        @Override
-        public void fill(View accountInputs, Account account) {
-            // Do nothing.
-        }
-    }
 }
