@@ -3,6 +3,7 @@ package me.nettee.financial.ui;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,7 @@ public class PropertyFragment extends Fragment {
             String name = account.getDisplayName();
             String remark = account.getDisplayRemark();
             String amount = account.getDefaultAmount().toYuanString();
+            Log.d("TAG", String.format("name = %s, amount = %s", name, amount.toString()));
 
             Integer layoutId;
             if (StringUtils.isNotEmpty(remark)) {

@@ -66,6 +66,7 @@ public abstract class WriteAccountBaseActivity extends Activity {
             put(Account.CASH, new CashAccountFiller());
             put(Account.CREDIT_CARD, new CreditCardFiller());
             put(Account.DEBIT_CARD, new DebitCardAccountFiller());
+            put(Account.INVESTMENT, new InvestmentAccountFiller());
         }
     };
 
@@ -244,7 +245,9 @@ public abstract class WriteAccountBaseActivity extends Activity {
             account.setCreditLimit(Amount.valueOf(mCreditLimit.getText().toString()));
             account.setBillDate(CreditDate.fromSpinner(mBillDate));
             account.setPaymentDate(CreditDate.fromSpinner(mPaymentDate));
-            account.setCurrentArrears(Amount.valueOf(mCurrentArrears.getText().toString()));
+            Amount arrears = Amount.valueOf(mCurrentArrears.getText().toString());
+            arrears.setSign(Amount.NEGATIVE);
+            account.setCurrentArrears(arrears);
             return account;
         }
 
@@ -321,7 +324,15 @@ public abstract class WriteAccountBaseActivity extends Activity {
             account.setPlatform(InvestmentPlatform.getPlatformOrGeneral(mPlatform.getText().toString()));
             return account;
         }
+    }
 
+    static class InvestmentAccountFiller extends InvestmentAccountInout implements AccountFiller {
+        @Override
+        public void fill(View accountInputs, Account account) {
+            pre(accountInputs);
+            InvestmentAccount investmentAccount = (InvestmentAccount) account;
+            mPlatform.setText(investmentAccount.getPlatform().getName());
+        }
     }
 
     static class InvestmentPlatformAdapter extends ArrayAdapter<InvestmentPlatform> {

@@ -8,6 +8,10 @@ import java.text.ParseException;
 
 public class Amount implements Serializable {
 
+    public static final int POSITIVE = 0;
+    public static final int NEGATIVE = 1;
+
+    int sign = POSITIVE;
     int yuan;
     int cent;
 
@@ -52,14 +56,33 @@ public class Amount implements Serializable {
         }
     }
 
+    public boolean isPositive() {
+        return sign == POSITIVE;
+    }
+
+    public boolean isNegative() {
+        return sign == NEGATIVE;
+    }
+
+    public int getSign() {
+        return sign;
+    }
+
+    public void setSign(int sign) {
+        this.sign = sign;
+    }
+
+    private String format(boolean withYuan) {
+        String a = new DecimalFormat(",###").format(yuan);
+        return String.format("%s%s%s.%02d", isNegative() ? "-" : "", withYuan ? "¥" : "", a, cent);
+    }
+
     @Override
     public String toString() {
-        String a = new DecimalFormat(",###").format(yuan);
-        String y = String.format("%s.%02d", a, cent);
-        return y;
+        return format(false);
     }
 
     public String toYuanString() {
-        return "¥" + toString();
+        return format(true);
     }
 }
