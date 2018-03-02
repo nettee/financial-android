@@ -29,6 +29,11 @@ public final class AlipayAccount extends Account {
         return getBalance();
     }
 
+    @Override
+    public String getDefaultAmountCaption() {
+        return "账户余额";
+    }
+
     public Amount getBalance() {
         return mBalance;
     }

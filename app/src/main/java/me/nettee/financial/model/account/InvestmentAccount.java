@@ -1,6 +1,9 @@
 package me.nettee.financial.model.account;
 
+import java.util.Optional;
+
 import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.Asset;
 import me.nettee.financial.model.InvestmentPlatform;
 
 public final class InvestmentAccount extends Account {
@@ -27,8 +30,19 @@ public final class InvestmentAccount extends Account {
         return getPlatform().getImageResource();
     }
 
+    @Override
     public Amount getDefaultAmount() {
         return mAmount;
+    }
+
+    @Override
+    public String getDefaultAmountCaption() {
+        return "账户总额";
+    }
+
+    @Override
+    public Optional<Asset> getAsset() {
+        return Optional.of(new Asset(mAmount));
     }
 
     public InvestmentPlatform getPlatform() {

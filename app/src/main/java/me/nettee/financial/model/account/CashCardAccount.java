@@ -1,10 +1,30 @@
 package me.nettee.financial.model.account;
 
+import java.util.Optional;
+
 import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.Asset;
 
 public abstract class CashCardAccount extends Account {
 
+    private static final long serialVersionUID = 1L;
+
     private Amount mBalance;
+
+    @Override
+    public Amount getDefaultAmount() {
+        return getBalance();
+    }
+
+    @Override
+    public String getDefaultAmountCaption() {
+        return "账户余额";
+    }
+
+    @Override
+    public Optional<Asset> getAsset() {
+        return Optional.of(new Asset(mBalance));
+    }
 
     public Amount getBalance() {
         return mBalance;
@@ -14,8 +34,4 @@ public abstract class CashCardAccount extends Account {
         mBalance = balance;
     }
 
-    @Override
-    public Amount getDefaultAmount() {
-        return getBalance();
-    }
 }

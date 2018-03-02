@@ -1,7 +1,6 @@
 package me.nettee.financial.model.account;
 
 import me.nettee.financial.R;
-import me.nettee.financial.model.Amount;
 
 public class CampusCardAccount extends CashCardAccount {
 

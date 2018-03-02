@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
-import me.nettee.financial.model.Asset;
 import me.nettee.financial.model.CreditDate;
 import me.nettee.financial.model.Liability;
 
@@ -35,6 +34,11 @@ public final class CreditCardAccount extends BankCardAccount {
     @Override
     public Amount getDefaultAmount() {
         return getCurrentArrears();
+    }
+
+    @Override
+    public String getDefaultAmountCaption() {
+        return "当前欠款";
     }
 
     @Override

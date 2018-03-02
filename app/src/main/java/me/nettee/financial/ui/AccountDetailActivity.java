@@ -31,6 +31,7 @@ public class AccountDetailActivity extends Activity {
     TextView mAccountCardName;
     TextView mAccountCardNameSplit;
     TextView mAccountCardRemark;
+    TextView mAccountCardAmountCaption;
     TextView mAccountCardAmount;
 
     @Override
@@ -49,6 +50,7 @@ public class AccountDetailActivity extends Activity {
         mAccountCardName = findViewById(R.id.account_card_name);
         mAccountCardNameSplit = findViewById(R.id.account_card_name_split);
         mAccountCardRemark = findViewById(R.id.account_card_remark);
+        mAccountCardAmountCaption = findViewById(R.id.account_card_amount_caption);
         mAccountCardAmount = findViewById(R.id.account_card_amount);
 
         Button editButton = findViewById(R.id.account_card_edit);
@@ -89,6 +91,7 @@ public class AccountDetailActivity extends Activity {
         } else {
             mAccountCardRemark.setText(remark);
         }
+        mAccountCardAmountCaption.setText(account.getDefaultAmountCaption());
         mAccountCardAmount.setText(account.getDefaultAmount().toString());
     }
 }

@@ -10,6 +10,8 @@ import me.nettee.financial.model.Liability;
 
 public abstract class Account implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     public static final int GENERAL = 0;
     public static final int CASH = 100;
     public static final int CREDIT_CARD = 200;
@@ -38,6 +40,8 @@ public abstract class Account implements Serializable {
     public abstract int getCandidateImageResource();
 
     public abstract Amount getDefaultAmount();
+
+    public abstract String getDefaultAmountCaption();
 
     public final String getRemark() {
         return mRemark;
@@ -95,6 +99,8 @@ public abstract class Account implements Serializable {
 
     private static final class CandidateAccount extends Account implements Serializable {
 
+        private static final long serialVersionUID = 1L;
+
         private int mType;
         private String mCandidateName;
         private int mCandidateImageResource;
@@ -119,6 +125,11 @@ public abstract class Account implements Serializable {
 
         @Override
         public Amount getDefaultAmount() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public String getDefaultAmountCaption() {
             throw new UnsupportedOperationException();
         }
     }

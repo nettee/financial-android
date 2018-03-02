@@ -33,6 +33,11 @@ public final class CashAccount extends Account {
     }
 
     @Override
+    public String getDefaultAmountCaption() {
+        return "账户余额";
+    }
+
+    @Override
     public Optional<Asset> getAsset() {
         return Optional.of(new Asset(mBalance));
     }

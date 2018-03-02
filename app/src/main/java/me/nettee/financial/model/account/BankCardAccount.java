@@ -6,6 +6,8 @@ import me.nettee.financial.model.Bank;
 
 public abstract class BankCardAccount extends Account {
 
+    private static final long serialVersionUID = 1L;
+
     private String mBankCardNumber;
 
     public final Bank getBank() {
