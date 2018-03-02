@@ -3,11 +3,9 @@ package me.nettee.financial.model.account;
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 
-public final class AlipayAccount extends Account {
+public final class AlipayAccount extends MobilePaymentAccount {
 
     private static final long serialVersionUID = 1L;
-
-    private Amount mBalance = Amount.zero();
 
     @Override
     public int getType() {
@@ -24,21 +22,4 @@ public final class AlipayAccount extends Account {
         return R.drawable.ic_alipay;
     }
 
-    @Override
-    public Amount getDefaultAmount() {
-        return getBalance();
-    }
-
-    @Override
-    public String getDefaultAmountCaption() {
-        return "账户余额";
-    }
-
-    public Amount getBalance() {
-        return mBalance;
-    }
-
-    public void setBalance(Amount balance) {
-        mBalance = balance;
-    }
 }

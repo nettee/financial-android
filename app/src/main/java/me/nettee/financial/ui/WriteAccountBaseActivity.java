@@ -29,6 +29,7 @@ import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.CreditDate;
 import me.nettee.financial.model.InvestmentPlatform;
 import me.nettee.financial.model.account.Account;
+import me.nettee.financial.model.account.AlipayAccount;
 import me.nettee.financial.model.account.BusCardAccount;
 import me.nettee.financial.model.account.CampusCardAccount;
 import me.nettee.financial.model.account.CashAccount;
@@ -36,6 +37,8 @@ import me.nettee.financial.model.account.CashCardAccount;
 import me.nettee.financial.model.account.CreditCardAccount;
 import me.nettee.financial.model.account.DebitCardAccount;
 import me.nettee.financial.model.account.InvestmentAccount;
+import me.nettee.financial.model.account.MobilePaymentAccount;
+import me.nettee.financial.model.account.WeixinAccount;
 
 import static android.view.View.GONE;
 
@@ -61,6 +64,8 @@ public abstract class WriteAccountBaseActivity extends Activity {
             put(Account.CASH, new CashAccountExtractor());
             put(Account.CREDIT_CARD, new CreditCardAccountExtractor());
             put(Account.DEBIT_CARD, new DebitCardAccountExtractor());
+            put(Account.ALIPAY, new AlipayAccountExtractor());
+            put(Account.WEIXIN, new WeixinAccountExtractor());
             put(Account.CAMPUS_CARD, new CampusCardAccountExtractor());
             put(Account.BUS_CARD, new BusCardAccountExtractor());
             put(Account.INVESTMENT, new InvestmentAccountExtractor());
@@ -73,6 +78,8 @@ public abstract class WriteAccountBaseActivity extends Activity {
             put(Account.CASH, new CashAccountFiller());
             put(Account.CREDIT_CARD, new CreditCardFiller());
             put(Account.DEBIT_CARD, new DebitCardAccountFiller());
+            put(Account.ALIPAY, new MobilePaymentAccountFiller());
+            put(Account.WEIXIN, new MobilePaymentAccountFiller());
             put(Account.CAMPUS_CARD, new CashCardAccountFiller());
             put(Account.BUS_CARD, new CashCardAccountFiller());
             put(Account.INVESTMENT, new InvestmentAccountFiller());
@@ -360,6 +367,52 @@ public abstract class WriteAccountBaseActivity extends Activity {
             CashCardAccount cashCardAccount = (CashCardAccount) account;
             mRemark.setText(cashCardAccount.getRemark());
             mBalance.setText(cashCardAccount.getBalance().toString());
+        }
+    }
+
+    static abstract class MobilePaymentAccountInout {
+
+        protected EditText mRemark;
+        protected EditText mBalance;
+
+        public void pre(View accountInputs) {
+            mRemark = accountInputs.findViewById(R.id.account_remark);
+            mBalance = accountInputs.findViewById(R.id.account_amount);
+        }
+    }
+
+    static class AlipayAccountExtractor extends MobilePaymentAccountInout implements AccountExtractor {
+
+        @Override
+        public Account extract(View accountInputs) {
+            pre(accountInputs);
+            AlipayAccount account = new AlipayAccount();
+            account.setRemark(mRemark.getText().toString());
+            account.setBalance(Amount.valueOf(mBalance.getText().toString()));
+            return account;
+        }
+    }
+
+    static class WeixinAccountExtractor extends MobilePaymentAccountInout implements AccountExtractor {
+
+        @Override
+        public Account extract(View accountInputs) {
+            pre(accountInputs);
+            WeixinAccount account = new WeixinAccount();
+            account.setRemark(mRemark.getText().toString());
+            account.setBalance(Amount.valueOf(mBalance.getText().toString()));
+            return account;
+        }
+    }
+
+    static class MobilePaymentAccountFiller extends MobilePaymentAccountInout implements AccountFiller {
+
+        @Override
+        public void fill(View accountInputs, Account account) {
+            pre(accountInputs);
+            MobilePaymentAccount mobilePaymentAccount = (MobilePaymentAccount) account;
+            mRemark.setText(mobilePaymentAccount.getRemark());
+            mBalance.setText(mobilePaymentAccount.getBalance().toString());
         }
     }
 
