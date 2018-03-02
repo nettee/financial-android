@@ -41,7 +41,7 @@ public class NewAccountCandidateActivity extends Activity {
         List<Account> candidateAccounts = AccountLab.getInstance().getCandidateAccounts();
 
         for (final Account candidateAccount : candidateAccounts) {
-            View itemView = inflater.inflate(R.layout.candidate_account_list_item, null);
+            View itemView = inflater.inflate(R.layout.list_item_candidate_account, null);
             itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 180));
 
             ImageView candidateAccountIconImageView = itemView.findViewById(R.id.candidate_account_list_item_image);

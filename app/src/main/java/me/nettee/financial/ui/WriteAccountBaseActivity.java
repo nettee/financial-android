@@ -78,9 +78,9 @@ public abstract class WriteAccountBaseActivity extends Activity {
         {
             Integer layoutResource;
             if (accountType == Account.CREDIT_CARD || accountType == Account.DEBIT_CARD) {
-                layoutResource = R.layout.account_title_bar_bank_card;
+                layoutResource = R.layout.title_bar_account_write_bank_card;
             } else {
-                layoutResource = R.layout.account_title_bar_ordinary;
+                layoutResource = R.layout.title_bar_account_write_ordinary;
             }
 
             ViewStub stub = findViewById(R.id.account_title_bar_stub);
@@ -389,7 +389,9 @@ public abstract class WriteAccountBaseActivity extends Activity {
                     if (filterResults == null || filterResults.count <= 0) {
                         return;
                     }
+
                     ArrayList<InvestmentPlatform> values = (ArrayList<InvestmentPlatform>) filterResults.values;
+
                     clear();
                     for (InvestmentPlatform platform : values) {
                         add(platform);

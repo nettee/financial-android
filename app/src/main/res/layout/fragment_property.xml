@@ -31,7 +31,7 @@
             android:orientation="vertical"
             >
 
-            <include layout="@layout/account_list_title_bar"/>
+            <include layout="@layout/title_bar_account_list"/>
 
             <LinearLayout
                 android:id="@+id/account_list"

@@ -26,6 +26,7 @@ public class InvestmentPlatform implements Serializable {
     }
 
     private static final List<InvestmentPlatform> platforms = new ArrayList<InvestmentPlatform>() {
+        private static final long serialVersionUID = 1L;
         {
             add(new InvestmentPlatform(ANT_FORTUNE, "蚂蚁财富", R.drawable.ic_ant_fortune));
             add(new InvestmentPlatform(LUFAX, "陆金所", R.drawable.ic_lufax));

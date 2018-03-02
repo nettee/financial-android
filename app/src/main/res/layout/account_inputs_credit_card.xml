@@ -9,9 +9,9 @@
 
     <LinearLayout style="@style/InputLines">
 
-        <include layout="@layout/remark_input_bar"/>
+        <include layout="@layout/input_bar_remark"/>
 
-        <include layout="@layout/bank_card_number_input_bar"/>
+        <include layout="@layout/input_bar_bank_card_number"/>
 
     </LinearLayout>
 
@@ -20,15 +20,15 @@
     <LinearLayout style="@style/InputLines">
 
         <include
-            layout="@layout/account_amount_input_bar"
+            layout="@layout/input_bar_account_amount"
             android:id="@+id/view_credit_limit"/>
 
         <include
-            layout="@layout/account_credit_date_input_bar"
+            layout="@layout/input_bar_account_credit_date"
             android:id="@+id/view_bill_date"/>
 
         <include
-            layout="@layout/account_credit_date_input_bar"
+            layout="@layout/input_bar_account_credit_date"
             android:id="@+id/view_payment_date"/>
 
     </LinearLayout>
@@ -36,7 +36,7 @@
     <include layout="@layout/divider_bar_large"/>
 
     <include
-        layout="@layout/account_amount_input_bar"
+        layout="@layout/input_bar_account_amount"
         android:id="@+id/view_current_arrears"/>
 
 </LinearLayout>

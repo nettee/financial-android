@@ -6,10 +6,10 @@
     android:orientation="vertical"
     >
 
-    <include layout="@layout/remark_input_bar"/>
+    <include layout="@layout/input_bar_remark"/>
 
     <include layout="@layout/divider_bar_large"/>
 
-    <include layout="@layout/account_amount_input_bar"/>
+    <include layout="@layout/input_bar_account_amount"/>
 
 </LinearLayout>

@@ -16,22 +16,17 @@ public class Amount implements Serializable {
     int cent;
 
     public static Amount zero() {
-        Amount amount = new Amount();
-        amount.yuan = 0;
-        amount.cent = 0;
-        return amount;
+        return integer(0);
     }
 
     public static Amount integer(int yuan) {
-        Amount amount = new Amount();
-        amount.yuan = yuan;
-        amount.cent = 0;
-        return amount;
+        return decimal(yuan, 0);
     }
 
     public static Amount decimal(int yuan, int cent) {
         Amount amount = new Amount();
-        amount.yuan = yuan;
+        amount.sign = yuan >= 0 ? POSITIVE : NEGATIVE;
+        amount.yuan = Math.abs(yuan);
         amount.cent = cent;
         return amount;
     }

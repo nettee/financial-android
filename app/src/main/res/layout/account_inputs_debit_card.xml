@@ -8,15 +8,15 @@
 
     <LinearLayout style="@style/InputLines">
 
-        <include layout="@layout/remark_input_bar"/>
+        <include layout="@layout/input_bar_remark"/>
 
-        <include layout="@layout/bank_card_number_input_bar"/>
+        <include layout="@layout/input_bar_bank_card_number"/>
 
     </LinearLayout>
 
     <include layout="@layout/divider_bar_large"/>
 
-    <include layout="@layout/account_amount_input_bar"
+    <include layout="@layout/input_bar_account_amount"
         android:id="@+id/view_balance"/>
 
 </LinearLayout>

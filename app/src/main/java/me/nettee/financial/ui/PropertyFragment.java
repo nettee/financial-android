@@ -87,9 +87,9 @@ public class PropertyFragment extends Fragment {
 
             Integer layoutId;
             if (StringUtils.isNotEmpty(remark)) {
-                layoutId = R.layout.account_list_item_with_remark;
+                layoutId = R.layout.list_item_account_with_remark;
             } else {
-                layoutId = R.layout.account_list_item;
+                layoutId = R.layout.list_item_account;
             }
 
             View itemView = inflater.inflate(layoutId, null);
