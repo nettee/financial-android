@@ -22,7 +22,7 @@
         style="@style/InputCaption"
         android:id="@+id/account_amount_yuan"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/input_height_large"
+        android:layout_height="@dimen/height_item"
         android:gravity="center"
         android:text="@string/yuan"
         app:layout_constraintTop_toTopOf="parent"

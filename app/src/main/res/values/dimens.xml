@@ -17,8 +17,11 @@
     <dimen name="margin_ordinary">8dp</dimen>
     <dimen name="margin_large">12dp</dimen>
 
-    <dimen name="caption_height_large">50dp</dimen>
-    <dimen name="input_height_large">50dp</dimen>
+    <!--<dimen name="input_height_large">50dp</dimen>-->
+    <dimen name="height_item">50dp</dimen>
+    <dimen name="height_title_bar">50dp</dimen>
+    <dimen name="height_input">50dp</dimen>
+
     <dimen name="divide_bar_height_large">20dp</dimen>
 
     <dimen name="account_card_height">200dp</dimen>

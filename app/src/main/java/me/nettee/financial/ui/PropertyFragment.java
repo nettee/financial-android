@@ -128,7 +128,8 @@ public class PropertyFragment extends Fragment {
             }
 
             View itemView = inflater.inflate(layoutId, null);
-            itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 180));
+            int itemHeight = (int) getResources().getDimension(R.dimen.height_item);
+            itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight));
 
             itemView.<ImageView>findViewById(R.id.account_list_item_image).setImageResource(imageResource);
             itemView.<TextView>findViewById(R.id.account_list_item_name).setText(name);

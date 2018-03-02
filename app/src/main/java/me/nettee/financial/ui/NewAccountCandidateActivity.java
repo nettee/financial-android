@@ -29,20 +29,17 @@ public class NewAccountCandidateActivity extends Activity {
         Toolbar toolbar = findViewById(R.id.toolbar_new_account);
         setActionBar(toolbar);
         getActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> finish());
 
         LinearLayout candidateAccountList = findViewById(R.id.candidate_account_list);
         LayoutInflater inflater = LayoutInflater.from(this);
         List<Account> candidateAccounts = AccountLab.getInstance().getCandidateAccounts();
 
         for (final Account candidateAccount : candidateAccounts) {
+
             View itemView = inflater.inflate(R.layout.list_item_candidate_account, null);
-            itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 180));
+            int itemHeight = (int) getResources().getDimension(R.dimen.height_item);
+            itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight));
 
             ImageView candidateAccountIconImageView = itemView.findViewById(R.id.candidate_account_list_item_image);
             TextView candidateAccountNameTextView = itemView.findViewById(R.id.candidate_account_list_item_name);
@@ -52,13 +49,10 @@ public class NewAccountCandidateActivity extends Activity {
 
             candidateAccountList.addView(itemView);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), NewAccountActivity.class);
-                    intent.putExtra(NewAccountActivity.EXTRA_CANDIDATE_ACCOUNT_OBJECT, candidateAccount);
-                    startActivityForResult(intent, REQUEST_CODE_CREATE_ACCOUNT_STATUS);
-                }
+            itemView.setOnClickListener(view -> {
+                Intent intent = new Intent(getApplicationContext(), NewAccountActivity.class);
+                intent.putExtra(NewAccountActivity.EXTRA_CANDIDATE_ACCOUNT_OBJECT, candidateAccount);
+                startActivityForResult(intent, REQUEST_CODE_CREATE_ACCOUNT_STATUS);
             });
         }
     }

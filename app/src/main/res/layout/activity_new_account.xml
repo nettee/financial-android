@@ -10,7 +10,7 @@
     <ViewStub
         android:id="@+id/account_title_bar_stub"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/input_height_large"/>
+        android:layout_height="@dimen/height_item"/>
 
     <ViewStub
         android:id="@+id/account_inputs_stub"
