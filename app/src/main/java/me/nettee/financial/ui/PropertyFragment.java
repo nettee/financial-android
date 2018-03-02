@@ -3,7 +3,7 @@ package me.nettee.financial.ui;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +13,21 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import me.nettee.financial.R;
-import me.nettee.financial.model.Account;
-import me.nettee.financial.model.AccountLab;
+import me.nettee.financial.model.account.Account;
+import me.nettee.financial.model.account.AccountLab;
+import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.Liability;
+import me.nettee.financial.model.Asset;
 
 public class PropertyFragment extends Fragment {
 
     private LinearLayout mAccountList;
+    private LinearLayout mPropertyList;
 
     private boolean mAccountListCollapsed;
     private boolean mPropertyListCollapsed;
@@ -33,6 +39,9 @@ public class PropertyFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        mAccountList = view.findViewById(R.id.account_list);
+        mPropertyList = view.findViewById(R.id.property_list);
 
         mAccountListCollapsed = false;
         mPropertyListCollapsed = false;
@@ -53,8 +62,10 @@ public class PropertyFragment extends Fragment {
         propertyListCollapse.setOnClickListener(v -> {
             if (mPropertyListCollapsed) {
                 propertyListCollapse.setImageResource(R.drawable.ic_status_expanded);
+                mPropertyList.setVisibility(View.VISIBLE);
             } else {
                 propertyListCollapse.setImageResource(R.drawable.ic_status_collapsed);
+                mPropertyList.setVisibility(View.GONE);
             }
             mPropertyListCollapsed = !mPropertyListCollapsed;
         });
@@ -65,25 +76,49 @@ public class PropertyFragment extends Fragment {
             startActivity(intent);
         });
 
+        ImageView propertyListSetting = view.findViewById(R.id.property_list_setting);
+        propertyListSetting.setOnClickListener(v -> {
+            // TODO
+        });
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        mAccountList = getActivity().findViewById(R.id.account_list);
-        mAccountList.removeAllViews();
-
         LayoutInflater inflater = LayoutInflater.from(getActivity());
+
         List<Account> accounts = AccountLab.getInstance().getAccounts();
+        updateAccounts(accounts, inflater);
+
+        List<Asset> assets = new ArrayList<>();
+        List<Liability> liabilities = new ArrayList<>();
+        for (Account account : accounts) {
+            Optional<Asset> assetOptional = account.getAsset();
+            if (assetOptional.isPresent()) {
+                assets.add(assetOptional.get());
+            }
+            Optional<Liability> liabilityOptional = account.getLiability();
+            if (liabilityOptional.isPresent()) {
+                liabilities.add(liabilityOptional.get());
+            }
+        }
+
+        updateAssets(assets, liabilities, inflater);
+
+    }
+
+    private void updateAccounts(List<Account> accounts, LayoutInflater inflater) {
+
+        mAccountList.removeAllViews();
 
         for (final Account account : accounts) {
 
             int imageResource = account.getDisplayImageResource();
             String name = account.getDisplayName();
             String remark = account.getDisplayRemark();
-            String amount = account.getDefaultAmount().toYuanString();
-            Log.d("TAG", String.format("name = %s, amount = %s", name, amount.toString()));
+            Amount amount = account.getDefaultAmount();
 
             Integer layoutId;
             if (StringUtils.isNotEmpty(remark)) {
@@ -97,7 +132,12 @@ public class PropertyFragment extends Fragment {
 
             itemView.<ImageView>findViewById(R.id.account_list_item_image).setImageResource(imageResource);
             itemView.<TextView>findViewById(R.id.account_list_item_name).setText(name);
-            itemView.<TextView>findViewById(R.id.account_list_item_amount).setText(amount);
+            TextView amountTextView = itemView.<TextView>findViewById(R.id.account_list_item_amount);
+            amountTextView.setText(amount.toYuanString());
+
+            if (amount.isNegative()) {
+                amountTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorLiability));
+            }
 
             if (StringUtils.isNotEmpty(remark)) {
                 itemView.<TextView>findViewById(R.id.account_list_item_remark).setText(remark);
@@ -111,6 +151,30 @@ public class PropertyFragment extends Fragment {
 
             mAccountList.addView(itemView);
         }
+    }
 
+    private void updateAssets(List<Asset> assets, List<Liability> liabilities, LayoutInflater inflater) {
+
+        Amount totalAssets = Asset.sum(assets);
+        Amount totalLiabilities = Liability.sum(liabilities);
+        Amount netAssets = totalAssets.subUnsigned(totalLiabilities);
+
+        {
+            View mTotalProperty = mPropertyList.findViewById(R.id.total_property);
+            mTotalProperty.<ImageView>findViewById(R.id.property_list_item_image).setImageResource(R.drawable.ic_asset);
+            mTotalProperty.<TextView>findViewById(R.id.property_list_item_name).setText(R.string.total_assets);
+            mTotalProperty.<TextView>findViewById(R.id.property_list_item_amount).setText(totalAssets.toYuanString());
+
+            View mTotalLiability = mPropertyList.findViewById(R.id.total_liability);
+            mTotalLiability.<ImageView>findViewById(R.id.property_list_item_image).setImageResource(R.drawable.ic_liability);
+            mTotalLiability.<TextView>findViewById(R.id.property_list_item_name).setText(R.string.total_liabilities);
+            mTotalLiability.<TextView>findViewById(R.id.property_list_item_amount).setText(totalLiabilities.toYuanString());
+
+            View mNetProperty = mPropertyList.findViewById(R.id.net_property);
+            mNetProperty.<ImageView>findViewById(R.id.property_list_item_image).setImageResource(R.drawable.ic_net_asset);
+            mNetProperty.<TextView>findViewById(R.id.property_list_item_name).setText(R.string.net_assets);
+            mNetProperty.<TextView>findViewById(R.id.property_list_item_amount).setText(netAssets.toYuanString());
+
+        }
     }
 }

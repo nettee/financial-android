@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -39,11 +40,32 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:divider="@drawable/default_divider"
-                android:dividerPadding="@dimen/account_list_margin"
+                android:dividerPadding="@dimen/margin_horizontal"
                 android:showDividers="middle"
                 />
 
             <include layout="@layout/title_bar_property_list"/>
+
+            <LinearLayout
+                android:id="@+id/property_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:divider="@drawable/default_divider"
+                android:dividerPadding="@dimen/margin_horizontal"
+                android:showDividers="middle"
+                >
+
+                <include layout="@layout/list_item_property"
+                         android:id="@+id/total_property"/>
+
+                <include layout="@layout/list_item_property"
+                         android:id="@+id/total_liability"/>
+
+                <include layout="@layout/list_item_property"
+                         android:id="@+id/net_property"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

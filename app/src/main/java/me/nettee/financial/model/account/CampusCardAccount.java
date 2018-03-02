@@ -1,28 +1,30 @@
-package me.nettee.financial.model;
+package me.nettee.financial.model.account;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.Amount;
 
-public final class DebitCardAccount extends BankCardAccount {
+public class CampusCardAccount extends CashCardAccount {
 
     private static final long serialVersionUID = 1L;
 
     private Amount mBalance = Amount.zero();
 
     @Override
-    public int getType() {
-        return DEBIT_CARD;
+    public int getCashCardType() {
+        return CAMPUS_CARD;
     }
 
     @Override
     public String getCandidateName() {
-        return "借记卡";
+        return "校园卡";
     }
 
     @Override
     public int getCandidateImageResource() {
-        return R.drawable.ic_bank_card;
+        return R.drawable.ic_campus_card;
     }
 
+    @Override
     public Amount getDefaultAmount() {
         return getBalance();
     }
@@ -34,5 +36,4 @@ public final class DebitCardAccount extends BankCardAccount {
     public void setBalance(Amount balance) {
         mBalance = balance;
     }
-
 }

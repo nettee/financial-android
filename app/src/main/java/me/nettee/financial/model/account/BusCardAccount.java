@@ -1,6 +1,7 @@
-package me.nettee.financial.model;
+package me.nettee.financial.model.account;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.Amount;
 
 public class BusCardAccount extends CashCardAccount {
 

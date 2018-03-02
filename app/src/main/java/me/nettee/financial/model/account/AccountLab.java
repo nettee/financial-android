@@ -1,4 +1,4 @@
-package me.nettee.financial.model;
+package me.nettee.financial.model.account;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.Amount;
 
 public class AccountLab {
 
@@ -49,10 +50,10 @@ public class AccountLab {
         arrears.setSign(Amount.NEGATIVE);
         creditCardAccount.setCurrentArrears(arrears);
         mAccounts.add(creditCardAccount);
-//        DebitCardAccount debitCardAccount = new DebitCardAccount();
-//        debitCardAccount.setBankCardNumber("669395");
-//        debitCardAccount.setBalance(Amount.decimal(6134, 77));
-//        mAccounts.add(debitCardAccount);
+        DebitCardAccount debitCardAccount = new DebitCardAccount();
+        debitCardAccount.setBankCardNumber("669395");
+        debitCardAccount.setBalance(Amount.decimal(6134, 77));
+        mAccounts.add(debitCardAccount);
 //        AlipayAccount alipayAccount = new AlipayAccount();
 //        alipayAccount.setBalance(Amount.decimal(16431, 91));
 //        mAccounts.add(alipayAccount);

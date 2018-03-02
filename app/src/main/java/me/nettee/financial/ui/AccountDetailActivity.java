@@ -13,7 +13,7 @@ import android.widget.Toolbar;
 import org.apache.commons.lang3.StringUtils;
 
 import me.nettee.financial.R;
-import me.nettee.financial.model.Account;
+import me.nettee.financial.model.account.Account;
 
 public class AccountDetailActivity extends Activity {
 

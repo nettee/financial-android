@@ -14,4 +14,7 @@
 
     <color name="toolbar_title_background">#eeeeee</color>
     <color name="title_bar_background">#e0e0e0</color>
+
+    <color name="colorAsset">#cc710f</color>
+    <color name="colorLiability">#1cb2af</color>
 </resources>

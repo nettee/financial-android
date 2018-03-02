@@ -11,9 +11,23 @@ public class Amount implements Serializable {
     public static final int POSITIVE = 0;
     public static final int NEGATIVE = 1;
 
-    int sign = POSITIVE;
+    int sign;
     int yuan;
     int cent;
+
+    private Amount() {
+        this(POSITIVE, 0, 0);
+    }
+
+    private Amount(int yuan, int cent) {
+        this(POSITIVE, yuan, cent);
+    }
+
+    private Amount(int sign, int yuan, int cent) {
+        this.sign = sign;
+        this.yuan = yuan;
+        this.cent = cent;
+    }
 
     public static Amount zero() {
         return integer(0);
@@ -29,6 +43,14 @@ public class Amount implements Serializable {
         amount.yuan = Math.abs(yuan);
         amount.cent = cent;
         return amount;
+    }
+
+    private static Amount fromCents(int cents) {
+        int sign = cents >= 0 ? POSITIVE : NEGATIVE;
+        cents = Math.abs(cents);
+        int yuan = cents / 100;
+        int cent = cents % 100;
+        return new Amount(sign, yuan, cent);
     }
 
     public static Amount valueOf(String s) {
@@ -49,6 +71,35 @@ public class Amount implements Serializable {
             Log.e("Amount", e.getMessage());
             return Amount.zero();
         }
+    }
+
+    public Amount add(Amount that) {
+        int c1 = this.toCents();
+        int c2 = that.toCents();
+        int c = c1 + c2;
+        return Amount.fromCents(c);
+    }
+
+    public Amount sub(Amount that) {
+        int c1 = this.toCents();
+        int c2 = that.toCents();
+        int c = c1 - c2;
+        return Amount.fromCents(c);
+    }
+
+    public Amount subUnsigned(Amount that) {
+        int c1 = this.toCents();
+        int c2 = that.toCents();
+        int c = Math.abs(c1) - Math.abs(c2);
+        return Amount.fromCents(c);
+    }
+
+    private int toCents() {
+        int c = yuan * 100 + cent;
+        if (isNegative()) {
+            c = -c;
+        }
+        return c;
     }
 
     public boolean isPositive() {

@@ -7,8 +7,8 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import me.nettee.financial.R;
-import me.nettee.financial.model.Account;
-import me.nettee.financial.model.AccountLab;
+import me.nettee.financial.model.account.Account;
+import me.nettee.financial.model.account.AccountLab;
 
 public class NewAccountActivity extends WriteAccountBaseActivity {
 

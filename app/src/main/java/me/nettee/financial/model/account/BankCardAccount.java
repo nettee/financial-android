@@ -1,6 +1,8 @@
-package me.nettee.financial.model;
+package me.nettee.financial.model.account;
 
 import org.apache.commons.lang3.StringUtils;
+
+import me.nettee.financial.model.Bank;
 
 public abstract class BankCardAccount extends Account {
 

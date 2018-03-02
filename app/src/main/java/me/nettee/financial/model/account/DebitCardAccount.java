@@ -1,8 +1,12 @@
-package me.nettee.financial.model;
+package me.nettee.financial.model.account;
+
+import java.util.Optional;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.Asset;
 
-public final class AlipayAccount extends Account {
+public final class DebitCardAccount extends BankCardAccount {
 
     private static final long serialVersionUID = 1L;
 
@@ -10,22 +14,27 @@ public final class AlipayAccount extends Account {
 
     @Override
     public int getType() {
-        return ALIPAY;
+        return DEBIT_CARD;
     }
 
     @Override
     public String getCandidateName() {
-        return "支付宝";
+        return "借记卡";
     }
 
     @Override
     public int getCandidateImageResource() {
-        return R.drawable.ic_alipay;
+        return R.drawable.ic_bank_card;
     }
 
     @Override
     public Amount getDefaultAmount() {
         return getBalance();
+    }
+
+    @Override
+    public Optional<Asset> getAsset() {
+        return Optional.of(new Asset(mBalance));
     }
 
     public Amount getBalance() {
@@ -35,4 +44,5 @@ public final class AlipayAccount extends Account {
     public void setBalance(Amount balance) {
         mBalance = balance;
     }
+
 }

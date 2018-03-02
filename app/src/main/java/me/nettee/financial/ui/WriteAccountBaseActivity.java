@@ -25,13 +25,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import me.nettee.financial.R;
-import me.nettee.financial.model.Account;
+import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.Amount;
-import me.nettee.financial.model.CashAccount;
-import me.nettee.financial.model.CreditCardAccount;
+import me.nettee.financial.model.account.CashAccount;
+import me.nettee.financial.model.account.CreditCardAccount;
 import me.nettee.financial.model.CreditDate;
-import me.nettee.financial.model.DebitCardAccount;
-import me.nettee.financial.model.InvestmentAccount;
+import me.nettee.financial.model.account.DebitCardAccount;
+import me.nettee.financial.model.account.InvestmentAccount;
 import me.nettee.financial.model.InvestmentPlatform;
 
 import static android.view.View.GONE;

@@ -1,4 +1,4 @@
-package me.nettee.financial.model;
+package me.nettee.financial.model.account;
 
 public abstract class CashCardAccount extends Account {
 

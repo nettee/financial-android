@@ -45,15 +45,21 @@
 
     <string name="my_accounts">我的账户</string>
     <string name="my_properties">我的资产</string>
+
     <string name="account_balance">账户余额</string>
     <string name="account_total">账户总额</string>
     <string name="current_arrears">当前欠款</string>
+    <string name="total_assets">总资产</string>
+    <string name="total_liabilities">总负债</string>
+    <string name="net_assets">净资产</string>
+
     <string name="yuan">¥</string>
     <string name="account_name_split">|</string>
 
     <string name="error_fail_new_account">添加账户失败</string>
     <string name="error_fail_edit_account">修改账户失败</string>
     <string name="message_success_deleted">删除成功</string>
+
 
     <string-array name="bill_dates_array">
         <item>每月1日</item>

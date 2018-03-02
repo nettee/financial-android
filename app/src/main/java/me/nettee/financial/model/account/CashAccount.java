@@ -1,6 +1,10 @@
-package me.nettee.financial.model;
+package me.nettee.financial.model.account;
+
+import java.util.Optional;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.Asset;
 
 public final class CashAccount extends Account {
 
@@ -26,6 +30,11 @@ public final class CashAccount extends Account {
     @Override
     public Amount getDefaultAmount() {
         return getBalance();
+    }
+
+    @Override
+    public Optional<Asset> getAsset() {
+        return Optional.of(new Asset(mBalance));
     }
 
     public Amount getBalance() {

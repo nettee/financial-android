@@ -1,7 +1,12 @@
-package me.nettee.financial.model;
+package me.nettee.financial.model.account;
 
 import java.io.Serializable;
+import java.util.Optional;
 import java.util.UUID;
+
+import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.Asset;
+import me.nettee.financial.model.Liability;
 
 public abstract class Account implements Serializable {
 
@@ -65,6 +70,22 @@ public abstract class Account implements Serializable {
      */
     public String getDisplayRemark() {
         return getRemark();
+    }
+
+    /**
+     * Asset correspond to this account.
+     * Sub-classes can override this default implementation.
+     */
+    public Optional<Asset> getAsset() {
+        return Optional.empty();
+    }
+
+    /**
+     * Liability correspond to this account.
+     * Sub-classes can override this default implementation.
+     */
+    public Optional<Liability> getLiability() {
+        return Optional.empty();
     }
 
     public static CandidateAccount candidate(int type, String candidateName, int candidateImageResource) {

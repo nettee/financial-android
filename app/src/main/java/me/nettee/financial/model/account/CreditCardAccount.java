@@ -1,6 +1,12 @@
-package me.nettee.financial.model;
+package me.nettee.financial.model.account;
+
+import java.util.Optional;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.Asset;
+import me.nettee.financial.model.CreditDate;
+import me.nettee.financial.model.Liability;
 
 public final class CreditCardAccount extends BankCardAccount {
 
@@ -29,6 +35,11 @@ public final class CreditCardAccount extends BankCardAccount {
     @Override
     public Amount getDefaultAmount() {
         return getCurrentArrears();
+    }
+
+    @Override
+    public Optional<Liability> getLiability() {
+        return Optional.of(new Liability(mCurrentArrears));
     }
 
     public Amount getCreditLimit() {

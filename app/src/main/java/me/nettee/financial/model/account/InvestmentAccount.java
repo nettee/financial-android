@@ -1,4 +1,7 @@
-package me.nettee.financial.model;
+package me.nettee.financial.model.account;
+
+import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.InvestmentPlatform;
 
 public final class InvestmentAccount extends Account {
 
