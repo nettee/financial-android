@@ -1,23 +1,18 @@
 package me.nettee.financial.ui;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.content.Intent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import java.util.List;
 
 import me.nettee.financial.R;
-import me.nettee.financial.model.account.Account;
-import me.nettee.financial.model.account.AccountLab;
 import me.nettee.financial.model.investment.InvestmentProject;
 
-public class NewInvestmentProjectCandidateActivity extends CandidateBaseActivity<InvestmentProject> {
+public class InvestmentProjectCandidateActivity extends SomeCandidateBaseActivity<InvestmentProject> {
+
+    private int REQUEST_CODE_CREATE_INVESTMENT_PROJECT_STATUS = 1;
 
     @Override
     public int getLayout() {
@@ -57,7 +52,19 @@ public class NewInvestmentProjectCandidateActivity extends CandidateBaseActivity
     public void processItemView(View itemView, InvestmentProject candidate) {
 
         itemView.setOnClickListener(view -> {
-
+            Intent intent = new Intent(getApplicationContext(), NewInvestmentProjectActivity.class);
+            intent.putExtra(NewInvestmentProjectActivity.EXTRA_CANDIDATE_INVESTMENT_PROJECT_OBJECT, candidate);
+            startActivityForResult(intent, REQUEST_CODE_CREATE_INVESTMENT_PROJECT_STATUS);
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_CODE_CREATE_INVESTMENT_PROJECT_STATUS) {
+            if (resultCode == RESULT_OK) {
+                finish();
+            }
+        }
     }
 }

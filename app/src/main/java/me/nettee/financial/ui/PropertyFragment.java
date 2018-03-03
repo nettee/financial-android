@@ -72,7 +72,7 @@ public class PropertyFragment extends Fragment {
 
         ImageView accountListAdd = view.findViewById(R.id.account_list_add);
         accountListAdd.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), NewAccountCandidateActivity.class);
+            Intent intent = new Intent(getActivity(), AccountCandidateActivity.class);
             startActivity(intent);
         });
 

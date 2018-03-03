@@ -13,7 +13,7 @@ import java.util.List;
 
 import me.nettee.financial.R;
 
-public abstract class CandidateBaseActivity<C> extends Activity {
+public abstract class SomeCandidateBaseActivity<C> extends Activity {
 
     public abstract int getLayout();
 

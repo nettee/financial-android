@@ -76,7 +76,7 @@ public class AccountDetailActivity extends Activity {
         if (mAccount.getType() == Account.INVESTMENT) {
             View newInvestmentProjectButton = mActionToolbar.findViewById(R.id.button_new_investment_project);
             newInvestmentProjectButton.setOnClickListener(view -> {
-                Intent intent = new Intent(getApplicationContext(), NewInvestmentProjectCandidateActivity.class);
+                Intent intent = new Intent(getApplicationContext(), InvestmentProjectCandidateActivity.class);
                 startActivity(intent);
             });
         }
