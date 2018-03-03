@@ -9,4 +9,13 @@
 
     <include layout="@layout/account_card"/>
 
+    <View android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"/>
+
+    <ViewStub
+        android:id="@+id/account_detail_action_toolbar_stub"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_action_bar"/>
+
 </LinearLayout>

@@ -1,16 +1,20 @@
 package me.nettee.financial.model.account;
 
+import java.util.List;
 import java.util.Optional;
 
+import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.Asset;
 import me.nettee.financial.model.InvestmentPlatform;
+import me.nettee.financial.model.InvestmentProject;
 
 public final class InvestmentAccount extends Account {
 
     private static final long serialVersionUID = 1L;
 
     private InvestmentPlatform mPlatform;
+    private List<InvestmentProject> mProjects;
 
     // TODO For test only.
     private Amount mAmount = Amount.zero();
@@ -22,11 +26,21 @@ public final class InvestmentAccount extends Account {
 
     @Override
     public String getCandidateName() {
-        return getPlatform().getName();
+        return "投资账户";
     }
 
     @Override
     public int getCandidateImageResource() {
+        return R.drawable.ic_account_investment;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return getPlatform().getName();
+    }
+
+    @Override
+    public int getDisplayImageResource() {
         return getPlatform().getImageResource();
     }
 
@@ -51,6 +65,14 @@ public final class InvestmentAccount extends Account {
 
     public void setPlatform(InvestmentPlatform platform) {
         mPlatform = platform;
+    }
+
+    public List<InvestmentProject> getProjects() {
+        return mProjects;
+    }
+
+    public void addProject(InvestmentProject project) {
+        mProjects.add(project);
     }
 
     public Amount getAmount() {

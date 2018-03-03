@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_input"
+    >
+
+    <TextView
+        style="@style/InputCaption"
+        android:id="@+id/account_investment_kind_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/caption_investment_kind"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        />
+
+    <CheckBox
+        android:id="@+id/account_investment_kind_stock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/caption_investment_stock"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/account_investment_kind_caption"
+        android:layout_marginStart="@dimen/margin_horizontal_tiny"
+        />
+
+    <CheckBox
+        android:id="@+id/account_investment_kind_fund"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/caption_investment_fund"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/account_investment_kind_stock"
+        android:layout_marginStart="@dimen/margin_horizontal_tiny"
+        />
+
+    <CheckBox
+        android:id="@+id/account_investment_kind_fixed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/caption_investment_fixed"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/account_investment_kind_fund"
+        android:layout_marginStart="@dimen/margin_horizontal_tiny"
+        />
+
+    <CheckBox
+        android:id="@+id/account_investment_kind_other"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/caption_investment_other"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/account_investment_kind_fixed"
+        android:layout_marginStart="@dimen/margin_horizontal_tiny"
+        />
+
+</android.support.constraint.ConstraintLayout>

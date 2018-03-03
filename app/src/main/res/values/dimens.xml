@@ -11,6 +11,7 @@
     <dimen name="margin_vertical">8dp</dimen>
     <dimen name="margin_vertical_large">16dp</dimen>
     <dimen name="margin_horizontal">12dp</dimen>
+    <dimen name="margin_horizontal_small">8dp</dimen>
     <dimen name="margin_horizontal_half">6dp</dimen>
     <dimen name="margin_horizontal_tiny">2dp</dimen>
 
@@ -20,6 +21,7 @@
     <!--<dimen name="input_height_large">50dp</dimen>-->
     <dimen name="height_item">50dp</dimen>
     <dimen name="height_title_bar">50dp</dimen>
+    <dimen name="height_action_bar">50dp</dimen>
     <dimen name="height_input">50dp</dimen>
 
     <dimen name="divide_bar_height_large">20dp</dimen>

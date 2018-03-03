@@ -32,6 +32,7 @@
     <string name="caption_bill_date">账单日期</string>
     <string name="caption_payment_date">还款日期</string>
     <string name="caption_investment_platform">投资平台</string>
+    <string name="caption_investment_kind">投资品种</string>
 
     <string name="button_edit">编辑</string>
     <string name="button_save">保存</string>
@@ -60,6 +61,10 @@
     <string name="error_fail_new_account">添加账户失败</string>
     <string name="error_fail_edit_account">修改账户失败</string>
     <string name="message_success_deleted">删除成功</string>
+    <string name="caption_investment_stock">股票</string>
+    <string name="caption_investment_fund">基金</string>
+    <string name="caption_investment_fixed">定期</string>
+    <string name="caption_investment_other">其他</string>
 
 
     <string-array name="bill_dates_array">

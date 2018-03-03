@@ -5,12 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.account.Account;
@@ -25,6 +29,16 @@ public class AccountDetailActivity extends Activity {
     public static final int RESULT_CODE_DELETED = 100;
     public static final int RESULT_CODE_EDITED = 101;
 
+    private static final Map<Integer, Integer> sAccountTypeActionToolbarMap = new HashMap<Integer, Integer>() {
+        {
+            put(Account.INVESTMENT, R.layout.toolbar_account_detail_action_investment);
+        }
+    };
+
+    private int getActionToolbarLayout(int accountType) {
+        return sAccountTypeActionToolbarMap.getOrDefault(accountType, R.layout.toolbar_account_detail_action_blank);
+    }
+
     private Account mAccount;
 
     ImageView mAccountCardImage;
@@ -33,6 +47,8 @@ public class AccountDetailActivity extends Activity {
     TextView mAccountCardRemark;
     TextView mAccountCardAmountCaption;
     TextView mAccountCardAmount;
+
+    View mActionToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +68,10 @@ public class AccountDetailActivity extends Activity {
         mAccountCardRemark = findViewById(R.id.account_card_remark);
         mAccountCardAmountCaption = findViewById(R.id.account_card_amount_caption);
         mAccountCardAmount = findViewById(R.id.account_card_amount);
+
+        ViewStub stub = findViewById(R.id.account_detail_action_toolbar_stub);
+        stub.setLayoutResource(getActionToolbarLayout(mAccount.getType()));
+        mActionToolbar = stub.inflate();
 
         Button editButton = findViewById(R.id.account_card_edit);
         editButton.setOnClickListener(view -> {
