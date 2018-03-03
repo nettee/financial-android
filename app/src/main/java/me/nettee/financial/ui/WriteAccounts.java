@@ -42,7 +42,7 @@ import me.nettee.financial.model.account.WeixinAccount;
 
 import static android.view.View.GONE;
 
-public abstract class WriteAccountBaseActivity extends Activity {
+public abstract class WriteAccounts {
 
     private static final Map<Integer, Integer> sAccountInputsMap = new HashMap<Integer, Integer>() {
         private static final long serialVersionUID = 1L;
@@ -86,9 +86,11 @@ public abstract class WriteAccountBaseActivity extends Activity {
         }
     };
 
-    protected View mAccountInputs;
+    public static View constructView(Activity activity, Account account) {
 
-    protected void constructView(int accountType, int candidateImageResource, String candidateName) {
+        int accountType = account.getType();
+        int candidateImageResource = account.getCandidateImageResource();
+        String candidateName = account.getCandidateName();
 
         // Construct account title bar.
         {
@@ -99,7 +101,7 @@ public abstract class WriteAccountBaseActivity extends Activity {
                 layoutResource = R.layout.title_bar_account_write_ordinary;
             }
 
-            ViewStub stub = findViewById(R.id.account_title_bar_stub);
+            ViewStub stub = activity.findViewById(R.id.account_title_bar_stub);
             stub.setLayoutResource(layoutResource);
             View accountTitleBar = stub.inflate();
 
@@ -114,7 +116,7 @@ public abstract class WriteAccountBaseActivity extends Activity {
             Integer layoutResource = sAccountInputsMap
                     .getOrDefault(accountType, R.layout.account_inputs_cash);
 
-            ViewStub stub = findViewById(R.id.account_inputs_stub);
+            ViewStub stub = activity.findViewById(R.id.account_inputs_stub);
             stub.setLayoutResource(layoutResource);
             View accountInputs = stub.inflate();
 
@@ -134,7 +136,7 @@ public abstract class WriteAccountBaseActivity extends Activity {
                         .<TextView>findViewById(R.id.account_credit_date_caption)
                         .setText(R.string.caption_payment_date);
                 {
-                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
                             R.array.bill_dates_array,
                             android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -143,7 +145,7 @@ public abstract class WriteAccountBaseActivity extends Activity {
                             .setAdapter(adapter);
                 }
                 {
-                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
                             R.array.bill_dates_array,
                             android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -154,7 +156,7 @@ public abstract class WriteAccountBaseActivity extends Activity {
             } else if (accountType == Account.INVESTMENT) {
                 AutoCompleteTextView investmentPlatform = accountInputs.findViewById(R.id.account_investment_platform);
                 ImageView investmentPlatformImage = accountInputs.findViewById(R.id.account_investment_platform_image);
-                InvestmentPlatformAdapter adapter = new InvestmentPlatformAdapter(this, InvestmentPlatform.getPlatforms());
+                InvestmentPlatformAdapter adapter = new InvestmentPlatformAdapter(activity, InvestmentPlatform.getPlatforms());
                 investmentPlatform.setAdapter(adapter);
                 investmentPlatform.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -180,8 +182,21 @@ public abstract class WriteAccountBaseActivity extends Activity {
                 });
             }
 
-            mAccountInputs = accountInputs;
+            return accountInputs;
         }
+    }
+
+    public static Account extractAccount(int accountType, View accountInputs) {
+        AccountExtractor extractor = sAccountExtractorMap
+                .getOrDefault(accountType, new NullAccountExtractor());
+        Account account = extractor.extract(accountInputs);
+        return account;
+    }
+
+    public static void fillAccount(View accountInputs, Account account) {
+        AccountFiller filler = sAccountFillerMap
+                .getOrDefault(account.getType(), new NullAccountFiller());
+        filler.fill(accountInputs, account);
     }
 
     @FunctionalInterface

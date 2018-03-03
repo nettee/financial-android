@@ -1,7 +1,9 @@
 package me.nettee.financial.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -10,11 +12,12 @@ import me.nettee.financial.R;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.AccountLab;
 
-public class NewAccountActivity extends WriteAccountBaseActivity {
+public class NewAccountActivity extends Activity {
 
     public static final String EXTRA_CANDIDATE_ACCOUNT_OBJECT = "me.nettee.financial.extra_candidate_account_object";
 
     private Account mCandidateAccount;
+    private View mAccountInputs;
 
     private Button mSaveButton;
 
@@ -30,16 +33,12 @@ public class NewAccountActivity extends WriteAccountBaseActivity {
 
         mCandidateAccount = (Account) getIntent().getSerializableExtra(EXTRA_CANDIDATE_ACCOUNT_OBJECT);
 
-        constructView(mCandidateAccount.getType(),
-                mCandidateAccount.getCandidateImageResource(),
-                mCandidateAccount.getCandidateName());
+        mAccountInputs = WriteAccounts.constructView(this, mCandidateAccount);
 
         mSaveButton = findViewById(R.id.button_save);
         mSaveButton.setOnClickListener(view -> {
 
-            AccountExtractor extractor = sAccountExtractorMap
-                    .getOrDefault(mCandidateAccount.getType(), new NullAccountExtractor());
-            Account account = extractor.extract(mAccountInputs);
+            Account account = WriteAccounts.extractAccount(mCandidateAccount.getType(), mAccountInputs);
 
             if (account == null) {
                 Toast.makeText(NewAccountActivity.this, R.string.error_fail_new_account, Toast.LENGTH_SHORT).show();

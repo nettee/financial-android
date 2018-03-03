@@ -1,9 +1,11 @@
 package me.nettee.financial.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -12,11 +14,12 @@ import me.nettee.financial.R;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.AccountLab;
 
-public class EditAccountActivity extends WriteAccountBaseActivity {
+public class EditAccountActivity extends Activity {
 
     public static final String EXTRA_EDIT_ACCOUNT_OBJECT = "me.nettee.financial.Account.edit";
 
     private Account mOldAccount;
+    private View mAccountInputs;
 
     private Button mSaveButton;
     private Button mDeleteButton;
@@ -33,25 +36,16 @@ public class EditAccountActivity extends WriteAccountBaseActivity {
 
         mOldAccount = (Account) getIntent().getSerializableExtra(EXTRA_EDIT_ACCOUNT_OBJECT);
 
-        constructView(mOldAccount.getType(),
-                mOldAccount.getCandidateImageResource(),
-                mOldAccount.getCandidateName());
+        mAccountInputs = WriteAccounts.constructView(this, mOldAccount);
 
-        Log.d("TAG", String.format("Old account: amount = %s, remark = %s",
-                mOldAccount.getDefaultAmount().toString(),
-                mOldAccount.getRemark()));
-
-        AccountFiller filler = sAccountFillerMap
-                .getOrDefault(mOldAccount.getType(), new NullAccountFiller());
-        filler.fill(mAccountInputs, mOldAccount);
+        WriteAccounts.fillAccount(mAccountInputs, mOldAccount);
 
         mSaveButton = findViewById(R.id.button_save);
         mDeleteButton = findViewById(R.id.button_delete);
 
         mSaveButton.setOnClickListener(view -> {
-            AccountExtractor extractor = sAccountExtractorMap
-                    .getOrDefault(mOldAccount.getType(), new NullAccountExtractor());
-            Account newAccount = extractor.extract(mAccountInputs);
+
+            Account newAccount = WriteAccounts.extractAccount(mOldAccount.getType(), mAccountInputs);
 
             if (newAccount == null) {
                 Toast.makeText(getApplicationContext(), R.string.error_fail_edit_account, Toast.LENGTH_SHORT).show();
