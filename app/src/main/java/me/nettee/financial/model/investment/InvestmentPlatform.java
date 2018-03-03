@@ -1,4 +1,4 @@
-package me.nettee.financial.model;
+package me.nettee.financial.model.investment;
 
 import java.io.Serializable;
 import java.util.ArrayList;

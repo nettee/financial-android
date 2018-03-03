@@ -7,7 +7,7 @@
     >
 
     <ImageView style="@style/AccountIcon"
-        android:id="@+id/candidate_account_list_item_image"
+        android:id="@+id/candidate_investment_project_list_item_image"
         android:src="@drawable/ic_account"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,12 +16,12 @@
     />
 
     <TextView
-        android:id="@+id/candidate_account_list_item_name"
+        android:id="@+id/candidate_investment_project_list_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/candidate_account_list_item_image"
+        app:layout_constraintStart_toEndOf="@id/candidate_investment_project_list_item_image"
         android:layout_marginStart="@dimen/account_list_margin"
     />
 

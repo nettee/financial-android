@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.CreditDate;
-import me.nettee.financial.model.InvestmentPlatform;
+import me.nettee.financial.model.investment.InvestmentPlatform;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.AlipayAccount;
 import me.nettee.financial.model.account.BusCardAccount;

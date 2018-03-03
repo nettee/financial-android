@@ -6,8 +6,8 @@ import java.util.Optional;
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.Asset;
-import me.nettee.financial.model.InvestmentPlatform;
-import me.nettee.financial.model.InvestmentProject;
+import me.nettee.financial.model.investment.InvestmentPlatform;
+import me.nettee.financial.model.investment.InvestmentProject;
 
 public final class InvestmentAccount extends Account {
 

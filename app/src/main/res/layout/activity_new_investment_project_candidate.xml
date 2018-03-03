@@ -6,7 +6,7 @@
     >
 
     <Toolbar
-        android:id="@+id/toolbar_new_account"
+        android:id="@+id/toolbar_new_investment_project_candidate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:navigationIcon="@drawable/ic_action_cancel"
@@ -16,14 +16,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/title_new_account"
+            android:text="@string/title_new_investment_project"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             />
 
     </Toolbar>
 
     <LinearLayout
-        android:id="@+id/candidate_account_list"
+        android:id="@+id/candidate_investment_project_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -32,6 +32,5 @@
         android:showDividers="middle"
         >
     </LinearLayout>
-
 
 </LinearLayout>

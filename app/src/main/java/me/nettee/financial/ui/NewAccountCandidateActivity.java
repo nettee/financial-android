@@ -41,11 +41,10 @@ public class NewAccountCandidateActivity extends Activity {
             int itemHeight = (int) getResources().getDimension(R.dimen.height_item);
             itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight));
 
-            ImageView candidateAccountIconImageView = itemView.findViewById(R.id.candidate_account_list_item_image);
-            TextView candidateAccountNameTextView = itemView.findViewById(R.id.candidate_account_list_item_name);
-
-            candidateAccountIconImageView.setImageResource(candidateAccount.getCandidateImageResource());
-            candidateAccountNameTextView.setText(candidateAccount.getCandidateName());
+            itemView.<ImageView>findViewById(R.id.candidate_account_list_item_image)
+                    .setImageResource(candidateAccount.getCandidateImageResource());
+            itemView.<TextView>findViewById(R.id.candidate_account_list_item_name)
+                    .setText(candidateAccount.getCandidateName());
 
             candidateAccountList.addView(itemView);
 

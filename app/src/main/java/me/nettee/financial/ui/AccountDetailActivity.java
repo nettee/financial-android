@@ -73,6 +73,14 @@ public class AccountDetailActivity extends Activity {
         stub.setLayoutResource(getActionToolbarLayout(mAccount.getType()));
         mActionToolbar = stub.inflate();
 
+        if (mAccount.getType() == Account.INVESTMENT) {
+            View newInvestmentProjectButton = mActionToolbar.findViewById(R.id.button_new_investment_project);
+            newInvestmentProjectButton.setOnClickListener(view -> {
+                Intent intent = new Intent(getApplicationContext(), NewInvestmentProjectCandidateActivity.class);
+                startActivity(intent);
+            });
+        }
+
         Button editButton = findViewById(R.id.account_card_edit);
         editButton.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), EditAccountActivity.class);

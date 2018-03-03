@@ -7,7 +7,7 @@ import java.util.List;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
-import me.nettee.financial.model.InvestmentPlatform;
+import me.nettee.financial.model.investment.InvestmentPlatform;
 
 public class AccountLab {
 
