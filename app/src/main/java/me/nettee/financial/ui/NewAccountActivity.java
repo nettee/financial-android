@@ -1,44 +1,42 @@
 package me.nettee.financial.ui;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.AccountLab;
 
-public class NewAccountActivity extends Activity {
+public class NewAccountActivity extends NewSomeBaseActivity<Account> {
 
     public static final String EXTRA_CANDIDATE_ACCOUNT_OBJECT = "me.nettee.financial.extra_candidate_account_object";
 
-    private Account mCandidateAccount;
-    private View mAccountInputs;
-
-    private Button mSaveButton;
+    @Override
+    public int getLayout() {
+        return R.layout.activity_new_account;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_account);
+    public int getToolbarId() {
+        return R.id.new_account_toolbar;
+    }
 
-        Toolbar toolbar = findViewById(R.id.new_account_toolbar);
-        setActionBar(toolbar);
-        getActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationOnClickListener(view -> finish());
+    @Override
+    public Account getCandidate() {
+        return (Account) getIntent().getSerializableExtra(EXTRA_CANDIDATE_ACCOUNT_OBJECT);
+    }
 
-        mCandidateAccount = (Account) getIntent().getSerializableExtra(EXTRA_CANDIDATE_ACCOUNT_OBJECT);
+    @Override
+    public View getConstructedInputs() {
+        return WriteAccounts.constructView(this, mCandidate);
+    }
 
-        mAccountInputs = WriteAccounts.constructView(this, mCandidateAccount);
+    @Override
+    public View.OnClickListener getOnSaveListener() {
+        return view -> {
 
-        mSaveButton = findViewById(R.id.button_save);
-        mSaveButton.setOnClickListener(view -> {
-
-            Account account = WriteAccounts.extractAccount(mCandidateAccount.getType(), mAccountInputs);
+            Account account = WriteAccounts.extractAccount(mCandidate.getType(), mInputs);
 
             if (account == null) {
                 Toast.makeText(NewAccountActivity.this, R.string.error_fail_new_account, Toast.LENGTH_SHORT).show();
@@ -52,6 +50,6 @@ public class NewAccountActivity extends Activity {
             startActivity(intent);
             setResult(RESULT_OK);
             finish();
-        });
+        };
     }
 }
