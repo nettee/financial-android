@@ -6,7 +6,7 @@
     >
 
     <Toolbar
-        android:id="@+id/toolbar_new_account"
+        android:id="@+id/toolbar_new_account_candidate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:navigationIcon="@drawable/ic_action_cancel"

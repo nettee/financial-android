@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.nettee.financial.R;
-import me.nettee.financial.model.account.Account;
 
 public abstract class InvestmentProject implements Serializable {
 
-    public static final int CURRENT_DEPOSIT = 0;
     public static final int MONETARY_FUND = 1;
     public static final int FIXED = 2;
     public static final int FUND = 3;
@@ -19,7 +17,11 @@ public abstract class InvestmentProject implements Serializable {
     private static List<InvestmentProject> sCandidateInvestmentProjects = new ArrayList<InvestmentProject>() {
         private static final long serialVersionUID = 1L;
         {
-            add(candidate(MONETARY_FUND, "货币基金", R.drawable.ic_account_investment));
+            add(candidate(MONETARY_FUND, "货币基金", R.drawable.ic_investment_project_monetary_fund));
+            add(candidate(FIXED, "定期类", R.drawable.ic_investment_project_fixed));
+            add(candidate(FUND, "基金", R.drawable.ic_investment_project_fund));
+            add(candidate(STOCK, "股票", R.drawable.ic_investment_project_stock));
+            add(candidate(OTHER, "其他投资项目", R.drawable.ic_investment_project_other));
         }
     };
 

@@ -47,6 +47,18 @@
         <item name="android:background">@drawable/button_danger</item>
     </style>
 
+    <style name="ActionToolbarButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="background">@android:color/transparent</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
     <style name="InputCaption">
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:textColor">@color/textGray</item>

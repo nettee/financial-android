@@ -1,15 +1,12 @@
 package me.nettee.financial.ui;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import java.util.List;
 
@@ -17,43 +14,52 @@ import me.nettee.financial.R;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.AccountLab;
 
-public class NewAccountCandidateActivity extends Activity {
+public class NewAccountCandidateActivity extends CandidateBaseActivity<Account> {
 
     private static final int REQUEST_CODE_CREATE_ACCOUNT_STATUS = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_account_candidate);
+    public int getLayout() {
+        return R.layout.activity_new_account_candidate;
+    }
 
-        Toolbar toolbar = findViewById(R.id.toolbar_new_account);
-        setActionBar(toolbar);
-        getActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationOnClickListener(view -> finish());
+    @Override
+    public int getToolbarId() {
+        return R.id.toolbar_new_account_candidate;
+    }
 
-        LinearLayout candidateAccountList = findViewById(R.id.candidate_account_list);
-        LayoutInflater inflater = LayoutInflater.from(this);
-        List<Account> candidateAccounts = AccountLab.getInstance().getCandidateAccounts();
+    @Override
+    public int getCandidateListViewId() {
+        return R.id.candidate_account_list;
+    }
 
-        for (final Account candidateAccount : candidateAccounts) {
+    @Override
+    public int getListItemLayout() {
+        return R.layout.list_item_candidate_account;
+    }
 
-            View itemView = inflater.inflate(R.layout.list_item_candidate_account, null);
-            int itemHeight = (int) getResources().getDimension(R.dimen.height_item);
-            itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight));
+    @Override
+    public List<Account> getData() {
+        return AccountLab.getInstance().getCandidateAccounts();
+    }
 
-            itemView.<ImageView>findViewById(R.id.candidate_account_list_item_image)
-                    .setImageResource(candidateAccount.getCandidateImageResource());
-            itemView.<TextView>findViewById(R.id.candidate_account_list_item_name)
-                    .setText(candidateAccount.getCandidateName());
+    @Override
+    public void initItemView(View itemView, Account candidate) {
 
-            candidateAccountList.addView(itemView);
+        itemView.<ImageView>findViewById(R.id.candidate_account_list_item_image)
+                .setImageResource(candidate.getCandidateImageResource());
+        itemView.<TextView>findViewById(R.id.candidate_account_list_item_name)
+                .setText(candidate.getCandidateName());
+    }
 
-            itemView.setOnClickListener(view -> {
-                Intent intent = new Intent(getApplicationContext(), NewAccountActivity.class);
-                intent.putExtra(NewAccountActivity.EXTRA_CANDIDATE_ACCOUNT_OBJECT, candidateAccount);
-                startActivityForResult(intent, REQUEST_CODE_CREATE_ACCOUNT_STATUS);
-            });
-        }
+    @Override
+    public void processItemView(View itemView, Account candidate) {
+
+        itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), NewAccountActivity.class);
+            intent.putExtra(NewAccountActivity.EXTRA_CANDIDATE_ACCOUNT_OBJECT, candidate);
+            startActivityForResult(intent, REQUEST_CODE_CREATE_ACCOUNT_STATUS);
+        });
     }
 
     @Override

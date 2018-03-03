@@ -17,41 +17,47 @@ import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.AccountLab;
 import me.nettee.financial.model.investment.InvestmentProject;
 
-public class NewInvestmentProjectCandidateActivity extends Activity {
-
-    private LinearLayout mCandidateInvestmentProjectList;
+public class NewInvestmentProjectCandidateActivity extends CandidateBaseActivity<InvestmentProject> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_investment_project_candidate);
+    public int getLayout() {
+        return R.layout.activity_new_investment_project_candidate;
+    }
 
-        Toolbar toolbar = findViewById(R.id.toolbar_new_investment_project_candidate);
-        setActionBar(toolbar);
-        getActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationOnClickListener(view -> finish());
+    @Override
+    public int getToolbarId() {
+        return R.id.toolbar_new_investment_project_candidate;
+    }
 
-        mCandidateInvestmentProjectList = findViewById(R.id.candidate_investment_project_list);
-        LayoutInflater inflater = LayoutInflater.from(this);
-        List<InvestmentProject> candidateInvestmentProjects = InvestmentProject.getCandidateInvestmentProjects();
+    @Override
+    public int getCandidateListViewId() {
+        return R.id.candidate_investment_project_list;
+    }
 
-        for (InvestmentProject candidateInvestmentProject : candidateInvestmentProjects) {
+    @Override
+    public int getListItemLayout() {
+        return R.layout.list_item_candidate_investment_project;
+    }
 
-            View itemView = inflater.inflate(R.layout.list_item_candidate_investment_project, null);
-            int itemHeight = (int) getResources().getDimension(R.dimen.height_item);
-            itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight));
+    @Override
+    public List getData() {
+        return InvestmentProject.getCandidateInvestmentProjects();
+    }
 
-            itemView.<ImageView>findViewById(R.id.candidate_investment_project_list_item_image)
-                    .setImageResource(candidateInvestmentProject.getCandidateImageResource());
-            itemView.<TextView>findViewById(R.id.candidate_investment_project_list_item_name)
-                    .setText(candidateInvestmentProject.getCandidateName());
+    @Override
+    public void initItemView(View itemView, InvestmentProject candidate) {
 
-            mCandidateInvestmentProjectList.addView(itemView);
+        itemView.<ImageView>findViewById(R.id.candidate_investment_project_list_item_image)
+                .setImageResource(candidate.getCandidateImageResource());
+        itemView.<TextView>findViewById(R.id.candidate_investment_project_list_item_name)
+                .setText(candidate.getCandidateName());
+    }
 
-            itemView.setOnClickListener(view -> {
+    @Override
+    public void processItemView(View itemView, InvestmentProject candidate) {
 
-            });
+        itemView.setOnClickListener(view -> {
 
-        }
+        });
     }
 }
