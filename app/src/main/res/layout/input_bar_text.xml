@@ -9,26 +9,27 @@
 
     <TextView
         style="@style/InputCaption"
-        android:id="@+id/input_bar_text_caption"
+        android:id="@+id/input_bar_date_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="财政大臣"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/margin_horizontal"
+        tools:text="财政大臣"
         />
 
     <EditText
         style="@style/Input"
         android:id="@+id/input_bar_text_content"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:hint="这里是提示文字"
+        android:layout_weight="1"
         android:inputType="text"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/input_bar_text_caption"
+        app:layout_constraintStart_toEndOf="@+id/input_bar_date_caption"
         android:layout_marginStart="@dimen/margin_horizontal"
+        tools:hint="这里是提示文字"
         />
 </android.support.constraint.ConstraintLayout>

@@ -8,7 +8,7 @@
 
     <TextView
         style="@style/InputCaption"
-        android:id="@+id/input_bar_text_caption"
+        android:id="@+id/input_bar_date_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/caption_ps"
@@ -21,13 +21,14 @@
     <EditText
         style="@style/Input"
         android:id="@+id/account_remark"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:hint="@string/hint_ps"
         android:inputType="text"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/input_bar_text_caption"
+        app:layout_constraintStart_toEndOf="@id/input_bar_date_caption"
         android:layout_marginStart="@dimen/margin_horizontal"
         />
 </android.support.constraint.ConstraintLayout>

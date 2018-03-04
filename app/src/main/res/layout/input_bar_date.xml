@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_input"
     >
@@ -11,23 +12,23 @@
         android:id="@+id/input_bar_date_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/caption_note_information"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/margin_horizontal"
+        tools:text="买入日期"
         />
 
-    <EditText
-        style="@style/Input"
-        android:id="@+id/account_remark"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/input_bar_date_value"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_new_account_remark"
-        android:inputType="text"
+        android:layout_weight="1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/input_bar_date_caption"
+        app:layout_constraintStart_toEndOf="@+id/input_bar_date_caption"
         android:layout_marginStart="@dimen/margin_horizontal"
+        tools:hint="2018-02-26"
         />
+
 </android.support.constraint.ConstraintLayout>

@@ -12,11 +12,11 @@
         android:id="@+id/input_bar_amount_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="@string/caption_account_balance"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/margin_horizontal"
+        tools:text="@string/caption_account_balance"
         />
 
     <TextView
@@ -35,8 +35,9 @@
     <EditText
         style="@style/Input"
         android:id="@+id/input_bar_amount_content"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:hint="@string/hint_money_amount"
         android:inputType="numberDecimal"
         app:layout_constraintTop_toTopOf="parent"
