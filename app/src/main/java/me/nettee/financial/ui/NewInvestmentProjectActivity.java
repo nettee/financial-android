@@ -12,8 +12,6 @@ public class NewInvestmentProjectActivity extends NewSomeBaseActivity<Investment
 
     public static final String EXTRA_CANDIDATE_INVESTMENT_PROJECT_OBJECT = "me.nettee.financial.extra_candidate_investment_project";
 
-    private InvestmentProject mCandidateInvestmentProject;
-
     @Override
     public int getLayout() {
         return R.layout.activity_new_investment_project;
@@ -31,7 +29,7 @@ public class NewInvestmentProjectActivity extends NewSomeBaseActivity<Investment
 
     @Override
     public View getConstructedInputs() {
-        return null;
+        return WriteInvestmentProjects.constructView(this, mCandidate);
     }
 
     @Override

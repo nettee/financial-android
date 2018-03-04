@@ -2,46 +2,48 @@
 <android.support.constraint.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
 
     <TextView
         style="@style/InputCaption"
-        android:id="@+id/input_bar_amount_caption"
+        android:id="@+id/input_bar_percent_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/caption_account_balance"
+        tools:text="百分比数"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/margin_horizontal"
         />
 
-    <TextView
-        style="@style/InputCaption"
-        android:id="@+id/input_bar_amount_yuan"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/height_item"
-        android:gravity="center"
-        android:text="@string/yuan"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/input_bar_amount_caption"
-        android:layout_marginStart="@dimen/margin_horizontal"
-        />
-
     <EditText
         style="@style/Input"
-        android:id="@+id/account_amount"
-        android:layout_width="match_parent"
+        android:id="@+id/input_bar_percent_content"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_money_amount"
+        android:hint="@string/hint_percent"
         android:inputType="numberDecimal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/input_bar_amount_yuan"
+        app:layout_constraintStart_toEndOf="@id/input_bar_percent_caption"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        />
+
+    <TextView
+        style="@style/InputCaption"
+        android:id="@+id/input_bar_percent_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_item"
+        android:gravity="center"
+        android:text="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/input_bar_percent_content"
         android:layout_marginStart="@dimen/margin_horizontal_tiny"
         />
+
 
 </android.support.constraint.ConstraintLayout>

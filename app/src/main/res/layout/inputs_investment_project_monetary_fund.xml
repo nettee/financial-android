@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout style="@style/InputLines">
+
+        <include layout="@layout/input_bar_text"
+                 android:id="@+id/investment_project_name"
+        />
+
+        <include layout="@layout/input_bar_amount"
+                 android:id="@+id/investment_project_principle"
+        />
+
+        <include layout="@layout/input_bar_percent"
+                 android:id="@+id/investment_project_annual_yield"
+        />
+
+    </LinearLayout>
+
+    <include layout="@layout/divider_bar_large"/>
+
+    <include layout="@layout/input_bar_ps"/>
+
+</LinearLayout>

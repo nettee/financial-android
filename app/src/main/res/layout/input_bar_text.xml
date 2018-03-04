@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_input"
     >
@@ -11,7 +12,7 @@
         android:id="@+id/input_bar_text_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/caption_note_information"
+        tools:text="财政大臣"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,10 +21,10 @@
 
     <EditText
         style="@style/Input"
-        android:id="@+id/account_remark"
+        android:id="@+id/input_bar_text_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_new_account_remark"
+        tools:hint="这里是提示文字"
         android:inputType="text"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

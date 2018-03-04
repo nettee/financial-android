@@ -88,101 +88,102 @@ public abstract class WriteAccounts {
 
     public static View constructView(Activity activity, Account account) {
 
-        int accountType = account.getType();
-        int candidateImageResource = account.getCandidateImageResource();
-        String candidateName = account.getCandidateName();
+        constructTitleBar(activity, account);
+        return constructInputs(activity, account);
+    }
 
-        // Construct account title bar.
-        {
-            Integer layoutResource;
-            if (accountType == Account.CREDIT_CARD || accountType == Account.DEBIT_CARD) {
-                layoutResource = R.layout.title_bar_account_write_bank_card;
-            } else {
-                layoutResource = R.layout.title_bar_account_write_ordinary;
-            }
-
-            ViewStub stub = activity.findViewById(R.id.account_title_bar_stub);
-            stub.setLayoutResource(layoutResource);
-            View accountTitleBar = stub.inflate();
-
-            accountTitleBar.<ImageView>findViewById(R.id.account_name_image)
-                    .setImageResource(candidateImageResource);
-            accountTitleBar.<TextView>findViewById(R.id.account_name_text)
-                    .setText(candidateName);
+    private static void constructTitleBar(Activity activity, Account account) {
+        Integer layoutResource;
+        if (account.getType() == Account.CREDIT_CARD || account.getType() == Account.DEBIT_CARD) {
+            layoutResource = R.layout.title_bar_account_write_bank_card;
+        } else {
+            layoutResource = R.layout.title_bar_account_write_ordinary;
         }
 
-        // Construct account inputs.
-        {
-            Integer layoutResource = sAccountInputsMap
-                    .getOrDefault(accountType, R.layout.account_inputs_cash);
+        ViewStub stub = activity.findViewById(R.id.account_title_bar_stub);
+        stub.setLayoutResource(layoutResource);
+        View titleBar = stub.inflate();
 
-            ViewStub stub = activity.findViewById(R.id.account_inputs_stub);
-            stub.setLayoutResource(layoutResource);
-            View accountInputs = stub.inflate();
+        titleBar.<ImageView>findViewById(R.id.account_name_image)
+                .setImageResource(account.getCandidateImageResource());
+        titleBar.<TextView>findViewById(R.id.account_name_text)
+                .setText(account.getCandidateName());
+    }
 
-            if (accountType == Account.CASH) {
-                // Do nothing.
-            } else if (accountType == Account.CREDIT_CARD) {
-                accountInputs.findViewById(R.id.view_credit_limit)
-                        .<TextView>findViewById(R.id.account_amount_caption)
-                        .setText(R.string.caption_credit_limit);
-                accountInputs.findViewById(R.id.view_current_arrears)
-                        .<TextView>findViewById(R.id.account_amount_caption)
-                        .setText(R.string.caption_current_arrears);
-                accountInputs.findViewById(R.id.view_bill_date)
-                        .<TextView>findViewById(R.id.account_credit_date_caption)
-                        .setText(R.string.caption_bill_date);
-                accountInputs.findViewById(R.id.view_payment_date)
-                        .<TextView>findViewById(R.id.account_credit_date_caption)
-                        .setText(R.string.caption_payment_date);
-                {
-                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
-                            R.array.bill_dates_array,
-                            android.R.layout.simple_spinner_item);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    accountInputs.findViewById(R.id.view_bill_date)
-                            .<Spinner>findViewById(R.id.account_credit_date_spinner)
-                            .setAdapter(adapter);
-                }
-                {
-                    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
-                            R.array.bill_dates_array,
-                            android.R.layout.simple_spinner_item);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    accountInputs.findViewById(R.id.view_payment_date)
-                            .<Spinner>findViewById(R.id.account_credit_date_spinner)
-                            .setAdapter(adapter);
-                }
-            } else if (accountType == Account.INVESTMENT) {
-                AutoCompleteTextView investmentPlatform = accountInputs.findViewById(R.id.account_investment_platform);
-                ImageView investmentPlatformImage = accountInputs.findViewById(R.id.account_investment_platform_image);
-                InvestmentPlatformAdapter adapter = new InvestmentPlatformAdapter(activity, InvestmentPlatform.getPlatforms());
-                investmentPlatform.setAdapter(adapter);
-                investmentPlatform.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                        // Do nothing.
-                    }
+    private static View constructInputs(Activity activity, Account account) {
+        Integer layoutResource = sAccountInputsMap
+                .getOrDefault(account.getType(), R.layout.account_inputs_cash);
 
-                    @Override
-                    public void onTextChanged(CharSequence text, int i, int i1, int i2) {
-                        InvestmentPlatform platform = InvestmentPlatform.getPlatformByName(text.toString());
-                        if (platform != null) {
-                            investmentPlatformImage.setVisibility(View.VISIBLE);
-                            investmentPlatformImage.setImageResource(platform.getImageResource());
-                        } else {
-                            investmentPlatformImage.setVisibility(GONE);
-                        }
-                    }
+        ViewStub stub = activity.findViewById(R.id.account_inputs_stub);
+        stub.setLayoutResource(layoutResource);
+        View inputs = stub.inflate();
 
-                    @Override
-                    public void afterTextChanged(Editable editable) {
-                        // Do nothing.
-                    }
-                });
+        initInputs(activity, inputs, account);
+
+        return inputs;
+    }
+
+    private static void initInputs(Activity activity, View inputs, Account account) {
+        if (account.getType() == Account.CASH) {
+            // Do nothing.
+        } else if (account.getType() == Account.CREDIT_CARD) {
+            inputs.findViewById(R.id.view_credit_limit)
+                    .<TextView>findViewById(R.id.input_bar_amount_caption)
+                    .setText(R.string.caption_credit_limit);
+            inputs.findViewById(R.id.view_current_arrears)
+                    .<TextView>findViewById(R.id.input_bar_amount_caption)
+                    .setText(R.string.caption_current_arrears);
+            inputs.findViewById(R.id.view_bill_date)
+                    .<TextView>findViewById(R.id.account_credit_date_caption)
+                    .setText(R.string.caption_bill_date);
+            inputs.findViewById(R.id.view_payment_date)
+                    .<TextView>findViewById(R.id.account_credit_date_caption)
+                    .setText(R.string.caption_payment_date);
+            {
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
+                        R.array.bill_dates_array,
+                        android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                inputs.findViewById(R.id.view_bill_date)
+                        .<Spinner>findViewById(R.id.account_credit_date_spinner)
+                        .setAdapter(adapter);
             }
+            {
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
+                        R.array.bill_dates_array,
+                        android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                inputs.findViewById(R.id.view_payment_date)
+                        .<Spinner>findViewById(R.id.account_credit_date_spinner)
+                        .setAdapter(adapter);
+            }
+        } else if (account.getType() == Account.INVESTMENT) {
+            AutoCompleteTextView investmentPlatform = inputs.findViewById(R.id.account_investment_platform);
+            ImageView investmentPlatformImage = inputs.findViewById(R.id.account_investment_platform_image);
+            InvestmentPlatformAdapter adapter = new InvestmentPlatformAdapter(activity, InvestmentPlatform.getPlatforms());
+            investmentPlatform.setAdapter(adapter);
+            investmentPlatform.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    // Do nothing.
+                }
 
-            return accountInputs;
+                @Override
+                public void onTextChanged(CharSequence text, int i, int i1, int i2) {
+                    InvestmentPlatform platform = InvestmentPlatform.getPlatformByName(text.toString());
+                    if (platform != null) {
+                        investmentPlatformImage.setVisibility(View.VISIBLE);
+                        investmentPlatformImage.setImageResource(platform.getImageResource());
+                    } else {
+                        investmentPlatformImage.setVisibility(GONE);
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    // Do nothing.
+                }
+            });
         }
     }
 
