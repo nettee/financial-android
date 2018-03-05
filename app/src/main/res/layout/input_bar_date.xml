@@ -19,11 +19,16 @@
         tools:text="买入日期"
         />
 
+    <!-- Use padding to expend clickable area -->
     <TextView
         android:id="@+id/input_bar_date_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="200dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/input_bar_date_caption"

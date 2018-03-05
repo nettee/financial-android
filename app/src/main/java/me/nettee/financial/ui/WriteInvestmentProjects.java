@@ -1,13 +1,20 @@
 package me.nettee.financial.ui;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.investment.InvestmentProject;
@@ -50,12 +57,12 @@ public class WriteInvestmentProjects {
             stub.setLayoutResource(getLayoutResource());
             View inputs = stub.inflate();
 
-            initInputs(inputs);
+            initInputs(activity, inputs);
 
             return inputs;
         }
 
-        abstract void initInputs(View inputs);
+        abstract void initInputs(Activity activity, View inputs);
 
     }
 
@@ -67,7 +74,10 @@ public class WriteInvestmentProjects {
         }
 
         @Override
-        void initInputs(View inputs) {
+        void initInputs(Activity activity, View inputs) {
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd E", Locale.CHINA);
+
 
             View nameView = inputs.findViewById(R.id.investment_project_name);
             nameView.<TextView>findViewById(R.id.input_bar_date_caption).setText(R.string.caption_project_name);
@@ -81,14 +91,23 @@ public class WriteInvestmentProjects {
 
             View buyDateView = inputs.findViewById(R.id.investment_project_buy_date);
             buyDateView.<TextView>findViewById(R.id.input_bar_date_caption).setText("买入日期");
-            buyDateView.<TextView>findViewById(R.id.input_bar_date_value).setText("2018-02-26");
-            buyDateView.<TextView>findViewById(R.id.input_bar_date_value).setOnClickListener(view -> {
-                Log.d("TAG", "clicked");
+            TextView dateValueTextView = buyDateView.findViewById(R.id.input_bar_date_value);
+            dateValueTextView.setText(dateFormat.format(new Date()));
+            dateValueTextView.setOnClickListener(view -> {
+                Calendar calendar = Calendar.getInstance();
+                int y = calendar.get(Calendar.YEAR);
+                int m = calendar.get(Calendar.MONTH);
+                int d = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog.OnDateSetListener listener = (datePicker, year, month, dayOfMonth) -> {
+                    Date date = new GregorianCalendar(year, month, dayOfMonth).getTime();
+                    dateValueTextView.setText(dateFormat.format(date));
+                };
+                new DatePickerDialog(activity, listener, y, m, d).show();
             });
 
             View valueDateView = inputs.findViewById(R.id.investment_project_value_date);
             valueDateView.<TextView>findViewById(R.id.input_bar_date_caption).setText("起息日期");
-            valueDateView.<TextView>findViewById(R.id.input_bar_date_value).setText("2018-02-26");
+            valueDateView.<TextView>findViewById(R.id.input_bar_date_value).setText(dateFormat.format(new Date()));
         }
     }
 

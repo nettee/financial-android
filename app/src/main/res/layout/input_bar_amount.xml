@@ -43,7 +43,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/input_bar_amount_yuan"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/margin_horizontal_tiny"
+        android:layout_marginEnd="@dimen/margin_horizontal"
         />
 
 </android.support.constraint.ConstraintLayout>
