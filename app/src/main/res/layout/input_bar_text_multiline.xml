@@ -2,33 +2,35 @@
 <android.support.constraint.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_input"
+    android:layout_height="@dimen/height_input_large"
     >
 
     <TextView
         style="@style/InputCaption"
-        android:id="@+id/input_bar_date_caption"
+        android:id="@+id/input_bar_text_multiline_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/caption_ps"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/margin_horizontal"
+        tools:text="@string/caption_postscript"
         />
 
     <EditText
         style="@style/Input"
-        android:id="@+id/account_remark"
+        android:id="@+id/input_bar_text_multiline_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:hint="@string/hint_ps"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/input_bar_date_caption"
+        app:layout_constraintStart_toEndOf="@id/input_bar_text_multiline_caption"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_marginEnd="@dimen/margin_horizontal"
+        tools:hint="@string/hint_postscript"
         />
 </android.support.constraint.ConstraintLayout>

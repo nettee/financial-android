@@ -35,8 +35,15 @@
     <string name="caption_investment_platform">投资平台</string>
     <string name="caption_investment_kind">投资品种</string>
     <string name="caption_principle">投入本金</string>
-    <string name="caption_ps">备注消息</string>
+    <string name="caption_postscript">备注消息</string>
     <string name="caption_project_name">项目名称</string>
+    <string name="caption_investment_stock">股票</string>
+    <string name="caption_investment_fund">基金</string>
+    <string name="caption_investment_fixed">定期</string>
+    <string name="caption_investment_other">其他</string>
+    <string name="caption_expected_annual_yield">预期年化</string>
+    <string name="caption_buy_date">买入日期</string>
+    <string name="caption_value_date">起息日期</string>
 
     <string name="button_edit">编辑</string>
     <string name="button_save">保存</string>
@@ -47,7 +54,7 @@
     <string name="hint_percent">0.00</string>
     <string name="hint_bank_card_number">银行卡号（可不填）</string>
     <string name="hint_new_investment_platform_name">请输入投资平台名称</string>
-    <string name="hint_ps">请输入备注消息</string>
+    <string name="hint_postscript">请输入备注消息</string>
     <string name="hint_project_name">请输入项目名称（必填）</string>
 
     <string name="default_money_amount">0.00</string>
@@ -70,11 +77,6 @@
     <string name="error_fail_edit_account">修改账户失败</string>
     <string name="message_success_deleted">删除成功</string>
 
-    <string name="caption_investment_stock">股票</string>
-    <string name="caption_investment_fund">基金</string>
-    <string name="caption_investment_fixed">定期</string>
-    <string name="caption_investment_other">其他</string>
-    <string name="caption_expected_annual_yield">预期年化</string>
 
 
     <string-array name="bill_dates_array">

@@ -32,6 +32,8 @@
 
     <include layout="@layout/divider_bar_large"/>
 
-    <include layout="@layout/input_bar_ps"/>
+    <include layout="@layout/input_bar_text_multiline"
+             android:id="@+id/investment_project_postscript"
+        />
 
 </LinearLayout>

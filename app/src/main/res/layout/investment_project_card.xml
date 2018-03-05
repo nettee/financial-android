@@ -3,31 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_input"
+    android:layout_height="100dp"
+    android:background="@drawable/investment_project_card_light"
+    android:layout_marginBottom="@dimen/margin_vertical"
     >
 
     <TextView
-        style="@style/InputCaption"
-        android:id="@+id/input_bar_text_multiline_caption"
+        android:id="@+id/investment_project_card_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/caption_note_information"
+        android:text="超值基金"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/margin_vertical"
         android:layout_marginStart="@dimen/margin_horizontal"
         />
 
-    <EditText
-        style="@style/Input"
-        android:id="@+id/account_remark"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/investment_project_card_time"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_new_account_remark"
-        android:inputType="text"
+        android:text="已买入33天"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/input_bar_text_multiline_caption"
-        android:layout_marginStart="@dimen/margin_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginEnd="@dimen/margin_horizontal"
         />
+
 </android.support.constraint.ConstraintLayout>

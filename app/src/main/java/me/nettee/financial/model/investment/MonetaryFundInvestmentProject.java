@@ -9,6 +9,7 @@ public class MonetaryFundInvestmentProject extends InvestmentProject {
     private String mName;
     private Amount mPrinciple;
     private Percent mAnnualYield;
+    private String mPostscript;
 
     @Override
     public int getType() {
@@ -47,5 +48,13 @@ public class MonetaryFundInvestmentProject extends InvestmentProject {
 
     public void setAnnualYield(Percent annualYield) {
         mAnnualYield = annualYield;
+    }
+
+    public String getPostscript() {
+        return mPostscript;
+    }
+
+    public void setPostscript(String postscript) {
+        mPostscript = postscript;
     }
 }

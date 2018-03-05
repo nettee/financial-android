@@ -2,11 +2,13 @@ package me.nettee.financial.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.InvestmentProjectLab;
 import me.nettee.financial.model.investment.InvestmentProject;
 
 public class NewInvestmentProjectActivity extends NewSomeBaseActivity<InvestmentProject> {
@@ -45,7 +47,10 @@ public class NewInvestmentProjectActivity extends NewSomeBaseActivity<Investment
                 return;
             }
 
+            InvestmentProjectLab.getInstance().addInvestmentProject(investmentProject);
 
+            setResult(RESULT_OK);
+            finish();
         };
     }
 }

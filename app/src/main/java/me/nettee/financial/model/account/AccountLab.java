@@ -13,7 +13,7 @@ public class AccountLab {
 
     private static AccountLab sAccountLab;
 
-    private List<Account> mAccounts;
+    private final List<Account> mAccounts;
 
     private Comparator<Account> mAccountComparator = (one, another) -> {
         if (one.getType() < another.getType()) {

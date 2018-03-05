@@ -31,6 +31,8 @@ public abstract class InvestmentProject implements Serializable {
 
     public abstract int getCandidateImageResource();
 
+    public abstract String getName();
+
     private static CandidateInvestmentProject candidate(int type, String candidateName, int candidateImageResource) {
         return new CandidateInvestmentProject(type, candidateName, candidateImageResource);
     }
@@ -64,6 +66,11 @@ public abstract class InvestmentProject implements Serializable {
         @Override
         public int getCandidateImageResource() {
             return mCandidateImageResource;
+        }
+
+        @Override
+        public String getName() {
+            throw new UnsupportedOperationException();
         }
     }
 
