@@ -6,7 +6,8 @@
 
     <color name="danger">#cc3333</color>
 
-    <color name="lightGray">#eeeeee</color>
+    <color name="colorLightGray">#eeeeee</color>
+    <color name="colorDarkGray">#aaaaaa</color>
 
     <color name="textGray">#999999</color>
 

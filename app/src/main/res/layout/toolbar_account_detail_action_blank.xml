@@ -4,6 +4,6 @@
     android:id="@+id/account_detail_action_toolbar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_action_bar"
-    android:background="@color/lightGray"
+    android:background="@color/colorLightGray"
     >
 </Toolbar>

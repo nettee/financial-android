@@ -59,7 +59,7 @@
         <item name="android:padding">0dp</item>
     </style>
 
-    <style name="InputCaption">
+    <style name="Caption">
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:textColor">@color/textGray</item>
     </style>

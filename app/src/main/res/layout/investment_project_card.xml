@@ -1,33 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="@drawable/investment_project_card_light"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin_vertical"
+    android:background="@drawable/investment_project_card_light"
     >
 
     <TextView
         android:id="@+id/investment_project_card_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="超值基金"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/margin_vertical"
         android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:text="超值基金"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
     <TextView
         android:id="@+id/investment_project_card_time"
+        style="@style/Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="已买入33天"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/margin_vertical"
         android:layout_marginEnd="@dimen/margin_horizontal"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:text="已买入33天"
+        app:layout_constraintBaseline_toBaselineOf="@id/investment_project_card_name"
+        app:layout_constraintEnd_toEndOf="parent"
         />
+
+    <View
+        android:id="@+id/investment_project_card_divider"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:layout_marginEnd="@dimen/margin_horizontal"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:background="@color/colorDarkGray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/investment_project_card_name"
+        />
+
+    <TextView
+        android:id="@+id/investment_project_card_principle_caption"
+        style="@style/Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/caption_principle"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_marginTop="@dimen/margin_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/investment_project_card_divider"
+        />
+
+    <TextView
+        android:id="@+id/investment_project_card_principle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_vertical"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:text="1,000.00"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/investment_project_card_principle_caption"
+        />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33"
+        />
+
+    <TextView
+        style="@style/Caption"
+        android:id="@+id/investment_project_card_annual_yield_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/caption_expected_annual_yield"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/investment_project_card_divider"
+        app:layout_constraintStart_toEndOf="@id/guideline_1"
+        />
+
+    <TextView
+        android:id="@+id/investment_project_card_annual_yield"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4.5644%"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/investment_project_card_annual_yield_caption"
+        app:layout_constraintStart_toEndOf="@id/guideline_1"
+        />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.66"
+        />
+
+    <TextView
+        style="@style/Caption"
+        android:id="@+id/investment_project_card_earning_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/caption_current_earning"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/investment_project_card_divider"
+        app:layout_constraintStart_toEndOf="@id/guideline_2"
+        />
+
+    <TextView
+        android:id="@+id/investment_project_card_earning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+3.75"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/investment_project_card_earning_caption"
+        app:layout_constraintStart_toEndOf="@id/guideline_2"
+        />
+
+
 
 </android.support.constraint.ConstraintLayout>
