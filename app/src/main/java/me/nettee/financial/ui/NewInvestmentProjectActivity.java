@@ -3,6 +3,7 @@ package me.nettee.financial.ui;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import me.nettee.financial.R;
@@ -34,7 +35,16 @@ public class NewInvestmentProjectActivity extends NewSomeBaseActivity<Investment
 
     @Override
     public View.OnClickListener getOnSaveListener() {
+
         return view -> {
+
+            InvestmentProject investmentProject = WriteInvestmentProjects.extractInvestmentProject(mCandidate.getType(), mInputs);
+
+            if (investmentProject == null) {
+                Toast.makeText(NewInvestmentProjectActivity.this, "添加投资项目失败", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
 
         };
     }

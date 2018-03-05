@@ -34,6 +34,7 @@ public class NewAccountActivity extends NewSomeBaseActivity<Account> {
 
     @Override
     public View.OnClickListener getOnSaveListener() {
+
         return view -> {
 
             Account account = WriteAccounts.extractAccount(mCandidate.getType(), mInputs);

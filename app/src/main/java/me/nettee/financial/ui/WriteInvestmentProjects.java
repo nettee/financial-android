@@ -17,7 +17,11 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.Percent;
+import me.nettee.financial.model.account.InvestmentAccount;
 import me.nettee.financial.model.investment.InvestmentProject;
+import me.nettee.financial.model.investment.MonetaryFundInvestmentProject;
 
 public class WriteInvestmentProjects {
 
@@ -48,6 +52,10 @@ public class WriteInvestmentProjects {
         return constructor.construct(activity, investmentProject);
     }
 
+    public static InvestmentProject extractInvestmentProject(int investmentProjectType, View inputs) {
+        return null;
+    }
+
     private static abstract class InputsConstructor {
 
         abstract int getLayoutResource();
@@ -66,6 +74,11 @@ public class WriteInvestmentProjects {
 
     }
 
+    @FunctionalInterface
+    private interface InvestmentProjectExtractor {
+        InvestmentProject extract(View inputs);
+    }
+
     private static final class MonetaryFundInputsConstructor extends InputsConstructor {
 
         @Override
@@ -77,7 +90,6 @@ public class WriteInvestmentProjects {
         void initInputs(Activity activity, View inputs) {
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd E", Locale.CHINA);
-
 
             View nameView = inputs.findViewById(R.id.investment_project_name);
             nameView.<TextView>findViewById(R.id.input_bar_date_caption).setText(R.string.caption_project_name);
@@ -108,6 +120,26 @@ public class WriteInvestmentProjects {
             View valueDateView = inputs.findViewById(R.id.investment_project_value_date);
             valueDateView.<TextView>findViewById(R.id.input_bar_date_caption).setText("起息日期");
             valueDateView.<TextView>findViewById(R.id.input_bar_date_value).setText(dateFormat.format(new Date()));
+        }
+    }
+
+    private static class MonetaryFundInvestmentProjectExtractor implements InvestmentProjectExtractor {
+
+        private EditText mName;
+        private EditText mPrinciple;
+        private EditText mAnnualYield;
+
+        @Override
+        public InvestmentProject extract(View inputs) {
+            mName = inputs.findViewById(R.id.investment_project_name).findViewById(R.id.input_bar_text_content);
+            mPrinciple = inputs.findViewById(R.id.investment_project_principle).findViewById(R.id.input_bar_amount_content);
+            mAnnualYield = inputs.findViewById(R.id.investment_project_annual_yield).findViewById(R.id.input_bar_percent_content);
+
+            MonetaryFundInvestmentProject monetaryFund = new MonetaryFundInvestmentProject();
+            monetaryFund.setName(mName.getText().toString());
+            monetaryFund.setPrinciple(Amount.valueOf(mPrinciple.getText().toString()));
+            monetaryFund.setAnnualYield(new Percent());
+            return monetaryFund;
         }
     }
 
