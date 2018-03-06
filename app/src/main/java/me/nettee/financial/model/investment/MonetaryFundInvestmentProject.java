@@ -1,5 +1,6 @@
 package me.nettee.financial.model.investment;
 
+import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
 
 import me.nettee.financial.R;
@@ -28,6 +29,24 @@ public class MonetaryFundInvestmentProject extends InvestmentProject {
     @Override
     public int getCandidateImageResource() {
         return R.drawable.ic_account_investment;
+    }
+
+    public static LocalDate getValueDateFromBuyDate(LocalDate buyDate) {
+        switch (buyDate.getDayOfWeek()) {
+            case DateTimeConstants.MONDAY:
+            case DateTimeConstants.TUESDAY:
+            case DateTimeConstants.WEDNESDAY:
+            case DateTimeConstants.THURSDAY:
+                return buyDate.plusDays(2);
+            case DateTimeConstants.FRIDAY:
+                return buyDate.plusDays(4);
+            case DateTimeConstants.SATURDAY:
+                return buyDate.plusDays(3);
+            case DateTimeConstants.SUNDAY:
+                return buyDate.plusDays(2);
+            default:
+                return buyDate.plusDays(2);
+        }
     }
 
     public String getName() {

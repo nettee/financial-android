@@ -2,7 +2,6 @@ package me.nettee.financial.ui;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.EditText;
@@ -11,19 +10,12 @@ import android.widget.TextView;
 
 import org.joda.time.LocalDate;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.Percent;
-import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.investment.InvestmentProject;
 import me.nettee.financial.model.investment.MonetaryFundInvestmentProject;
 
@@ -93,6 +85,8 @@ public class WriteInvestmentProjects {
 
     private static final class MonetaryFundInputsConstructor extends InputsConstructor {
 
+        static final String DATE_PATTERN = "yyyy-MM-dd";
+
         @Override
         int getLayoutResource() {
             return R.layout.inputs_investment_project_monetary_fund;
@@ -114,33 +108,43 @@ public class WriteInvestmentProjects {
             View buyDateView = inputs.findViewById(R.id.investment_project_buy_date);
             buyDateView.<TextView>findViewById(R.id.input_bar_date_caption).setText(R.string.caption_buy_date);
             TextView buyDateTextView = buyDateView.findViewById(R.id.input_bar_date_value);
-            initDateTextView(activity, buyDateTextView, LocalDate.now());
+            buyDateTextView.setText(LocalDate.now().toString(DATE_PATTERN));
 
             View valueDateView = inputs.findViewById(R.id.investment_project_value_date);
             valueDateView.<TextView>findViewById(R.id.input_bar_date_caption).setText(R.string.caption_value_date);
             TextView valueDateTextView = valueDateView.findViewById(R.id.input_bar_date_value);
-            // Init with tomorrow.
-            initDateTextView(activity, valueDateTextView, LocalDate.now().plusDays(1));
+            valueDateTextView.setText(MonetaryFundInvestmentProject.getValueDateFromBuyDate(LocalDate.now()).toString(DATE_PATTERN));
+
+            buyDateTextView.setOnClickListener(view -> {
+                LocalDate date0 = new LocalDate(buyDateTextView.getText().toString());
+                int y = date0.getYear();
+                int m = date0.getMonthOfYear();
+                int d = date0.getDayOfMonth();
+                DatePickerDialog.OnDateSetListener listener1 = (datePicker, year, month, dayOfMonth) -> {
+                    LocalDate newDate = new LocalDate(year, month + 1, dayOfMonth);
+                    buyDateTextView.setText(newDate.toString(DATE_PATTERN));
+                    valueDateTextView.setText(MonetaryFundInvestmentProject.getValueDateFromBuyDate(newDate).toString(DATE_PATTERN));
+                };
+                new DatePickerDialog(activity, listener1, y, m - 1, d).show();
+            });
+
+            valueDateTextView.setOnClickListener(view -> {
+                LocalDate date0 = new LocalDate(valueDateTextView.getText().toString());
+                int y = date0.getYear();
+                int m = date0.getMonthOfYear();
+                int d = date0.getDayOfMonth();
+                DatePickerDialog.OnDateSetListener listener = (datePicker, year, month, dayOfMonth) -> {
+                    LocalDate newDate = new LocalDate(year, month + 1, dayOfMonth);
+                    valueDateTextView.setText(newDate.toString(DATE_PATTERN));
+                };
+                new DatePickerDialog(activity, listener, y, m - 1, d).show();
+            });
 
             View postscriptView = inputs.findViewById(R.id.investment_project_postscript);
             postscriptView.<TextView>findViewById(R.id.input_bar_text_multiline_caption).setText(R.string.caption_postscript);
             postscriptView.<EditText>findViewById(R.id.input_bar_text_multiline_content).setHint(R.string.hint_postscript);
         }
 
-        private void initDateTextView(Activity activity, TextView dateTextView, LocalDate initDate) {
-            dateTextView.setText(initDate.toString("yyyy-MM-dd E"));
-            dateTextView.setOnClickListener(view -> {
-                LocalDate now = LocalDate.now();
-                int y = now.getYear();
-                int m = now.getMonthOfYear();
-                int d = now.getDayOfMonth();
-                DatePickerDialog.OnDateSetListener listener = (datePicker, year, month, dayOfMonth) -> {
-                    LocalDate date = new LocalDate(year, month + 1, dayOfMonth);
-                    dateTextView.setText(date.toString("yyyy-MM-dd E"));
-                };
-                new DatePickerDialog(activity, listener, y, m - 1, d).show();
-            });
-        }
     }
 
     private static class MonetaryFundInvestmentProjectExtractor implements InvestmentProjectExtractor {
@@ -151,8 +155,6 @@ public class WriteInvestmentProjects {
         private TextView mBuyDate;
         private TextView mValueDate;
         private EditText mPostscript;
-
-        private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd E", Locale.CHINA);
 
         @Override
         public InvestmentProject extract(View inputs) {
