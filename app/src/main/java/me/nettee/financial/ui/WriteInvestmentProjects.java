@@ -23,6 +23,7 @@ import java.util.Map;
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.Percent;
+import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.investment.InvestmentProject;
 import me.nettee.financial.model.investment.MonetaryFundInvestmentProject;
 
@@ -112,27 +113,33 @@ public class WriteInvestmentProjects {
 
             View buyDateView = inputs.findViewById(R.id.investment_project_buy_date);
             buyDateView.<TextView>findViewById(R.id.input_bar_date_caption).setText(R.string.caption_buy_date);
-            TextView dateValueTextView = buyDateView.findViewById(R.id.input_bar_date_value);
-            dateValueTextView.setText(LocalDate.now().toString("yyyy-MM-dd E"));
-            dateValueTextView.setOnClickListener(view -> {
+            TextView buyDateTextView = buyDateView.findViewById(R.id.input_bar_date_value);
+            initDateTextView(activity, buyDateTextView, LocalDate.now());
+
+            View valueDateView = inputs.findViewById(R.id.investment_project_value_date);
+            valueDateView.<TextView>findViewById(R.id.input_bar_date_caption).setText(R.string.caption_value_date);
+            TextView valueDateTextView = valueDateView.findViewById(R.id.input_bar_date_value);
+            // Init with tomorrow.
+            initDateTextView(activity, valueDateTextView, LocalDate.now().plusDays(1));
+
+            View postscriptView = inputs.findViewById(R.id.investment_project_postscript);
+            postscriptView.<TextView>findViewById(R.id.input_bar_text_multiline_caption).setText(R.string.caption_postscript);
+            postscriptView.<EditText>findViewById(R.id.input_bar_text_multiline_content).setHint(R.string.hint_postscript);
+        }
+
+        private void initDateTextView(Activity activity, TextView dateTextView, LocalDate initDate) {
+            dateTextView.setText(initDate.toString("yyyy-MM-dd E"));
+            dateTextView.setOnClickListener(view -> {
                 LocalDate now = LocalDate.now();
                 int y = now.getYear();
                 int m = now.getMonthOfYear();
                 int d = now.getDayOfMonth();
                 DatePickerDialog.OnDateSetListener listener = (datePicker, year, month, dayOfMonth) -> {
                     LocalDate date = new LocalDate(year, month + 1, dayOfMonth);
-                    dateValueTextView.setText(date.toString("yyyy-MM-dd E"));
+                    dateTextView.setText(date.toString("yyyy-MM-dd E"));
                 };
                 new DatePickerDialog(activity, listener, y, m - 1, d).show();
             });
-
-            View valueDateView = inputs.findViewById(R.id.investment_project_value_date);
-            valueDateView.<TextView>findViewById(R.id.input_bar_date_caption).setText(R.string.caption_value_date);
-            valueDateView.<TextView>findViewById(R.id.input_bar_date_value).setText(LocalDate.now().toString("yyyy-MM-dd E"));
-
-            View postscriptView = inputs.findViewById(R.id.investment_project_postscript);
-            postscriptView.<TextView>findViewById(R.id.input_bar_text_multiline_caption).setText(R.string.caption_postscript);
-            postscriptView.<EditText>findViewById(R.id.input_bar_text_multiline_content).setHint(R.string.hint_postscript);
         }
     }
 
@@ -142,6 +149,7 @@ public class WriteInvestmentProjects {
         private EditText mPrinciple;
         private EditText mAnnualYield;
         private TextView mBuyDate;
+        private TextView mValueDate;
         private EditText mPostscript;
 
         private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd E", Locale.CHINA);
@@ -152,6 +160,7 @@ public class WriteInvestmentProjects {
             mPrinciple = inputs.findViewById(R.id.investment_project_principle).findViewById(R.id.input_bar_amount_content);
             mAnnualYield = inputs.findViewById(R.id.investment_project_annual_yield).findViewById(R.id.input_bar_percent_content);
             mBuyDate = inputs.findViewById(R.id.investment_project_buy_date).findViewById(R.id.input_bar_date_value);
+            mValueDate = inputs.findViewById(R.id.investment_project_value_date).findViewById(R.id.input_bar_date_value);
             mPostscript = inputs.findViewById(R.id.investment_project_postscript).findViewById(R.id.input_bar_text_multiline_content);
 
             MonetaryFundInvestmentProject monetaryFund = new MonetaryFundInvestmentProject();
@@ -159,6 +168,7 @@ public class WriteInvestmentProjects {
             monetaryFund.setPrinciple(Amount.valueOf(mPrinciple.getText().toString()));
             monetaryFund.setAnnualYield(Percent.valueOf(mAnnualYield.getText().toString()));
             monetaryFund.setBuyDate(new LocalDate(mBuyDate.getText().toString()));
+            monetaryFund.setValueDate(new LocalDate(mValueDate.getText().toString()));
             monetaryFund.setPostscript(mPostscript.getText().toString());
             return monetaryFund;
         }

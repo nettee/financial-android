@@ -38,6 +38,10 @@ public abstract class InvestmentProject implements Serializable {
 
     public abstract Amount getPrinciple();
 
+    public Amount getTotalAmount() {
+        return getPrinciple();
+    }
+
     public int getInvestmentPlatformType() {
         return mInvestmentPlatformType;
     }
