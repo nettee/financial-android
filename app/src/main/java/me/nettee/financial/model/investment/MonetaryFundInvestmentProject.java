@@ -1,5 +1,7 @@
 package me.nettee.financial.model.investment;
 
+import java.util.Date;
+
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.Percent;
@@ -9,6 +11,8 @@ public class MonetaryFundInvestmentProject extends InvestmentProject {
     private String mName;
     private Amount mPrinciple;
     private Percent mAnnualYield;
+    private Date mBuyDate;
+    private Date mValueDate;
     private String mPostscript;
 
     @Override
@@ -48,6 +52,22 @@ public class MonetaryFundInvestmentProject extends InvestmentProject {
 
     public void setAnnualYield(Percent annualYield) {
         mAnnualYield = annualYield;
+    }
+
+    public Date getBuyDate() {
+        return mBuyDate;
+    }
+
+    public void setBuyDate(Date buyDate) {
+        mBuyDate = buyDate;
+    }
+
+    public Date getValueDate() {
+        return mValueDate;
+    }
+
+    public void setValueDate(Date valueDate) {
+        mValueDate = valueDate;
     }
 
     public String getPostscript() {

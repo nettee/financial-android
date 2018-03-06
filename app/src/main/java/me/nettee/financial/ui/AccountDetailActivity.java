@@ -16,9 +16,11 @@ import android.widget.Toolbar;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.InvestmentProjectLab;
@@ -26,6 +28,7 @@ import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.InvestmentAccount;
 import me.nettee.financial.model.investment.InvestmentPlatform;
 import me.nettee.financial.model.investment.InvestmentProject;
+import me.nettee.financial.model.investment.MonetaryFundInvestmentProject;
 
 public class AccountDetailActivity extends Activity {
 
@@ -155,14 +158,24 @@ public class AccountDetailActivity extends Activity {
 
             for (InvestmentProject investmentProject : investmentProjects) {
 
+                MonetaryFundInvestmentProject monetaryFundInvestmentProject = (MonetaryFundInvestmentProject) investmentProject;
+
                 View itemView = inflater.inflate(R.layout.investment_project_card, null);
                 int itemHeight = (int) getResources().getDimension(R.dimen.investment_project_card_height);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
                 layoutParams.setMargins(0,0, 0, (int) getResources().getDimension(R.dimen.margin_vertical));
                 itemView.setLayoutParams(layoutParams);
 
-                itemView.<TextView>findViewById(R.id.investment_project_card_name).setText(investmentProject.getName());
-                itemView.<TextView>findViewById(R.id.investment_project_card_principle).setText(investmentProject.getPrinciple().toString());
+                itemView.<TextView>findViewById(R.id.investment_project_card_name)
+                        .setText(monetaryFundInvestmentProject.getName());
+                itemView.<TextView>findViewById(R.id.investment_project_card_principle)
+                        .setText(monetaryFundInvestmentProject.getPrinciple().toString());
+                itemView.<TextView>findViewById(R.id.investment_project_card_annual_yield)
+                        .setText(monetaryFundInvestmentProject.getAnnualYield().toString());
+                Date buyDate = monetaryFundInvestmentProject.getBuyDate();
+                long dayDiff = TimeUnit.DAYS.convert((new Date()).getTime() - buyDate.getTime(), TimeUnit.MILLISECONDS);
+                itemView.<TextView>findViewById(R.id.investment_project_card_time)
+                        .setText(String.format("已买入%d天", dayDiff));
 
                 investmentProjectList.addView(itemView);
             }

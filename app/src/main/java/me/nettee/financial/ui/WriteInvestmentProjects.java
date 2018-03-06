@@ -8,7 +8,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -139,19 +141,28 @@ public class WriteInvestmentProjects {
         private EditText mName;
         private EditText mPrinciple;
         private EditText mAnnualYield;
+        private TextView mBuyDate;
         private EditText mPostscript;
+
+        private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd E", Locale.CHINA);
 
         @Override
         public InvestmentProject extract(View inputs) {
             mName = inputs.findViewById(R.id.investment_project_name).findViewById(R.id.input_bar_text_content);
             mPrinciple = inputs.findViewById(R.id.investment_project_principle).findViewById(R.id.input_bar_amount_content);
             mAnnualYield = inputs.findViewById(R.id.investment_project_annual_yield).findViewById(R.id.input_bar_percent_content);
+            mBuyDate = inputs.findViewById(R.id.investment_project_buy_date).findViewById(R.id.input_bar_date_value);
             mPostscript = inputs.findViewById(R.id.investment_project_postscript).findViewById(R.id.input_bar_text_multiline_content);
 
             MonetaryFundInvestmentProject monetaryFund = new MonetaryFundInvestmentProject();
             monetaryFund.setName(mName.getText().toString());
             monetaryFund.setPrinciple(Amount.valueOf(mPrinciple.getText().toString()));
             monetaryFund.setAnnualYield(Percent.valueOf(mAnnualYield.getText().toString()));
+            try {
+                monetaryFund.setBuyDate(dateFormat.parse(mBuyDate.getText().toString()));
+            } catch (ParseException e) {
+                throw new IllegalStateException(e);
+            }
             monetaryFund.setPostscript(mPostscript.getText().toString());
             return monetaryFund;
         }

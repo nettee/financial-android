@@ -27,9 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_horizontal"
         android:layout_marginTop="@dimen/margin_vertical"
-        android:text="已买入**天"
         app:layout_constraintBaseline_toBaselineOf="@id/investment_project_card_name"
         app:layout_constraintEnd_toEndOf="parent"
+        tools:text="已买入**天"
         />
 
     <View
