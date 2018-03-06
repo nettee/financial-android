@@ -1,6 +1,6 @@
 package me.nettee.financial.model.investment;
 
-import java.util.Date;
+import org.joda.time.LocalDate;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
@@ -11,8 +11,8 @@ public class MonetaryFundInvestmentProject extends InvestmentProject {
     private String mName;
     private Amount mPrinciple;
     private Percent mAnnualYield;
-    private Date mBuyDate;
-    private Date mValueDate;
+    private LocalDate mBuyDate;
+    private LocalDate mValueDate;
     private String mPostscript;
 
     @Override
@@ -54,19 +54,19 @@ public class MonetaryFundInvestmentProject extends InvestmentProject {
         mAnnualYield = annualYield;
     }
 
-    public Date getBuyDate() {
+    public LocalDate getBuyDate() {
         return mBuyDate;
     }
 
-    public void setBuyDate(Date buyDate) {
+    public void setBuyDate(LocalDate buyDate) {
         mBuyDate = buyDate;
     }
 
-    public Date getValueDate() {
+    public LocalDate getValueDate() {
         return mValueDate;
     }
 
-    public void setValueDate(Date valueDate) {
+    public void setValueDate(LocalDate valueDate) {
         mValueDate = valueDate;
     }
 

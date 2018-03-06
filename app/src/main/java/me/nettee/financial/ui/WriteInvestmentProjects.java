@@ -2,15 +2,17 @@ package me.nettee.financial.ui;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.joda.time.LocalDate;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -98,8 +100,6 @@ public class WriteInvestmentProjects {
         @Override
         void initInputs(Activity activity, View inputs) {
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd E", Locale.CHINA);
-
             View nameView = inputs.findViewById(R.id.investment_project_name);
             nameView.<TextView>findViewById(R.id.input_bar_text_multiline_caption).setText(R.string.caption_project_name);
             nameView.<EditText>findViewById(R.id.input_bar_text_content).setHint(R.string.hint_project_name);
@@ -113,22 +113,22 @@ public class WriteInvestmentProjects {
             View buyDateView = inputs.findViewById(R.id.investment_project_buy_date);
             buyDateView.<TextView>findViewById(R.id.input_bar_date_caption).setText(R.string.caption_buy_date);
             TextView dateValueTextView = buyDateView.findViewById(R.id.input_bar_date_value);
-            dateValueTextView.setText(dateFormat.format(new Date()));
+            dateValueTextView.setText(LocalDate.now().toString("yyyy-MM-dd E"));
             dateValueTextView.setOnClickListener(view -> {
-                Calendar calendar = Calendar.getInstance();
-                int y = calendar.get(Calendar.YEAR);
-                int m = calendar.get(Calendar.MONTH);
-                int d = calendar.get(Calendar.DAY_OF_MONTH);
+                LocalDate now = LocalDate.now();
+                int y = now.getYear();
+                int m = now.getMonthOfYear();
+                int d = now.getDayOfMonth();
                 DatePickerDialog.OnDateSetListener listener = (datePicker, year, month, dayOfMonth) -> {
-                    Date date = new GregorianCalendar(year, month, dayOfMonth).getTime();
-                    dateValueTextView.setText(dateFormat.format(date));
+                    LocalDate date = new LocalDate(year, month + 1, dayOfMonth);
+                    dateValueTextView.setText(date.toString("yyyy-MM-dd E"));
                 };
-                new DatePickerDialog(activity, listener, y, m, d).show();
+                new DatePickerDialog(activity, listener, y, m - 1, d).show();
             });
 
             View valueDateView = inputs.findViewById(R.id.investment_project_value_date);
             valueDateView.<TextView>findViewById(R.id.input_bar_date_caption).setText(R.string.caption_value_date);
-            valueDateView.<TextView>findViewById(R.id.input_bar_date_value).setText(dateFormat.format(new Date()));
+            valueDateView.<TextView>findViewById(R.id.input_bar_date_value).setText(LocalDate.now().toString("yyyy-MM-dd E"));
 
             View postscriptView = inputs.findViewById(R.id.investment_project_postscript);
             postscriptView.<TextView>findViewById(R.id.input_bar_text_multiline_caption).setText(R.string.caption_postscript);
@@ -158,11 +158,7 @@ public class WriteInvestmentProjects {
             monetaryFund.setName(mName.getText().toString());
             monetaryFund.setPrinciple(Amount.valueOf(mPrinciple.getText().toString()));
             monetaryFund.setAnnualYield(Percent.valueOf(mAnnualYield.getText().toString()));
-            try {
-                monetaryFund.setBuyDate(dateFormat.parse(mBuyDate.getText().toString()));
-            } catch (ParseException e) {
-                throw new IllegalStateException(e);
-            }
+            monetaryFund.setBuyDate(new LocalDate(mBuyDate.getText().toString()));
             monetaryFund.setPostscript(mPostscript.getText().toString());
             return monetaryFund;
         }

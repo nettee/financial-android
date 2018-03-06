@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -172,10 +174,10 @@ public class AccountDetailActivity extends Activity {
                         .setText(monetaryFundInvestmentProject.getPrinciple().toString());
                 itemView.<TextView>findViewById(R.id.investment_project_card_annual_yield)
                         .setText(monetaryFundInvestmentProject.getAnnualYield().toString());
-                Date buyDate = monetaryFundInvestmentProject.getBuyDate();
-                long dayDiff = TimeUnit.DAYS.convert((new Date()).getTime() - buyDate.getTime(), TimeUnit.MILLISECONDS);
+                LocalDate buyDate = monetaryFundInvestmentProject.getBuyDate();
+                int daysDiff = Days.daysBetween(buyDate, LocalDate.now()).getDays();
                 itemView.<TextView>findViewById(R.id.investment_project_card_time)
-                        .setText(String.format("已买入%d天", dayDiff));
+                        .setText(String.format("已买入%d天", daysDiff));
 
                 investmentProjectList.addView(itemView);
             }
