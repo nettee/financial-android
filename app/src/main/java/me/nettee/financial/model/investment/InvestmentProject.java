@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.Amount;
 
 public abstract class InvestmentProject implements Serializable {
 
@@ -25,6 +26,8 @@ public abstract class InvestmentProject implements Serializable {
         }
     };
 
+    private int mInvestmentPlatformType;
+
     public abstract int getType();
 
     public abstract String getCandidateName();
@@ -32,6 +35,16 @@ public abstract class InvestmentProject implements Serializable {
     public abstract int getCandidateImageResource();
 
     public abstract String getName();
+
+    public abstract Amount getPrinciple();
+
+    public int getInvestmentPlatformType() {
+        return mInvestmentPlatformType;
+    }
+
+    public void setInvestmentPlatformType(int investmentPlatformType) {
+        mInvestmentPlatformType = investmentPlatformType;
+    }
 
     private static CandidateInvestmentProject candidate(int type, String candidateName, int candidateImageResource) {
         return new CandidateInvestmentProject(type, candidateName, candidateImageResource);
@@ -70,6 +83,11 @@ public abstract class InvestmentProject implements Serializable {
 
         @Override
         public String getName() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Amount getPrinciple() {
             throw new UnsupportedOperationException();
         }
     }

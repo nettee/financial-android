@@ -13,7 +13,10 @@ import me.nettee.financial.model.investment.InvestmentProject;
 
 public class NewInvestmentProjectActivity extends NewSomeBaseActivity<InvestmentProject> {
 
+    public static final String EXTRA_INVESTMENT_PLATFORM_TYPE = "me.nettee.financial.extra_investment_platform_type";
     public static final String EXTRA_CANDIDATE_INVESTMENT_PROJECT_OBJECT = "me.nettee.financial.extra_candidate_investment_project";
+
+    private int mInvestmentPlatformType;
 
     @Override
     public int getLayout() {
@@ -27,7 +30,10 @@ public class NewInvestmentProjectActivity extends NewSomeBaseActivity<Investment
 
     @Override
     public InvestmentProject getCandidate() {
-        return (InvestmentProject) getIntent().getSerializableExtra(EXTRA_CANDIDATE_INVESTMENT_PROJECT_OBJECT);
+        mInvestmentPlatformType = (int) getIntent().getSerializableExtra(EXTRA_INVESTMENT_PLATFORM_TYPE);
+        Log.d("TAG", "investment platform type = " + mInvestmentPlatformType);
+        InvestmentProject candidate = (InvestmentProject) getIntent().getSerializableExtra(EXTRA_CANDIDATE_INVESTMENT_PROJECT_OBJECT);
+        return candidate;
     }
 
     @Override
@@ -41,6 +47,7 @@ public class NewInvestmentProjectActivity extends NewSomeBaseActivity<Investment
         return view -> {
 
             InvestmentProject investmentProject = WriteInvestmentProjects.extractInvestmentProject(mCandidate.getType(), mInputs);
+            investmentProject.setInvestmentPlatformType(mInvestmentPlatformType);
 
             if (investmentProject == null) {
                 Toast.makeText(NewInvestmentProjectActivity.this, "添加投资项目失败", Toast.LENGTH_SHORT).show();

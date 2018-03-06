@@ -12,7 +12,11 @@ import me.nettee.financial.model.investment.InvestmentProject;
 
 public class InvestmentProjectCandidateActivity extends SomeCandidateBaseActivity<InvestmentProject> {
 
+    public static final String EXTRA_INVESTMENT_PLATFORM_TYPE = "me.nettee.financial.extra_investment_platform_type";
+
     private int REQUEST_CODE_CREATE_INVESTMENT_PROJECT_STATUS = 1;
+
+    private int mInvestmentPlatformType;
 
     @Override
     public int getLayout() {
@@ -36,6 +40,7 @@ public class InvestmentProjectCandidateActivity extends SomeCandidateBaseActivit
 
     @Override
     public List getData() {
+        mInvestmentPlatformType = (int) getIntent().getSerializableExtra(EXTRA_INVESTMENT_PLATFORM_TYPE);
         return InvestmentProject.getCandidateInvestmentProjects();
     }
 
@@ -53,6 +58,7 @@ public class InvestmentProjectCandidateActivity extends SomeCandidateBaseActivit
 
         itemView.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), NewInvestmentProjectActivity.class);
+            intent.putExtra(NewInvestmentProjectActivity.EXTRA_INVESTMENT_PLATFORM_TYPE, mInvestmentPlatformType);
             intent.putExtra(NewInvestmentProjectActivity.EXTRA_CANDIDATE_INVESTMENT_PROJECT_OBJECT, candidate);
             startActivityForResult(intent, REQUEST_CODE_CREATE_INVESTMENT_PROJECT_STATUS);
         });

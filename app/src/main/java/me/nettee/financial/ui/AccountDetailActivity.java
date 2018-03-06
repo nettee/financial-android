@@ -23,6 +23,8 @@ import java.util.Map;
 import me.nettee.financial.R;
 import me.nettee.financial.model.InvestmentProjectLab;
 import me.nettee.financial.model.account.Account;
+import me.nettee.financial.model.account.InvestmentAccount;
+import me.nettee.financial.model.investment.InvestmentPlatform;
 import me.nettee.financial.model.investment.InvestmentProject;
 
 public class AccountDetailActivity extends Activity {
@@ -80,24 +82,6 @@ public class AccountDetailActivity extends Activity {
             ViewStub stub = findViewById(R.id.account_detail_body_stub);
             stub.setLayoutResource(R.layout.account_detail_body_investment);
             mAccountDetailBody = stub.inflate();
-
-            LayoutInflater inflater = LayoutInflater.from(this);
-            List<InvestmentProject> investmentProjects = InvestmentProjectLab.getInstance().getInvestmentProjects();
-
-            LinearLayout investmentProjectList = mAccountDetailBody.findViewById(R.id.account_detail_investment_project_list);
-
-            investmentProjectList.removeAllViews();
-
-            for (InvestmentProject investmentProject : investmentProjects) {
-
-                View itemView = inflater.inflate(R.layout.investment_project_card, null);
-                int itemHeight = (int) getResources().getDimension(R.dimen.investment_project_card_height);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
-                layoutParams.setMargins(0,0, 0, (int) getResources().getDimension(R.dimen.margin_vertical));
-                itemView.setLayoutParams(layoutParams);
-
-                investmentProjectList.addView(itemView);
-            }
         }
 
         constructActionToolbar();
@@ -116,9 +100,11 @@ public class AccountDetailActivity extends Activity {
         mActionToolbar = stub.inflate();
 
         if (mAccount.getType() == Account.INVESTMENT) {
+            InvestmentPlatform investmentPlatform = ((InvestmentAccount) mAccount).getPlatform();
             View newInvestmentProjectButton = mActionToolbar.findViewById(R.id.button_new_investment_project);
             newInvestmentProjectButton.setOnClickListener(view -> {
                 Intent intent = new Intent(getApplicationContext(), InvestmentProjectCandidateActivity.class);
+                intent.putExtra(InvestmentProjectCandidateActivity.EXTRA_INVESTMENT_PLATFORM_TYPE, investmentPlatform.getType());
                 startActivity(intent);
             });
         }
@@ -127,7 +113,7 @@ public class AccountDetailActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateView(mAccount);
+        updateView();
     }
 
     @Override
@@ -138,23 +124,48 @@ public class AccountDetailActivity extends Activity {
                 finish();
             } else if (resultCode == RESULT_CODE_EDITED) {
                 mAccount = (Account) data.getSerializableExtra(EXTRA_EDITED_ACCOUNT_OBJECT);
-                updateView(mAccount);
+                updateView();
             }
         }
     }
 
-    private void updateView(Account account) {
-        Log.d("TAG", "Update view");
-        mAccountCardImage.setImageResource(account.getDisplayImageResource());
-        mAccountCardName.setText(account.getDisplayName());
-        String remark = account.getDisplayRemark();
+    private void updateView() {
+        mAccountCardImage.setImageResource(mAccount.getDisplayImageResource());
+        mAccountCardName.setText(mAccount.getDisplayName());
+        String remark = mAccount.getDisplayRemark();
         if (StringUtils.isEmpty(remark)) {
             mAccountCardNameSplit.setVisibility(View.INVISIBLE);
             mAccountCardRemark.setVisibility(View.INVISIBLE);
         } else {
             mAccountCardRemark.setText(remark);
         }
-        mAccountCardAmountCaption.setText(account.getDefaultAmountCaption());
-        mAccountCardAmount.setText(account.getDefaultAmount().toString());
+        mAccountCardAmountCaption.setText(mAccount.getDefaultAmountCaption());
+        mAccountCardAmount.setText(mAccount.getDefaultAmount().toString());
+
+        if (mAccount.getType() == Account.INVESTMENT) {
+
+            InvestmentPlatform investmentPlatform = ((InvestmentAccount) mAccount).getPlatform();
+
+            LayoutInflater inflater = LayoutInflater.from(this);
+            List<InvestmentProject> investmentProjects = InvestmentProjectLab.getInstance().getInvestmentProjects(investmentPlatform.getType());
+
+            LinearLayout investmentProjectList = mAccountDetailBody.findViewById(R.id.account_detail_investment_project_list);
+
+            investmentProjectList.removeAllViews();
+
+            for (InvestmentProject investmentProject : investmentProjects) {
+
+                View itemView = inflater.inflate(R.layout.investment_project_card, null);
+                int itemHeight = (int) getResources().getDimension(R.dimen.investment_project_card_height);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
+                layoutParams.setMargins(0,0, 0, (int) getResources().getDimension(R.dimen.margin_vertical));
+                itemView.setLayoutParams(layoutParams);
+
+                itemView.<TextView>findViewById(R.id.investment_project_card_name).setText(investmentProject.getName());
+                itemView.<TextView>findViewById(R.id.investment_project_card_principle).setText(investmentProject.getPrinciple().toString());
+
+                investmentProjectList.addView(itemView);
+            }
+        }
     }
 }

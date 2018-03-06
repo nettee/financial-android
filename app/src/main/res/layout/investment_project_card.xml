@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin_vertical"
@@ -14,9 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_horizontal"
         android:layout_marginTop="@dimen/margin_vertical"
-        android:text="超值基金"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:text="超值基金"
         />
 
     <TextView
@@ -26,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_horizontal"
         android:layout_marginTop="@dimen/margin_vertical"
-        android:text="已买入33天"
+        android:text="已买入**天"
         app:layout_constraintBaseline_toBaselineOf="@id/investment_project_card_name"
         app:layout_constraintEnd_toEndOf="parent"
         />
@@ -63,10 +64,10 @@
         android:layout_marginBottom="@dimen/margin_vertical"
         android:layout_marginStart="@dimen/margin_horizontal"
         android:layout_marginTop="@dimen/margin_vertical"
-        android:text="1,000.00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/investment_project_card_principle_caption"
+        tools:text="1,000.00"
         />
 
     <android.support.constraint.Guideline
@@ -93,7 +94,7 @@
         android:id="@+id/investment_project_card_annual_yield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="4.5644%"
+        android:text="****"
         android:layout_marginTop="@dimen/margin_vertical"
         android:layout_marginStart="@dimen/margin_horizontal"
         app:layout_constraintTop_toBottomOf="@id/investment_project_card_annual_yield_caption"
@@ -124,7 +125,7 @@
         android:id="@+id/investment_project_card_earning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+3.75"
+        android:text="****"
         android:layout_marginTop="@dimen/margin_vertical"
         android:layout_marginStart="@dimen/margin_horizontal"
         app:layout_constraintTop_toBottomOf="@id/investment_project_card_earning_caption"
