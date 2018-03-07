@@ -55,12 +55,12 @@ public class AccountLab {
         debitCardAccount.setBankCardNumber("669395");
         debitCardAccount.setBalance(Amount.decimal(6134, 77));
         mAccounts.add(debitCardAccount);
-//        AlipayAccount alipayAccount = new AlipayAccount();
-//        alipayAccount.setBalance(Amount.decimal(16431, 91));
-//        mAccounts.add(alipayAccount);
-//        WeixinAccount weixinAccount = new WeixinAccount();
-//        weixinAccount.setBalance(Amount.decimal(92, 60));
-//        mAccounts.add(weixinAccount);
+        AlipayAccount alipayAccount = new AlipayAccount();
+        alipayAccount.setBalance(Amount.decimal(16431, 91));
+        mAccounts.add(alipayAccount);
+        WeixinAccount weixinAccount = new WeixinAccount();
+        weixinAccount.setBalance(Amount.decimal(92, 60));
+        mAccounts.add(weixinAccount);
         CampusCardAccount campusCardAccount = new CampusCardAccount();
         campusCardAccount.setBalance(Amount.decimal(49, 20));
         mAccounts.add(campusCardAccount);

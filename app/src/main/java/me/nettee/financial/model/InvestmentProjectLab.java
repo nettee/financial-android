@@ -2,10 +2,12 @@ package me.nettee.financial.model;
 
 import org.joda.time.LocalDate;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import me.nettee.financial.R;
 import me.nettee.financial.model.investment.InvestmentPlatform;
 import me.nettee.financial.model.investment.InvestmentProject;
 import me.nettee.financial.model.investment.MonetaryFundInvestmentProject;
@@ -13,6 +15,17 @@ import me.nettee.financial.model.investment.MonetaryFundInvestmentProject;
 public class InvestmentProjectLab {
 
     private static InvestmentProjectLab sInvestmentProjectLab;
+
+    private static List<InvestmentProject> sCandidateInvestmentProjects = new ArrayList<InvestmentProject>() {
+        private static final long serialVersionUID = 1L;
+        {
+            add(candidate(InvestmentProject.MONETARY_FUND, "货币基金", R.drawable.ic_investment_project_monetary_fund));
+            add(candidate(InvestmentProject.FIXED, "定期类", R.drawable.ic_investment_project_fixed));
+            add(candidate(InvestmentProject.FUND, "基金类", R.drawable.ic_investment_project_fund));
+//            add(candidate(InvestmentProject.STOCK, "股票", R.drawable.ic_investment_project_stock));
+//            add(candidate(InvestmentProject.OTHER, "其他投资项目", R.drawable.ic_investment_project_other));
+        }
+    };
 
     private final List<InvestmentProject> mInvestmentProjects;
 
@@ -64,7 +77,53 @@ public class InvestmentProjectLab {
         return results;
     }
 
+    private static CandidateInvestmentProject candidate(int type, String candidateName, int candidateImageResource) {
+        return new CandidateInvestmentProject(type, candidateName, candidateImageResource);
+    }
+
+    public static List<InvestmentProject> getCandidateInvestmentProjects() {
+        return sCandidateInvestmentProjects;
+    }
+
     public void addInvestmentProject(InvestmentProject investmentProject) {
         mInvestmentProjects.add(investmentProject);
+    }
+
+    private static final class CandidateInvestmentProject extends InvestmentProject implements Serializable {
+
+        private int mType;
+        private String mCandidateName;
+        private int mCandidateImageResource;
+
+        private CandidateInvestmentProject(int type, String candidateName, int candidateImageResource) {
+            mType = type;
+            mCandidateName = candidateName;
+            mCandidateImageResource = candidateImageResource;
+        }
+
+        @Override
+        public int getType() {
+            return mType;
+        }
+
+        @Override
+        public String getCandidateName() {
+            return mCandidateName;
+        }
+
+        @Override
+        public int getCandidateImageResource() {
+            return mCandidateImageResource;
+        }
+
+        @Override
+        public String getName() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Amount getPrinciple() {
+            throw new UnsupportedOperationException();
+        }
     }
 }

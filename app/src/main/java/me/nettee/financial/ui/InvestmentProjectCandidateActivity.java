@@ -8,6 +8,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.InvestmentProjectLab;
 import me.nettee.financial.model.investment.InvestmentProject;
 
 public class InvestmentProjectCandidateActivity extends SomeCandidateBaseActivity<InvestmentProject> {
@@ -41,7 +42,7 @@ public class InvestmentProjectCandidateActivity extends SomeCandidateBaseActivit
     @Override
     public List getData() {
         mInvestmentPlatformType = (int) getIntent().getSerializableExtra(EXTRA_INVESTMENT_PLATFORM_TYPE);
-        return InvestmentProject.getCandidateInvestmentProjects();
+        return InvestmentProjectLab.getCandidateInvestmentProjects();
     }
 
     @Override

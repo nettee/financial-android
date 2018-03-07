@@ -25,9 +25,12 @@
     <string name="account_name_bus_card">公交卡</string>
 
     <string name="caption_note_information">备注信息</string>
-    <string name="caption_bank_card_number">银行卡号</string>
     <string name="caption_account_balance">账户余额</string>
     <string name="caption_account_total">账户总额</string>
+
+    <string name="caption_remark">备注信息</string>
+    <string name="caption_balance">账户余额</string>
+    <string name="caption_bank_card_number">银行卡号</string>
     <string name="caption_current_arrears">当前欠款</string>
     <string name="caption_credit_limit">信用额度</string>
     <string name="caption_bill_date">账单日期</string>
@@ -50,6 +53,7 @@
     <string name="button_delete">删除</string>
 
     <string name="hint_new_account_remark">输入备注名（可不填）</string>
+    <string name="hint_remark">输入备注名（可不填）</string>
     <string name="hint_money_amount">0.00</string>
     <string name="hint_percent">0.00</string>
     <string name="hint_bank_card_number">银行卡号（可不填）</string>

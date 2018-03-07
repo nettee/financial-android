@@ -37,7 +37,6 @@ import me.nettee.financial.model.account.CashCardAccount;
 import me.nettee.financial.model.account.CreditCardAccount;
 import me.nettee.financial.model.account.DebitCardAccount;
 import me.nettee.financial.model.account.InvestmentAccount;
-import me.nettee.financial.model.account.MobilePaymentAccount;
 import me.nettee.financial.model.account.WeixinAccount;
 
 import static android.view.View.GONE;
@@ -50,7 +49,7 @@ public abstract class WriteAccounts {
             put(Account.CASH, R.layout.account_inputs_cash);
             put(Account.CREDIT_CARD, R.layout.account_inputs_credit_card);
             put(Account.DEBIT_CARD, R.layout.account_inputs_debit_card);
-            put(Account.ALIPAY, R.layout.account_inputs_alipay);
+            put(Account.ALIPAY, R.layout.inputs_account_alipay);
             put(Account.WEIXIN, R.layout.account_inputs_weixin);
             put(Account.CAMPUS_CARD, R.layout.account_inputs_cash_card);
             put(Account.BUS_CARD, R.layout.account_inputs_cash_card);
@@ -58,7 +57,17 @@ public abstract class WriteAccounts {
         }
     };
 
-    protected static Map<Integer, AccountExtractor> sAccountExtractorMap = new HashMap<Integer, AccountExtractor>() {
+    private static Map<Integer, InputsInitializer> sInputsInitializerMap = new HashMap<Integer, InputsInitializer>() {
+        private static final long serialVersionUID = 1L;
+        {
+            put(Account.CASH, new CashInputsInitializer());
+            put(Account.CREDIT_CARD, new CreditCardInputsInitializer());
+            put(Account.ALIPAY, new AlipayInputsInitializer());
+            put(Account.INVESTMENT, new InvestmentInputsInitializer());
+        }
+    };
+
+    private static Map<Integer, AccountExtractor> sAccountExtractorMap = new HashMap<Integer, AccountExtractor>() {
         private static final long serialVersionUID = 1L;
         {
             put(Account.CASH, new CashAccountExtractor());
@@ -72,21 +81,21 @@ public abstract class WriteAccounts {
         }
     };
 
-    protected static Map<Integer, AccountFiller> sAccountFillerMap = new HashMap<Integer, AccountFiller>() {
+    private static Map<Integer, AccountFiller> sAccountFillerMap = new HashMap<Integer, AccountFiller>() {
         private static final long serialVersionUID = 1L;
         {
             put(Account.CASH, new CashAccountFiller());
             put(Account.CREDIT_CARD, new CreditCardFiller());
             put(Account.DEBIT_CARD, new DebitCardAccountFiller());
-            put(Account.ALIPAY, new MobilePaymentAccountFiller());
-            put(Account.WEIXIN, new MobilePaymentAccountFiller());
+            put(Account.ALIPAY, new AlipayAccountFiller());
+            put(Account.WEIXIN, new WeixinAccountFiller());
             put(Account.CAMPUS_CARD, new CashCardAccountFiller());
             put(Account.BUS_CARD, new CashCardAccountFiller());
             put(Account.INVESTMENT, new InvestmentAccountFiller());
         }
     };
 
-    public static View constructView(Activity activity, Account account) {
+    static View constructView(Activity activity, Account account) {
 
         constructTitleBar(activity, account);
         return constructInputs(activity, account);
@@ -124,80 +133,27 @@ public abstract class WriteAccounts {
     }
 
     private static void initInputs(Activity activity, View inputs, Account account) {
-        if (account.getType() == Account.CASH) {
-            // Do nothing.
-        } else if (account.getType() == Account.CREDIT_CARD) {
-            inputs.findViewById(R.id.view_credit_limit)
-                    .<TextView>findViewById(R.id.input_bar_amount_caption)
-                    .setText(R.string.caption_credit_limit);
-            inputs.findViewById(R.id.view_current_arrears)
-                    .<TextView>findViewById(R.id.input_bar_amount_caption)
-                    .setText(R.string.caption_current_arrears);
-            inputs.findViewById(R.id.view_bill_date)
-                    .<TextView>findViewById(R.id.account_credit_date_caption)
-                    .setText(R.string.caption_bill_date);
-            inputs.findViewById(R.id.view_payment_date)
-                    .<TextView>findViewById(R.id.account_credit_date_caption)
-                    .setText(R.string.caption_payment_date);
-            {
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
-                        R.array.bill_dates_array,
-                        android.R.layout.simple_spinner_item);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                inputs.findViewById(R.id.view_bill_date)
-                        .<Spinner>findViewById(R.id.account_credit_date_spinner)
-                        .setAdapter(adapter);
-            }
-            {
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
-                        R.array.bill_dates_array,
-                        android.R.layout.simple_spinner_item);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                inputs.findViewById(R.id.view_payment_date)
-                        .<Spinner>findViewById(R.id.account_credit_date_spinner)
-                        .setAdapter(adapter);
-            }
-        } else if (account.getType() == Account.INVESTMENT) {
-            AutoCompleteTextView investmentPlatform = inputs.findViewById(R.id.account_investment_platform);
-            ImageView investmentPlatformImage = inputs.findViewById(R.id.account_investment_platform_image);
-            InvestmentPlatformAdapter adapter = new InvestmentPlatformAdapter(activity, InvestmentPlatform.getPlatforms());
-            investmentPlatform.setAdapter(adapter);
-            investmentPlatform.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    // Do nothing.
-                }
 
-                @Override
-                public void onTextChanged(CharSequence text, int i, int i1, int i2) {
-                    InvestmentPlatform platform = InvestmentPlatform.getPlatformByName(text.toString());
-                    if (platform != null) {
-                        investmentPlatformImage.setVisibility(View.VISIBLE);
-                        investmentPlatformImage.setImageResource(platform.getImageResource());
-                    } else {
-                        investmentPlatformImage.setVisibility(GONE);
-                    }
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    // Do nothing.
-                }
-            });
-        }
+        InputsInitializer initializer = sInputsInitializerMap
+                .getOrDefault(account.getType(), new NullInputsInitializer());
+        initializer.init(activity, inputs);
     }
 
-    public static Account extractAccount(int accountType, View accountInputs) {
+    static Account extractAccount(int accountType, View accountInputs) {
         AccountExtractor extractor = sAccountExtractorMap
                 .getOrDefault(accountType, new NullAccountExtractor());
-        Account account = extractor.extract(accountInputs);
-        return account;
+        return extractor.extract(accountInputs);
     }
 
-    public static void fillAccount(View accountInputs, Account account) {
+    static void fillAccount(View accountInputs, Account account) {
         AccountFiller filler = sAccountFillerMap
                 .getOrDefault(account.getType(), new NullAccountFiller());
         filler.fill(accountInputs, account);
+    }
+
+    @FunctionalInterface
+    interface InputsInitializer {
+        void init(Activity activity, View inputs);
     }
 
     @FunctionalInterface
@@ -218,6 +174,14 @@ public abstract class WriteAccounts {
         public void pre(View accountInputs) {
             mRemark = accountInputs.findViewById(R.id.account_remark);
             mBalance = accountInputs.findViewById(R.id.account_amount);
+        }
+    }
+
+    static class CashInputsInitializer implements InputsInitializer {
+
+        @Override
+        public void init(Activity activity, View inputs) {
+
         }
     }
 
@@ -264,6 +228,43 @@ public abstract class WriteAccounts {
                     .findViewById(R.id.account_credit_date_spinner);
             mCurrentArrears = accountInputs.findViewById(R.id.view_current_arrears)
                     .findViewById(R.id.account_amount);
+        }
+    }
+
+    static class CreditCardInputsInitializer implements InputsInitializer {
+
+        @Override
+        public void init(Activity activity, View inputs) {
+            inputs.findViewById(R.id.view_credit_limit)
+                    .<TextView>findViewById(R.id.input_bar_amount_caption)
+                    .setText(R.string.caption_credit_limit);
+            inputs.findViewById(R.id.view_current_arrears)
+                    .<TextView>findViewById(R.id.input_bar_amount_caption)
+                    .setText(R.string.caption_current_arrears);
+            inputs.findViewById(R.id.view_bill_date)
+                    .<TextView>findViewById(R.id.account_credit_date_caption)
+                    .setText(R.string.caption_bill_date);
+            inputs.findViewById(R.id.view_payment_date)
+                    .<TextView>findViewById(R.id.account_credit_date_caption)
+                    .setText(R.string.caption_payment_date);
+            {
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
+                        R.array.bill_dates_array,
+                        android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                inputs.findViewById(R.id.view_bill_date)
+                        .<Spinner>findViewById(R.id.account_credit_date_spinner)
+                        .setAdapter(adapter);
+            }
+            {
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
+                        R.array.bill_dates_array,
+                        android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                inputs.findViewById(R.id.view_payment_date)
+                        .<Spinner>findViewById(R.id.account_credit_date_spinner)
+                        .setAdapter(adapter);
+            }
         }
     }
 
@@ -386,18 +387,34 @@ public abstract class WriteAccounts {
         }
     }
 
-    static abstract class MobilePaymentAccountInout {
+    static abstract class AlipayAccountInout {
 
         protected EditText mRemark;
         protected EditText mBalance;
 
         public void pre(View accountInputs) {
-            mRemark = accountInputs.findViewById(R.id.account_remark);
-            mBalance = accountInputs.findViewById(R.id.account_amount);
+            mRemark = accountInputs.findViewById(R.id.account_remark).findViewById(R.id.input_bar_text_content);
+            mBalance = accountInputs.findViewById(R.id.account_balance).findViewById(R.id.input_bar_amount_content);
         }
     }
 
-    static class AlipayAccountExtractor extends MobilePaymentAccountInout implements AccountExtractor {
+    static class AlipayInputsInitializer implements InputsInitializer {
+
+        @Override
+        public void init(Activity activity, View inputs) {
+            inputs.findViewById(R.id.account_remark)
+                    .<TextView>findViewById(R.id.input_bar_text_caption)
+                    .setText(R.string.caption_remark);
+            inputs.findViewById(R.id.account_remark)
+                    .<EditText>findViewById(R.id.input_bar_text_content)
+                    .setHint(R.string.hint_remark);
+            inputs.findViewById(R.id.account_balance)
+                    .<TextView>findViewById(R.id.input_bar_amount_caption)
+                    .setText(R.string.caption_balance);
+        }
+    }
+
+    static class AlipayAccountExtractor extends AlipayAccountInout implements AccountExtractor {
 
         @Override
         public Account extract(View accountInputs) {
@@ -409,8 +426,29 @@ public abstract class WriteAccounts {
         }
     }
 
-    static class WeixinAccountExtractor extends MobilePaymentAccountInout implements AccountExtractor {
+    static class AlipayAccountFiller extends AlipayAccountInout implements AccountFiller {
 
+        @Override
+        public void fill(View accountInputs, Account account) {
+            pre(accountInputs);
+            AlipayAccount alipayAccount = (AlipayAccount) account;
+            mRemark.setText(alipayAccount.getRemark());
+            mBalance.setText(alipayAccount.getBalance().toString());
+        }
+    }
+
+    static abstract class WeixinAccountInout {
+
+        protected EditText mRemark;
+        protected EditText mBalance;
+
+        public void pre(View accountInputs) {
+            mRemark = accountInputs.findViewById(R.id.account_remark);
+            mBalance = accountInputs.findViewById(R.id.account_amount);
+        }
+    }
+
+    static class WeixinAccountExtractor extends WeixinAccountInout implements AccountExtractor {
         @Override
         public Account extract(View accountInputs) {
             pre(accountInputs);
@@ -419,16 +457,17 @@ public abstract class WriteAccounts {
             account.setBalance(Amount.valueOf(mBalance.getText().toString()));
             return account;
         }
+
     }
 
-    static class MobilePaymentAccountFiller extends MobilePaymentAccountInout implements AccountFiller {
+    static class WeixinAccountFiller extends WeixinAccountInout implements AccountFiller {
 
         @Override
         public void fill(View accountInputs, Account account) {
             pre(accountInputs);
-            MobilePaymentAccount mobilePaymentAccount = (MobilePaymentAccount) account;
-            mRemark.setText(mobilePaymentAccount.getRemark());
-            mBalance.setText(mobilePaymentAccount.getBalance().toString());
+            WeixinAccount weixinAccount = (WeixinAccount) account;
+            mRemark.setText(weixinAccount.getRemark());
+            mBalance.setText(weixinAccount.getBalance().toString());
         }
     }
 
@@ -439,6 +478,39 @@ public abstract class WriteAccounts {
             mPlatform = accountInputs.findViewById(R.id.account_investment_platform);
         }
 
+    }
+
+    static class InvestmentInputsInitializer implements InputsInitializer {
+
+        @Override
+        public void init(Activity activity, View inputs) {
+            AutoCompleteTextView investmentPlatform = inputs.findViewById(R.id.account_investment_platform);
+            ImageView investmentPlatformImage = inputs.findViewById(R.id.account_investment_platform_image);
+            InvestmentPlatformAdapter adapter = new InvestmentPlatformAdapter(activity, InvestmentPlatform.getPlatforms());
+            investmentPlatform.setAdapter(adapter);
+            investmentPlatform.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    // Do nothing.
+                }
+
+                @Override
+                public void onTextChanged(CharSequence text, int i, int i1, int i2) {
+                    InvestmentPlatform platform = InvestmentPlatform.getPlatformByName(text.toString());
+                    if (platform != null) {
+                        investmentPlatformImage.setVisibility(View.VISIBLE);
+                        investmentPlatformImage.setImageResource(platform.getImageResource());
+                    } else {
+                        investmentPlatformImage.setVisibility(GONE);
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    // Do nothing.
+                }
+            });
+        }
     }
 
     static class InvestmentAccountExtractor extends InvestmentAccountInout implements AccountExtractor {
@@ -526,6 +598,14 @@ public abstract class WriteAccounts {
             };
         }
 
+    }
+
+    static class NullInputsInitializer implements InputsInitializer {
+
+        @Override
+        public void init(Activity activity, View inputs) {
+            // Do nothing.
+        }
     }
 
     static class NullAccountExtractor implements AccountExtractor {
