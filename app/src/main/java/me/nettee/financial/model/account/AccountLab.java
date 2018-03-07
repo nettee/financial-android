@@ -7,6 +7,7 @@ import java.util.List;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.CreditDate;
 import me.nettee.financial.model.investment.InvestmentPlatform;
 
 public class AccountLab {
@@ -49,7 +50,7 @@ public class AccountLab {
         CreditCardAccount creditCardAccount = new CreditCardAccount();
         Amount arrears = Amount.integer(1234);
         arrears.setSign(Amount.NEGATIVE);
-        creditCardAccount.setCurrentArrears(arrears);
+        creditCardAccount.setArrears(arrears);
         mAccounts.add(creditCardAccount);
         DebitCardAccount debitCardAccount = new DebitCardAccount();
         debitCardAccount.setBankCardNumber("669395");
@@ -57,6 +58,13 @@ public class AccountLab {
         mAccounts.add(debitCardAccount);
         AlipayAccount alipayAccount = new AlipayAccount();
         alipayAccount.setBalance(Amount.decimal(16431, 91));
+        alipayAccount.setHuabeiOpen(true);
+        HuabeiAccount huabeiAccount = new HuabeiAccount();
+        huabeiAccount.setCreditLimit(Amount.integer(2000));
+        huabeiAccount.setBillDate(CreditDate.day(1));
+        huabeiAccount.setPaymentDate(CreditDate.day(9));
+        huabeiAccount.setArrears(Amount.decimal(-413, 43));
+        alipayAccount.setHuabeiAccount(huabeiAccount);
         mAccounts.add(alipayAccount);
         WeixinAccount weixinAccount = new WeixinAccount();
         weixinAccount.setBalance(Amount.decimal(92, 60));

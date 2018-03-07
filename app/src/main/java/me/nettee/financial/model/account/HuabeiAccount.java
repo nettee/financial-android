@@ -7,7 +7,7 @@ import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.CreditDate;
 import me.nettee.financial.model.Liability;
 
-public final class CreditCardAccount extends BankCardAccount {
+public class HuabeiAccount extends Account {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,17 +18,17 @@ public final class CreditCardAccount extends BankCardAccount {
 
     @Override
     public int getType() {
-        return CREDIT_CARD;
+        return HUABEI;
     }
 
     @Override
     public String getCandidateName() {
-        return "信用卡";
+        return "花呗";
     }
 
     @Override
     public int getCandidateImageResource() {
-        return R.drawable.ic_bank_card;
+        return R.drawable.ic_huabei;
     }
 
     @Override
@@ -77,5 +77,4 @@ public final class CreditCardAccount extends BankCardAccount {
     public void setArrears(Amount arrears) {
         mArrears = arrears;
     }
-
 }

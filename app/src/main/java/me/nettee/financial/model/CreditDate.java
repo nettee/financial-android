@@ -14,6 +14,12 @@ public class CreditDate implements Serializable {
         return creditDate;
     }
 
+    public static CreditDate day(int day) {
+        CreditDate creditDate = new CreditDate();
+        creditDate.dateCount = day;
+        return creditDate;
+    }
+
     public static CreditDate fromSpinner(Spinner spinner) {
         CreditDate creditDate = new CreditDate();
         creditDate.dateCount = spinner.getSelectedItemPosition() + 1;

@@ -14,6 +14,8 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,7 @@ import me.nettee.financial.model.account.AccountLab;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.Liability;
 import me.nettee.financial.model.Asset;
+import me.nettee.financial.model.account.AlipayAccount;
 
 public class PropertyFragment extends Fragment {
 
@@ -113,7 +116,12 @@ public class PropertyFragment extends Fragment {
 
         mAccountList.removeAllViews();
 
-        for (final Account account : accounts) {
+        Deque<Account> accountDeque = new LinkedList<>();
+        accountDeque.addAll(accounts);
+
+        while (!accountDeque.isEmpty()) {
+
+            Account account = accountDeque.pollFirst();
 
             int imageResource = account.getDisplayImageResource();
             String name = account.getDisplayName();
@@ -133,7 +141,7 @@ public class PropertyFragment extends Fragment {
 
             itemView.<ImageView>findViewById(R.id.account_list_item_image).setImageResource(imageResource);
             itemView.<TextView>findViewById(R.id.account_list_item_name).setText(name);
-            TextView amountTextView = itemView.<TextView>findViewById(R.id.account_list_item_amount);
+            TextView amountTextView = itemView.findViewById(R.id.account_list_item_amount);
             amountTextView.setText(amount.toYuanString());
 
             if (amount.isNegative()) {
@@ -151,6 +159,13 @@ public class PropertyFragment extends Fragment {
             });
 
             mAccountList.addView(itemView);
+
+            if (account.getType() == Account.ALIPAY) {
+                AlipayAccount alipayAccount = (AlipayAccount) account;
+                if (alipayAccount.isHuabeiOpen()) {
+                    accountDeque.addFirst(alipayAccount.getHuabeiAccount());
+                }
+            }
         }
     }
 

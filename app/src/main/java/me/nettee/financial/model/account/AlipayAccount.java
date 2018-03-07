@@ -1,7 +1,10 @@
 package me.nettee.financial.model.account;
 
+import java.util.Optional;
+
 import me.nettee.financial.R;
-import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.Asset;
+import me.nettee.financial.model.Liability;
 
 public final class AlipayAccount extends MobilePaymentAccount {
 
@@ -9,6 +12,8 @@ public final class AlipayAccount extends MobilePaymentAccount {
 
     private boolean mYuebaoOpen;
     private boolean mHuabeiOpen;
+
+    private HuabeiAccount mHuabeiAccount;
 
     @Override
     public int getType() {
@@ -25,6 +30,21 @@ public final class AlipayAccount extends MobilePaymentAccount {
         return R.drawable.ic_alipay;
     }
 
+    @Override
+    public Optional<Asset> getAsset() {
+        return Optional.of(new Asset(getBalance()));
+    }
+
+    @Override
+    public Optional<Liability> getLiability() {
+        if (isHuabeiOpen()) {
+            HuabeiAccount huabeiAccount = getHuabeiAccount();
+            return Optional.of(new Liability(huabeiAccount.getArrears()));
+        } else {
+            return Optional.empty();
+        }
+    }
+
     public boolean isYuebaoOpen() {
         return mYuebaoOpen;
     }
@@ -39,5 +59,13 @@ public final class AlipayAccount extends MobilePaymentAccount {
 
     public void setHuabeiOpen(boolean huabeiOpen) {
         mHuabeiOpen = huabeiOpen;
+    }
+
+    public HuabeiAccount getHuabeiAccount() {
+        return mHuabeiAccount;
+    }
+
+    public void setHuabeiAccount(HuabeiAccount huabeiAccount) {
+        mHuabeiAccount = huabeiAccount;
     }
 }
