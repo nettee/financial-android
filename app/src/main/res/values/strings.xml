@@ -81,6 +81,8 @@
     <string name="error_fail_edit_account">修改账户失败</string>
     <string name="message_success_deleted">删除成功</string>
     <string name="caption_current_earning">当前收益</string>
+    <string name="caption_yuebao_open">已开通余额宝</string>
+    <string name="caption_huabei_open">已开通花呗</string>
 
 
     <string-array name="bill_dates_array">

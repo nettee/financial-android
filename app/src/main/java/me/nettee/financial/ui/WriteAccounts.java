@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -391,10 +392,14 @@ public abstract class WriteAccounts {
 
         protected EditText mRemark;
         protected EditText mBalance;
+        protected Switch mYuebaoOpen;
+        protected Switch mHuabeiOpen;
 
-        public void pre(View accountInputs) {
-            mRemark = accountInputs.findViewById(R.id.account_remark).findViewById(R.id.input_bar_text_content);
-            mBalance = accountInputs.findViewById(R.id.account_balance).findViewById(R.id.input_bar_amount_content);
+        public void pre(View inputs) {
+            mRemark = inputs.findViewById(R.id.account_remark).findViewById(R.id.input_bar_text_content);
+            mBalance = inputs.findViewById(R.id.account_balance).findViewById(R.id.input_bar_amount_content);
+            mYuebaoOpen = inputs.findViewById(R.id.account_yuebao_open).findViewById(R.id.input_bar_toggle_switch);
+            mHuabeiOpen = inputs.findViewById(R.id.account_huabei_open).findViewById(R.id.input_bar_toggle_switch);
         }
     }
 
@@ -411,6 +416,12 @@ public abstract class WriteAccounts {
             inputs.findViewById(R.id.account_balance)
                     .<TextView>findViewById(R.id.input_bar_amount_caption)
                     .setText(R.string.caption_balance);
+            inputs.findViewById(R.id.account_yuebao_open)
+                    .<TextView>findViewById(R.id.input_bar_toggle_caption)
+                    .setText(R.string.caption_yuebao_open);
+            inputs.findViewById(R.id.account_huabei_open)
+                    .<TextView>findViewById(R.id.input_bar_toggle_caption)
+                    .setText(R.string.caption_huabei_open);
         }
     }
 
@@ -422,6 +433,8 @@ public abstract class WriteAccounts {
             AlipayAccount account = new AlipayAccount();
             account.setRemark(mRemark.getText().toString());
             account.setBalance(Amount.valueOf(mBalance.getText().toString()));
+            account.setYuebaoOpen(mYuebaoOpen.isChecked());
+            account.setHuabeiOpen(mHuabeiOpen.isChecked());
             return account;
         }
     }
@@ -434,6 +447,8 @@ public abstract class WriteAccounts {
             AlipayAccount alipayAccount = (AlipayAccount) account;
             mRemark.setText(alipayAccount.getRemark());
             mBalance.setText(alipayAccount.getBalance().toString());
+            mYuebaoOpen.setChecked(alipayAccount.isYuebaoOpen());
+            mHuabeiOpen.setChecked(alipayAccount.isHuabeiOpen());
         }
     }
 

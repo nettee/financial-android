@@ -7,6 +7,9 @@ public final class AlipayAccount extends MobilePaymentAccount {
 
     private static final long serialVersionUID = 1L;
 
+    private boolean mYuebaoOpen;
+    private boolean mHuabeiOpen;
+
     @Override
     public int getType() {
         return ALIPAY;
@@ -22,4 +25,19 @@ public final class AlipayAccount extends MobilePaymentAccount {
         return R.drawable.ic_alipay;
     }
 
+    public boolean isYuebaoOpen() {
+        return mYuebaoOpen;
+    }
+
+    public void setYuebaoOpen(boolean yuebaoOpen) {
+        mYuebaoOpen = yuebaoOpen;
+    }
+
+    public boolean isHuabeiOpen() {
+        return mHuabeiOpen;
+    }
+
+    public void setHuabeiOpen(boolean huabeiOpen) {
+        mHuabeiOpen = huabeiOpen;
+    }
 }

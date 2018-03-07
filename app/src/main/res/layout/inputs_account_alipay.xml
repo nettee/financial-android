@@ -15,4 +15,12 @@
         android:id="@+id/account_balance"
         />
 
+    <include layout="@layout/input_bar_toggle"
+        android:id="@+id/account_yuebao_open"
+        />
+
+    <include layout="@layout/input_bar_toggle"
+        android:id="@+id/account_huabei_open"
+        />
+
 </LinearLayout>
