@@ -29,11 +29,10 @@ import me.nettee.financial.model.account.AlipayAccount;
 
 public class PropertyFragment extends Fragment {
 
+    private View mAssetsCard;
     private LinearLayout mAccountList;
-    private LinearLayout mPropertyList;
 
     private boolean mAccountListCollapsed;
-    private boolean mPropertyListCollapsed;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -43,11 +42,10 @@ public class PropertyFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
+        mAssetsCard = view.findViewById(R.id.assets_card);
         mAccountList = view.findViewById(R.id.account_list);
-        mPropertyList = view.findViewById(R.id.property_list);
 
         mAccountListCollapsed = false;
-        mPropertyListCollapsed = false;
 
         ImageView accountListCollapse = view.findViewById(R.id.account_list_collapse);
         accountListCollapse.setOnClickListener(v -> {
@@ -61,27 +59,10 @@ public class PropertyFragment extends Fragment {
             mAccountListCollapsed = !mAccountListCollapsed;
         });
 
-        ImageView propertyListCollapse = view.findViewById(R.id.property_list_collapse);
-        propertyListCollapse.setOnClickListener(v -> {
-            if (mPropertyListCollapsed) {
-                propertyListCollapse.setImageResource(R.drawable.ic_status_expanded);
-                mPropertyList.setVisibility(View.VISIBLE);
-            } else {
-                propertyListCollapse.setImageResource(R.drawable.ic_status_collapsed);
-                mPropertyList.setVisibility(View.GONE);
-            }
-            mPropertyListCollapsed = !mPropertyListCollapsed;
-        });
-
         ImageView accountListAdd = view.findViewById(R.id.account_list_add);
         accountListAdd.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), AccountCandidateActivity.class);
             startActivity(intent);
-        });
-
-        ImageView propertyListSetting = view.findViewById(R.id.property_list_setting);
-        propertyListSetting.setOnClickListener(v -> {
-            // TODO
         });
 
     }
@@ -108,7 +89,7 @@ public class PropertyFragment extends Fragment {
             }
         }
 
-        updateAssets(assets, liabilities, inflater);
+        updateAssets(assets, liabilities);
 
     }
 
@@ -169,28 +150,14 @@ public class PropertyFragment extends Fragment {
         }
     }
 
-    private void updateAssets(List<Asset> assets, List<Liability> liabilities, LayoutInflater inflater) {
+    private void updateAssets(List<Asset> assets, List<Liability> liabilities) {
 
         Amount totalAssets = Asset.sum(assets);
         Amount totalLiabilities = Liability.sum(liabilities);
         Amount netAssets = totalAssets.subUnsigned(totalLiabilities);
 
-        {
-            View mTotalProperty = mPropertyList.findViewById(R.id.total_property);
-            mTotalProperty.<ImageView>findViewById(R.id.property_list_item_image).setImageResource(R.drawable.ic_asset);
-            mTotalProperty.<TextView>findViewById(R.id.property_list_item_name).setText(R.string.total_assets);
-            mTotalProperty.<TextView>findViewById(R.id.property_list_item_amount).setText(totalAssets.toYuanString());
-
-            View mTotalLiability = mPropertyList.findViewById(R.id.total_liability);
-            mTotalLiability.<ImageView>findViewById(R.id.property_list_item_image).setImageResource(R.drawable.ic_liability);
-            mTotalLiability.<TextView>findViewById(R.id.property_list_item_name).setText(R.string.total_liabilities);
-            mTotalLiability.<TextView>findViewById(R.id.property_list_item_amount).setText(totalLiabilities.toYuanString());
-
-            View mNetProperty = mPropertyList.findViewById(R.id.net_property);
-            mNetProperty.<ImageView>findViewById(R.id.property_list_item_image).setImageResource(R.drawable.ic_net_asset);
-            mNetProperty.<TextView>findViewById(R.id.property_list_item_name).setText(R.string.net_assets);
-            mNetProperty.<TextView>findViewById(R.id.property_list_item_amount).setText(netAssets.toYuanString());
-
-        }
+        mAssetsCard.<TextView>findViewById(R.id.assets_net_asset_content).setText(netAssets.toYuanString());
+        mAssetsCard.<TextView>findViewById(R.id.asset_total_asset_content).setText(totalAssets.toYuanString());
+        mAssetsCard.<TextView>findViewById(R.id.assets_total_liability_content).setText(totalLiabilities.toYuanString());
     }
 }

@@ -3,13 +3,15 @@
     <dimen name="toolbar_elevation">4dp</dimen>
 
     <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_amount_large">32sp</dimen>
 
     <dimen name="account_icon_size">24dp</dimen>
 
     <dimen name="account_list_margin">12dp</dimen>
 
-    <dimen name="margin_vertical">8dp</dimen>
     <dimen name="margin_vertical_large">16dp</dimen>
+    <dimen name="margin_vertical">8dp</dimen>
+    <dimen name="margin_horizontal_large">20dp</dimen>
     <dimen name="margin_horizontal">12dp</dimen>
     <dimen name="margin_horizontal_small">8dp</dimen>
     <dimen name="margin_horizontal_half">6dp</dimen>

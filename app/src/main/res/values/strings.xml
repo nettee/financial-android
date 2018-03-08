@@ -83,6 +83,9 @@
     <string name="caption_current_earning">当前收益</string>
     <string name="caption_yuebao_open">已开通余额宝</string>
     <string name="caption_huabei_open">已开通花呗</string>
+    <string name="caption_my_net_asset">我的净资产</string>
+    <string name="caption_total_asset">总资产</string>
+    <string name="caption_total_liability">总负债</string>
 
 
     <string-array name="bill_dates_array">
