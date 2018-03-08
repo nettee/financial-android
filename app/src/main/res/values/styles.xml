@@ -61,12 +61,12 @@
 
     <style name="Caption">
         <item name="android:textSize">@dimen/text_size_small</item>
-        <item name="android:textColor">@color/textGray</item>
+        <item name="android:textColor">@color/colorCaptionGray</item>
     </style>
 
     <style name="Remark">
         <item name="android:textSize">@dimen/text_size_small</item>
-        <item name="android:textColor">@color/textGray</item>
+        <item name="android:textColor">@color/colorCaptionGray</item>
     </style>
 
     <style name="Input">

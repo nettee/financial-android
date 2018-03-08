@@ -47,6 +47,8 @@
                 android:showDividers="middle"
                 />
 
+            <include layout="@layout/hint_bar_bottom"/>
+
         </LinearLayout>
 
     </ScrollView>
