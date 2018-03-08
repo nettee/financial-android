@@ -47,8 +47,8 @@ public abstract class WriteAccounts {
     private static final Map<Integer, Integer> sAccountInputsMap = new HashMap<Integer, Integer>() {
         private static final long serialVersionUID = 1L;
         {
-            put(Account.CASH, R.layout.account_inputs_cash);
-            put(Account.CREDIT_CARD, R.layout.account_inputs_credit_card);
+            put(Account.CASH, R.layout.inputs_account_cash);
+            put(Account.CREDIT_CARD, R.layout.inputs_account_credit_card);
             put(Account.DEBIT_CARD, R.layout.account_inputs_debit_card);
             put(Account.ALIPAY, R.layout.inputs_account_alipay);
             put(Account.WEIXIN, R.layout.account_inputs_weixin);
@@ -122,7 +122,7 @@ public abstract class WriteAccounts {
 
     private static View constructInputs(Activity activity, Account account) {
         Integer layoutResource = sAccountInputsMap
-                .getOrDefault(account.getType(), R.layout.account_inputs_cash);
+                .getOrDefault(account.getType(), R.layout.inputs_account_cash);
 
         ViewStub stub = activity.findViewById(R.id.account_inputs_stub);
         stub.setLayoutResource(layoutResource);
@@ -173,8 +173,8 @@ public abstract class WriteAccounts {
         protected EditText mBalance;
 
         public void pre(View accountInputs) {
-            mRemark = accountInputs.findViewById(R.id.account_remark);
-            mBalance = accountInputs.findViewById(R.id.account_amount);
+            mRemark = accountInputs.findViewById(R.id.account_remark).findViewById(R.id.input_bar_text_content);
+            mBalance = accountInputs.findViewById(R.id.account_balance).findViewById(R.id.input_bar_amount_content);
         }
     }
 
@@ -182,7 +182,15 @@ public abstract class WriteAccounts {
 
         @Override
         public void init(Activity activity, View inputs) {
-
+            inputs.findViewById(R.id.account_remark)
+                    .<TextView>findViewById(R.id.input_bar_text_caption)
+                    .setText(R.string.caption_remark);
+            inputs.findViewById(R.id.account_remark)
+                    .<EditText>findViewById(R.id.input_bar_text_content)
+                    .setHint(R.string.hint_remark);
+            inputs.findViewById(R.id.account_balance)
+                    .<TextView>findViewById(R.id.input_bar_amount_caption)
+                    .setText(R.string.caption_balance);
         }
     }
 
@@ -219,16 +227,18 @@ public abstract class WriteAccounts {
         protected EditText mCurrentArrears;
 
         public void pre(View accountInputs) {
-            mRemark = accountInputs.findViewById(R.id.account_remark);
-            mBankCardNumber = accountInputs.findViewById(R.id.account_bank_card_number);
-            mCreditLimit = accountInputs.findViewById(R.id.view_credit_limit)
-                    .findViewById(R.id.account_amount);
-            mBillDate = accountInputs.findViewById(R.id.view_bill_date)
-                    .findViewById(R.id.account_credit_date_spinner);
-            mPaymentDate = accountInputs.findViewById(R.id.view_payment_date)
-                    .findViewById(R.id.account_credit_date_spinner);
-            mCurrentArrears = accountInputs.findViewById(R.id.view_current_arrears)
-                    .findViewById(R.id.account_amount);
+            mRemark = accountInputs.findViewById(R.id.account_remark)
+                    .findViewById(R.id.input_bar_text_content);
+            mBankCardNumber = accountInputs.findViewById(R.id.account_bank_card_number)
+                    .findViewById(R.id.input_bar_bank_card_number_content);
+            mCreditLimit = accountInputs.findViewById(R.id.account_credit_limit)
+                    .findViewById(R.id.input_bar_amount_content);
+            mBillDate = accountInputs.findViewById(R.id.account_bill_date)
+                    .findViewById(R.id.input_bar_credit_date_spinner);
+            mPaymentDate = accountInputs.findViewById(R.id.account_payment_date)
+                    .findViewById(R.id.input_bar_credit_date_spinner);
+            mCurrentArrears = accountInputs.findViewById(R.id.account_arrears)
+                    .findViewById(R.id.input_bar_amount_content);
         }
     }
 
@@ -236,25 +246,39 @@ public abstract class WriteAccounts {
 
         @Override
         public void init(Activity activity, View inputs) {
-            inputs.findViewById(R.id.view_credit_limit)
+
+            inputs.findViewById(R.id.account_remark)
+                    .<TextView>findViewById(R.id.input_bar_text_caption)
+                    .setText(R.string.caption_remark);
+            inputs.findViewById(R.id.account_remark)
+                    .<EditText>findViewById(R.id.input_bar_text_content)
+                    .setHint(R.string.hint_remark);
+            inputs.findViewById(R.id.account_bank_card_number)
+                    .<TextView>findViewById(R.id.input_bar_bank_card_number_caption)
+                    .setText(R.string.caption_bank_card_number);
+            inputs.findViewById(R.id.account_bank_card_number)
+                    .<EditText>findViewById(R.id.input_bar_bank_card_number_content)
+                    .setHint(R.string.hint_bank_card_number);
+            inputs.findViewById(R.id.account_credit_limit)
                     .<TextView>findViewById(R.id.input_bar_amount_caption)
                     .setText(R.string.caption_credit_limit);
-            inputs.findViewById(R.id.view_current_arrears)
+            inputs.findViewById(R.id.account_bill_date)
+                    .<TextView>findViewById(R.id.input_bar_credit_date_caption)
+                    .setText(R.string.caption_bill_date);
+            inputs.findViewById(R.id.account_payment_date)
+                    .<TextView>findViewById(R.id.input_bar_credit_date_caption)
+                    .setText(R.string.caption_payment_date);
+            inputs.findViewById(R.id.account_arrears)
                     .<TextView>findViewById(R.id.input_bar_amount_caption)
                     .setText(R.string.caption_current_arrears);
-            inputs.findViewById(R.id.view_bill_date)
-                    .<TextView>findViewById(R.id.account_credit_date_caption)
-                    .setText(R.string.caption_bill_date);
-            inputs.findViewById(R.id.view_payment_date)
-                    .<TextView>findViewById(R.id.account_credit_date_caption)
-                    .setText(R.string.caption_payment_date);
+
             {
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
                         R.array.bill_dates_array,
                         android.R.layout.simple_spinner_item);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                inputs.findViewById(R.id.view_bill_date)
-                        .<Spinner>findViewById(R.id.account_credit_date_spinner)
+                inputs.findViewById(R.id.account_bill_date)
+                        .<Spinner>findViewById(R.id.input_bar_credit_date_spinner)
                         .setAdapter(adapter);
             }
             {
@@ -262,8 +286,8 @@ public abstract class WriteAccounts {
                         R.array.bill_dates_array,
                         android.R.layout.simple_spinner_item);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                inputs.findViewById(R.id.view_payment_date)
-                        .<Spinner>findViewById(R.id.account_credit_date_spinner)
+                inputs.findViewById(R.id.account_payment_date)
+                        .<Spinner>findViewById(R.id.input_bar_credit_date_spinner)
                         .setAdapter(adapter);
             }
         }

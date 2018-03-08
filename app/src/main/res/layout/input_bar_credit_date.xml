@@ -8,7 +8,7 @@
 
     <TextView
         style="@style/Caption"
-        android:id="@+id/account_credit_date_caption"
+        android:id="@+id/input_bar_credit_date_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/caption_bill_date"
@@ -19,12 +19,12 @@
         />
 
     <Spinner
-        android:id="@+id/account_credit_date_spinner"
+        android:id="@+id/input_bar_credit_date_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/account_credit_date_caption"
+        app:layout_constraintStart_toEndOf="@id/input_bar_credit_date_caption"
         android:layout_marginStart="@dimen/margin_horizontal"
         />
 </android.support.constraint.ConstraintLayout>
