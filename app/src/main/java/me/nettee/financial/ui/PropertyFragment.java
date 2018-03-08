@@ -29,9 +29,16 @@ import me.nettee.financial.model.account.AlipayAccount;
 
 public class PropertyFragment extends Fragment {
 
-    private View mAssetsCard;
+    private TextView mNetAssetContent;
+    private TextView mTotalAssetContent;
+    private TextView mTotalLiabilityContent;
     private LinearLayout mAccountList;
 
+    private Amount mTotalAssets;
+    private Amount mTotalLiabilities;
+    private Amount mNetAssets;
+
+    private boolean mAssetVisible;
     private boolean mAccountListCollapsed;
 
     @Override
@@ -42,10 +49,27 @@ public class PropertyFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        mAssetsCard = view.findViewById(R.id.assets_card);
+        View assetsCard = view.findViewById(R.id.assets_card);
+        mNetAssetContent = assetsCard.findViewById(R.id.assets_net_asset_content);
+        mTotalAssetContent = assetsCard.findViewById(R.id.asset_total_asset_content);
+        mTotalLiabilityContent = assetsCard.findViewById(R.id.assets_total_liability_content);
+
         mAccountList = view.findViewById(R.id.account_list);
 
+        mAssetVisible = true;
         mAccountListCollapsed = false;
+
+        ImageView assetVisibility = view.findViewById(R.id.assets_visibility);
+        assetVisibility.setOnClickListener(v -> {
+            mAssetVisible = !mAssetVisible;
+            if (mAssetVisible) {
+                assetVisibility.setImageResource(R.drawable.ic_visible);
+                updateAssets();
+            } else {
+                assetVisibility.setImageResource(R.drawable.ic_invisible);
+                hideAssets();
+            }
+        });
 
         ImageView accountListCollapse = view.findViewById(R.id.account_list_collapse);
         accountListCollapse.setOnClickListener(v -> {
@@ -89,7 +113,11 @@ public class PropertyFragment extends Fragment {
             }
         }
 
-        updateAssets(assets, liabilities);
+        mTotalAssets = Asset.sum(assets);
+        mTotalLiabilities = Liability.sum(liabilities);
+        mNetAssets = mTotalAssets.subUnsigned(mTotalLiabilities);
+
+        updateAssets();
 
     }
 
@@ -150,14 +178,15 @@ public class PropertyFragment extends Fragment {
         }
     }
 
-    private void updateAssets(List<Asset> assets, List<Liability> liabilities) {
+    private void updateAssets() {
+        mNetAssetContent.setText(mNetAssets.toYuanString());
+        mTotalAssetContent.setText(mTotalAssets.toYuanString());
+        mTotalLiabilityContent.setText(mTotalLiabilities.toYuanString());
+    }
 
-        Amount totalAssets = Asset.sum(assets);
-        Amount totalLiabilities = Liability.sum(liabilities);
-        Amount netAssets = totalAssets.subUnsigned(totalLiabilities);
-
-        mAssetsCard.<TextView>findViewById(R.id.assets_net_asset_content).setText(netAssets.toYuanString());
-        mAssetsCard.<TextView>findViewById(R.id.asset_total_asset_content).setText(totalAssets.toYuanString());
-        mAssetsCard.<TextView>findViewById(R.id.assets_total_liability_content).setText(totalLiabilities.toYuanString());
+    private void hideAssets() {
+        mNetAssetContent.setText("******");
+        mTotalAssetContent.setText("****");
+        mTotalLiabilityContent.setText("****");
     }
 }

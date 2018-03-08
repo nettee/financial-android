@@ -19,6 +19,18 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
+    <ImageView
+        android:id="@+id/assets_visibility"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="@dimen/margin_horizontal_tiny"
+        android:src="@drawable/ic_visible"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="@id/assets_net_asset_caption"
+        app:layout_constraintBottom_toBottomOf="@id/assets_net_asset_caption"
+        app:layout_constraintStart_toEndOf="@id/assets_net_asset_caption"
+        />
+
     <TextView
         android:id="@+id/assets_net_asset_content"
         android:layout_width="wrap_content"
