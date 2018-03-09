@@ -2,6 +2,8 @@ package me.nettee.financial.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -108,7 +110,23 @@ public class AccountDetailActivity extends Activity {
         if (mAccount.getType() == Account.ALIPAY) {
             View openAlipayApp = mActionToolbar.findViewById(R.id.button_open_alipay_app);
             openAlipayApp.setOnClickListener(view -> {
-                
+                PackageManager packageManager = getApplicationContext().getPackageManager();
+                Intent intent = packageManager.getLaunchIntentForPackage("com.eg.android.AlipayGphone");
+                startActivity(intent);
+            });
+
+            View openAlipayScan = mActionToolbar.findViewById(R.id.button_open_alipay_scan);
+            openAlipayScan.setOnClickListener(view -> {
+                Uri uri = Uri.parse("alipayqr://platformapi/startapp?saId=10000007");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            });
+
+            View openAlipayPaymentCode = mActionToolbar.findViewById(R.id.button_open_alipay_payment_code);
+            openAlipayPaymentCode.setOnClickListener(view -> {
+                Uri uri = Uri.parse("alipayqr://platformapi/startapp?saId=20000056");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
             });
 
 
