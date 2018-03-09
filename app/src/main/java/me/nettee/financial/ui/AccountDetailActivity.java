@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +19,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.InvestmentProjectLab;
@@ -47,6 +44,7 @@ public class AccountDetailActivity extends Activity {
     private static final Map<Integer, Integer> sAccountTypeActionToolbarMap = new HashMap<Integer, Integer>() {
         {
             put(Account.ALIPAY, R.layout.toolbar_account_detail_action_alipay);
+            put(Account.WEIXIN, R.layout.toolbar_account_detail_action_weixin);
             put(Account.INVESTMENT, R.layout.toolbar_account_detail_action_investment);
         }
     };
@@ -108,27 +106,36 @@ public class AccountDetailActivity extends Activity {
         mActionToolbar = stub.inflate();
 
         if (mAccount.getType() == Account.ALIPAY) {
-            View openAlipayApp = mActionToolbar.findViewById(R.id.button_open_alipay_app);
-            openAlipayApp.setOnClickListener(view -> {
+            mActionToolbar.findViewById(R.id.button_open_app).setOnClickListener(view -> {
                 PackageManager packageManager = getApplicationContext().getPackageManager();
                 Intent intent = packageManager.getLaunchIntentForPackage("com.eg.android.AlipayGphone");
                 startActivity(intent);
             });
 
-            View openAlipayScan = mActionToolbar.findViewById(R.id.button_open_alipay_scan);
-            openAlipayScan.setOnClickListener(view -> {
+            mActionToolbar.findViewById(R.id.button_open_scan_code).setOnClickListener(view -> {
                 Uri uri = Uri.parse("alipayqr://platformapi/startapp?saId=10000007");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             });
 
-            View openAlipayPaymentCode = mActionToolbar.findViewById(R.id.button_open_alipay_payment_code);
-            openAlipayPaymentCode.setOnClickListener(view -> {
+            mActionToolbar.findViewById(R.id.button_open_payment_code).setOnClickListener(view -> {
                 Uri uri = Uri.parse("alipayqr://platformapi/startapp?saId=20000056");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             });
 
+        } else if (mAccount.getType() == Account.WEIXIN) {
+            mActionToolbar.findViewById(R.id.button_open_app).setOnClickListener(view -> {
+                Uri uri = Uri.parse("weixin://");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            });
+
+            mActionToolbar.findViewById(R.id.button_open_scan_code).setOnClickListener(view -> {
+                Intent intent = getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
+                intent.putExtra("LauncherUI.From.Scaner.Shortcut", true);
+                startActivity(intent);
+            });
 
         } else if (mAccount.getType() == Account.INVESTMENT) {
             InvestmentPlatform investmentPlatform = ((InvestmentAccount) mAccount).getPlatform();

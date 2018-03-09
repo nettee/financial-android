@@ -17,8 +17,8 @@
             android:id="@+id/button_open_app"
             android:layout_width="@dimen/height_action_bar"
             android:layout_height="match_parent"
-            android:padding="10dp"
-            android:src="@drawable/ic_alipay"
+            android:padding="12dp"
+            android:src="@drawable/ic_weixin"
             app:layout_constraintStart_toStartOf="parent"
             />
 
@@ -31,22 +31,13 @@
             app:layout_constraintStart_toEndOf="@id/button_open_app"
             />
 
-        <ImageView
-            android:id="@+id/button_open_payment_code"
-            android:layout_width="@dimen/height_action_bar"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:src="@drawable/ic_payment_code"
-            app:layout_constraintStart_toEndOf="@id/button_open_scan_code"
-            />
-
         <Button
             style="@style/ActionToolbarButton"
             android:id="@+id/button_keep_an_account"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:text="记一笔"
-            app:layout_constraintStart_toEndOf="@id/button_open_payment_code"
+            app:layout_constraintStart_toEndOf="@id/button_open_scan_code"
             app:layout_constraintEnd_toStartOf="@id/button_more_options"
             />
 
