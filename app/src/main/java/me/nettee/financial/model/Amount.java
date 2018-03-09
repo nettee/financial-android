@@ -73,6 +73,15 @@ public class Amount implements Serializable {
         }
     }
 
+    public Amount abs() {
+        return new Amount(POSITIVE, this.yuan, this.cent);
+    }
+
+    public Amount neg() {
+        int sign = this.sign == POSITIVE ? NEGATIVE : POSITIVE;
+        return new Amount(sign, this.yuan, this.cent);
+    }
+
     public Amount add(Amount that) {
         int c1 = this.toCents();
         int c2 = that.toCents();

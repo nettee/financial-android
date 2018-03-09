@@ -1,5 +1,7 @@
 package me.nettee.financial.model.investment;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +39,7 @@ public class InvestmentPlatform implements Serializable {
     public static List<InvestmentPlatform> getPlatforms() {
         // Note: Do not use Arrays.asList here, otherwise the AutoCompleteTextView
         // will throw an exception.
-        return platforms;
+        return new ArrayList<>(platforms);
     }
 
     public static InvestmentPlatform getPlatformOrGeneral(String name) {

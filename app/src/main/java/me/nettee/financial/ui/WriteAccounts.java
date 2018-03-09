@@ -49,12 +49,12 @@ public abstract class WriteAccounts {
         {
             put(Account.CASH, R.layout.inputs_account_cash);
             put(Account.CREDIT_CARD, R.layout.inputs_account_credit_card);
-            put(Account.DEBIT_CARD, R.layout.account_inputs_debit_card);
+            put(Account.DEBIT_CARD, R.layout.inputs_account_debit_card);
             put(Account.ALIPAY, R.layout.inputs_account_alipay);
             put(Account.WEIXIN, R.layout.account_inputs_weixin);
             put(Account.CAMPUS_CARD, R.layout.account_inputs_cash_card);
             put(Account.BUS_CARD, R.layout.account_inputs_cash_card);
-            put(Account.INVESTMENT, R.layout.account_inputs_investment);
+            put(Account.INVESTMENT, R.layout.inputs_account_investment);
         }
     };
 
@@ -63,6 +63,7 @@ public abstract class WriteAccounts {
         {
             put(Account.CASH, new CashInputsInitializer());
             put(Account.CREDIT_CARD, new CreditCardInputsInitializer());
+            put(Account.DEBIT_CARD, new DebitCardInputsInitializer());
             put(Account.ALIPAY, new AlipayInputsInitializer());
             put(Account.INVESTMENT, new InvestmentInputsInitializer());
         }
@@ -322,7 +323,32 @@ public abstract class WriteAccounts {
             mCreditLimit.setText(creditCardAccount.getCreditLimit().toString());
             mBillDate.setSelection(creditCardAccount.getBillDate().toPosition());
             mPaymentDate.setSelection(creditCardAccount.getPaymentDate().toPosition());
-            mCurrentArrears.setText(creditCardAccount.getArrears().toString());
+            mCurrentArrears.setText(creditCardAccount.getArrears().abs().toString());
+        }
+    }
+
+    static class DebitCardInputsInitializer implements InputsInitializer {
+
+        @Override
+        public void init(Activity activity, View inputs) {
+
+            inputs.findViewById(R.id.account_remark)
+                    .<TextView>findViewById(R.id.input_bar_text_caption)
+                    .setText(R.string.caption_remark);
+            inputs.findViewById(R.id.account_remark)
+                    .<EditText>findViewById(R.id.input_bar_text_content)
+                    .setHint(R.string.hint_remark);
+
+            inputs.findViewById(R.id.account_bank_card_number)
+                    .<TextView>findViewById(R.id.input_bar_bank_card_number_caption)
+                    .setText(R.string.caption_bank_card_number);
+            inputs.findViewById(R.id.account_bank_card_number)
+                    .<EditText>findViewById(R.id.input_bar_bank_card_number_content)
+                    .setHint(R.string.hint_bank_card_number);
+
+            inputs.findViewById(R.id.account_balance)
+                    .<TextView>findViewById(R.id.input_bar_amount_caption)
+                    .setText(R.string.caption_balance);
         }
     }
 
@@ -333,10 +359,12 @@ public abstract class WriteAccounts {
         protected EditText mBalance;
 
         public void pre(View accountInputs) {
-            mRemark = accountInputs.findViewById(R.id.account_remark);
-            mBankCardNumber = accountInputs.findViewById(R.id.account_bank_card_number);
-            mBalance = accountInputs.findViewById(R.id.view_balance)
-                    .findViewById(R.id.account_amount);
+            mRemark = accountInputs.findViewById(R.id.account_remark)
+                    .findViewById(R.id.input_bar_text_content);
+            mBankCardNumber = accountInputs.findViewById(R.id.account_bank_card_number)
+                    .findViewById(R.id.input_bar_bank_card_number_content);
+            mBalance = accountInputs.findViewById(R.id.account_balance)
+                    .findViewById(R.id.input_bar_amount_content);
         }
 
     }
@@ -513,8 +541,10 @@ public abstract class WriteAccounts {
     static abstract class InvestmentAccountInout {
 
         protected AutoCompleteTextView mPlatform;
+
         public void pre(View accountInputs) {
-            mPlatform = accountInputs.findViewById(R.id.account_investment_platform);
+            mPlatform = accountInputs.findViewById(R.id.account_investment_platform)
+                    .findViewById(R.id.input_bar_investment_platform_content);
         }
 
     }
@@ -523,8 +553,10 @@ public abstract class WriteAccounts {
 
         @Override
         public void init(Activity activity, View inputs) {
-            AutoCompleteTextView investmentPlatform = inputs.findViewById(R.id.account_investment_platform);
-            ImageView investmentPlatformImage = inputs.findViewById(R.id.account_investment_platform_image);
+            AutoCompleteTextView investmentPlatform = inputs.findViewById(R.id.account_investment_platform)
+                    .findViewById(R.id.input_bar_investment_platform_content);
+            ImageView investmentPlatformImage = inputs.findViewById(R.id.account_investment_platform)
+                    .findViewById(R.id.input_bar_investment_platform_image);
             InvestmentPlatformAdapter adapter = new InvestmentPlatformAdapter(activity, InvestmentPlatform.getPlatforms());
             investmentPlatform.setAdapter(adapter);
             investmentPlatform.addTextChangedListener(new TextWatcher() {

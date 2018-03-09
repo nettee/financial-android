@@ -2,14 +2,10 @@
 <android.support.constraint.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/account_card_height"
-    android:background="@drawable/account_card_dark"
-    android:elevation="4dp"
-    android:layout_marginStart="@dimen/margin_horizontal"
-    android:layout_marginEnd="@dimen/margin_horizontal"
-    tools:showIn="@layout/activity_account_detail">
+    android:background="@color/colorPrimary"
+    >
 
     <ImageView
         style="@style/AccountCardImage"

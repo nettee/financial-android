@@ -5,8 +5,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include layout="@layout/input_bar_investment_platform"/>
-
-    <include layout="@layout/input_bar_investment_kind"/>
+    <include layout="@layout/input_bar_investment_platform"
+             android:id="@+id/account_investment_platform"
+        />
 
 </LinearLayout>
