@@ -1,39 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_item"
-        android:orientation="vertical"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="@dimen/height_item"
+                                             android:orientation="vertical"
     >
 
-    <ImageView style="@style/AccountIcon"
+    <ImageView
         android:id="@+id/account_list_item_image"
-        android:src="@drawable/ic_account"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/account_list_margin"
-    />
+        tools:src="@drawable/ic_bank_icbc"
+        />
 
     <TextView
         android:id="@+id/account_list_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_horizontal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/account_list_item_image"
-        android:layout_marginStart="@dimen/account_list_margin"
-    />
+        tools:text="工商银行"
+        />
+
+    <TextView
+        style="@style/Remark"
+        android:id="@+id/account_list_item_remark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/account_list_item_name"
+        tools:visibility="visible"
+        tools:text="借记卡 9395"
+        />
 
     <TextView
         android:id="@+id/account_list_item_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_horizontal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="@dimen/account_list_margin"
-    />
+        tools:text="¥6,134.77"
+        />
 
 </android.support.constraint.ConstraintLayout>

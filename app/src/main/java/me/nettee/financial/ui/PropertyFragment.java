@@ -137,28 +137,23 @@ public class PropertyFragment extends Fragment {
             String remark = account.getDisplayRemark();
             Amount amount = account.getDefaultAmount();
 
-            Integer layoutId;
-            if (StringUtils.isNotEmpty(remark)) {
-                layoutId = R.layout.list_item_account_with_remark;
-            } else {
-                layoutId = R.layout.list_item_account;
-            }
-
-            View itemView = inflater.inflate(layoutId, null);
+            View itemView = inflater.inflate(R.layout.list_item_account, null);
             int itemHeight = (int) getResources().getDimension(R.dimen.height_item);
             itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight));
 
             itemView.<ImageView>findViewById(R.id.account_list_item_image).setImageResource(imageResource);
             itemView.<TextView>findViewById(R.id.account_list_item_name).setText(name);
-            TextView amountTextView = itemView.findViewById(R.id.account_list_item_amount);
-            amountTextView.setText(amount.toYuanString());
-
-            if (amount.isNegative()) {
-                amountTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorLiability));
-            }
 
             if (StringUtils.isNotEmpty(remark)) {
-                itemView.<TextView>findViewById(R.id.account_list_item_remark).setText(remark);
+                TextView remarkView = itemView.findViewById(R.id.account_list_item_remark);
+                remarkView.setVisibility(View.VISIBLE);
+                remarkView.setText(remark);
+            }
+
+            TextView amountTextView = itemView.findViewById(R.id.account_list_item_amount);
+            amountTextView.setText(amount.toYuanString());
+            if (amount.isNegative()) {
+                amountTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorLiability));
             }
 
             itemView.setOnClickListener(view -> {
