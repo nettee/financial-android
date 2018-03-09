@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/account_detail_action_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_action_bar"
+    android:background="@color/colorLightGray"
+    android:contentInsetStart="0dp"
+    >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/button_open_alipay_app"
+            android:layout_width="@dimen/height_action_bar"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:src="@drawable/ic_alipay"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <ImageView
+            android:id="@+id/button_open_alipay_scan"
+            android:layout_width="@dimen/height_action_bar"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:src="@drawable/ic_scan"
+            app:layout_constraintStart_toEndOf="@id/button_open_alipay_app"
+            />
+
+        <ImageView
+            android:id="@+id/button_open_alipay_payment_code"
+            android:layout_width="@dimen/height_action_bar"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:src="@drawable/ic_payment_code"
+            app:layout_constraintStart_toEndOf="@id/button_open_alipay_scan"
+            />
+
+        <Button
+            style="@style/ActionToolbarButton"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:text="记一笔"
+            app:layout_constraintStart_toEndOf="@id/button_open_alipay_payment_code"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+
+</Toolbar>

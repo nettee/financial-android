@@ -44,6 +44,7 @@ public class AccountDetailActivity extends Activity {
 
     private static final Map<Integer, Integer> sAccountTypeActionToolbarMap = new HashMap<Integer, Integer>() {
         {
+            put(Account.ALIPAY, R.layout.toolbar_account_detail_action_alipay);
             put(Account.INVESTMENT, R.layout.toolbar_account_detail_action_investment);
         }
     };
@@ -104,7 +105,14 @@ public class AccountDetailActivity extends Activity {
         stub.setLayoutResource(getActionToolbarLayout(mAccount.getType()));
         mActionToolbar = stub.inflate();
 
-        if (mAccount.getType() == Account.INVESTMENT) {
+        if (mAccount.getType() == Account.ALIPAY) {
+            View openAlipayApp = mActionToolbar.findViewById(R.id.button_open_alipay_app);
+            openAlipayApp.setOnClickListener(view -> {
+                
+            });
+
+
+        } else if (mAccount.getType() == Account.INVESTMENT) {
             InvestmentPlatform investmentPlatform = ((InvestmentAccount) mAccount).getPlatform();
             View newInvestmentProjectButton = mActionToolbar.findViewById(R.id.button_new_investment_project);
             newInvestmentProjectButton.setOnClickListener(view -> {
