@@ -28,7 +28,6 @@ import java.util.stream.Collectors;
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.CreditDate;
-import me.nettee.financial.model.investment.InvestmentPlatform;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.AlipayAccount;
 import me.nettee.financial.model.account.BusCardAccount;
@@ -39,6 +38,7 @@ import me.nettee.financial.model.account.CreditCardAccount;
 import me.nettee.financial.model.account.DebitCardAccount;
 import me.nettee.financial.model.account.InvestmentAccount;
 import me.nettee.financial.model.account.WeixinAccount;
+import me.nettee.financial.model.investment.InvestmentPlatform;
 
 import static android.view.View.GONE;
 
@@ -51,25 +51,28 @@ public abstract class WriteAccounts {
             put(Account.CREDIT_CARD, R.layout.inputs_account_credit_card);
             put(Account.DEBIT_CARD, R.layout.inputs_account_debit_card);
             put(Account.ALIPAY, R.layout.inputs_account_alipay);
-            put(Account.WEIXIN, R.layout.account_inputs_weixin);
-            put(Account.CAMPUS_CARD, R.layout.account_inputs_cash_card);
-            put(Account.BUS_CARD, R.layout.account_inputs_cash_card);
+            put(Account.WEIXIN, R.layout.inputs_account_weixin);
+            put(Account.CAMPUS_CARD, R.layout.inputs_account_cash_card);
+            put(Account.BUS_CARD, R.layout.inputs_account_cash_card);
             put(Account.INVESTMENT, R.layout.inputs_account_investment);
         }
     };
 
-    private static Map<Integer, InputsInitializer> sInputsInitializerMap = new HashMap<Integer, InputsInitializer>() {
+    private static final Map<Integer, InputsInitializer> sInputsInitializerMap = new HashMap<Integer, InputsInitializer>() {
         private static final long serialVersionUID = 1L;
         {
             put(Account.CASH, new CashInputsInitializer());
             put(Account.CREDIT_CARD, new CreditCardInputsInitializer());
             put(Account.DEBIT_CARD, new DebitCardInputsInitializer());
             put(Account.ALIPAY, new AlipayInputsInitializer());
+            put(Account.WEIXIN, new WeixinInputsInitializer());
+            put(Account.CAMPUS_CARD, new CashCardInputsInitializer());
+            put(Account.BUS_CARD, new CashCardInputsInitializer());
             put(Account.INVESTMENT, new InvestmentInputsInitializer());
         }
     };
 
-    private static Map<Integer, AccountExtractor> sAccountExtractorMap = new HashMap<Integer, AccountExtractor>() {
+    private static final Map<Integer, AccountExtractor> sAccountExtractorMap = new HashMap<Integer, AccountExtractor>() {
         private static final long serialVersionUID = 1L;
         {
             put(Account.CASH, new CashAccountExtractor());
@@ -83,7 +86,7 @@ public abstract class WriteAccounts {
         }
     };
 
-    private static Map<Integer, AccountFiller> sAccountFillerMap = new HashMap<Integer, AccountFiller>() {
+    private static final Map<Integer, AccountFiller> sAccountFillerMap = new HashMap<Integer, AccountFiller>() {
         private static final long serialVersionUID = 1L;
         {
             put(Account.CASH, new CashAccountFiller());
@@ -394,14 +397,30 @@ public abstract class WriteAccounts {
         }
     }
 
+    static class CashCardInputsInitializer implements InputsInitializer {
+
+        @Override
+        public void init(Activity activity, View inputs) {
+            inputs.findViewById(R.id.account_remark)
+                    .<TextView>findViewById(R.id.input_bar_text_caption)
+                    .setText(R.string.caption_remark);
+            inputs.findViewById(R.id.account_remark)
+                    .<EditText>findViewById(R.id.input_bar_text_content)
+                    .setHint(R.string.hint_remark);
+            inputs.findViewById(R.id.account_balance)
+                    .<TextView>findViewById(R.id.input_bar_amount_caption)
+                    .setText(R.string.caption_balance);
+        }
+    }
+
     static abstract class CashCardAccountInout {
 
         protected EditText mRemark;
         protected EditText mBalance;
 
         public void pre(View accountInputs) {
-            mRemark = accountInputs.findViewById(R.id.account_remark);
-            mBalance = accountInputs.findViewById(R.id.account_amount);
+            mRemark = accountInputs.findViewById(R.id.account_remark).findViewById(R.id.input_bar_text_content);
+            mBalance = accountInputs.findViewById(R.id.account_balance).findViewById(R.id.input_bar_amount_content);
         }
     }
 
@@ -504,14 +523,30 @@ public abstract class WriteAccounts {
         }
     }
 
+    static class WeixinInputsInitializer implements InputsInitializer {
+
+        @Override
+        public void init(Activity activity, View inputs) {
+            inputs.findViewById(R.id.account_remark)
+                    .<TextView>findViewById(R.id.input_bar_text_caption)
+                    .setText(R.string.caption_remark);
+            inputs.findViewById(R.id.account_remark)
+                    .<EditText>findViewById(R.id.input_bar_text_content)
+                    .setHint(R.string.hint_remark);
+            inputs.findViewById(R.id.account_balance)
+                    .<TextView>findViewById(R.id.input_bar_amount_caption)
+                    .setText(R.string.caption_balance);
+        }
+    }
+
     static abstract class WeixinAccountInout {
 
         protected EditText mRemark;
         protected EditText mBalance;
 
         public void pre(View accountInputs) {
-            mRemark = accountInputs.findViewById(R.id.account_remark);
-            mBalance = accountInputs.findViewById(R.id.account_amount);
+            mRemark = accountInputs.findViewById(R.id.account_remark).findViewById(R.id.input_bar_text_content);
+            mBalance = accountInputs.findViewById(R.id.account_balance).findViewById(R.id.input_bar_amount_content);
         }
     }
 
@@ -524,7 +559,6 @@ public abstract class WriteAccounts {
             account.setBalance(Amount.valueOf(mBalance.getText().toString()));
             return account;
         }
-
     }
 
     static class WeixinAccountFiller extends WeixinAccountInout implements AccountFiller {
@@ -546,7 +580,6 @@ public abstract class WriteAccounts {
             mPlatform = accountInputs.findViewById(R.id.account_investment_platform)
                     .findViewById(R.id.input_bar_investment_platform_content);
         }
-
     }
 
     static class InvestmentInputsInitializer implements InputsInitializer {
