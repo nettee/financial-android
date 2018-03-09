@@ -29,10 +29,13 @@ import me.nettee.financial.model.account.AlipayAccount;
 
 public class PropertyFragment extends Fragment {
 
+    private ImageView mAssetVisibility;
     private TextView mNetAssetContent;
     private TextView mTotalAssetContent;
     private TextView mTotalLiabilityContent;
+    private ImageView mAccountListCollapse;
     private LinearLayout mAccountList;
+    private List<TextView> mAccountAmounts = new ArrayList<>();
 
     private Amount mTotalAssets;
     private Amount mTotalLiabilities;
@@ -59,28 +62,16 @@ public class PropertyFragment extends Fragment {
         mAssetVisible = true;
         mAccountListCollapsed = false;
 
-        ImageView assetVisibility = view.findViewById(R.id.assets_visibility);
-        assetVisibility.setOnClickListener(v -> {
+        mAssetVisibility = view.findViewById(R.id.assets_visibility);
+        mAssetVisibility.setOnClickListener(v -> {
             mAssetVisible = !mAssetVisible;
-            if (mAssetVisible) {
-                assetVisibility.setImageResource(R.drawable.ic_visible);
-                updateAssets();
-            } else {
-                assetVisibility.setImageResource(R.drawable.ic_invisible);
-                hideAssets();
-            }
+            updateAssetVisibility();
         });
 
-        ImageView accountListCollapse = view.findViewById(R.id.account_list_collapse);
-        accountListCollapse.setOnClickListener(v -> {
-            if (mAccountListCollapsed) {
-                accountListCollapse.setImageResource(R.drawable.ic_status_expanded);
-                mAccountList.setVisibility(View.VISIBLE);
-            } else {
-                accountListCollapse.setImageResource(R.drawable.ic_status_collapsed);
-                mAccountList.setVisibility(View.GONE);
-            }
+        mAccountListCollapse = view.findViewById(R.id.account_list_collapse);
+        mAccountListCollapse.setOnClickListener(v -> {
             mAccountListCollapsed = !mAccountListCollapsed;
+            updateAccountListStatus();
         });
 
         ImageView accountListAdd = view.findViewById(R.id.account_list_add);
@@ -88,7 +79,6 @@ public class PropertyFragment extends Fragment {
             Intent intent = new Intent(getActivity(), AccountCandidateActivity.class);
             startActivity(intent);
         });
-
     }
 
     @Override
@@ -117,13 +107,34 @@ public class PropertyFragment extends Fragment {
         mTotalLiabilities = Liability.sum(liabilities);
         mNetAssets = mTotalAssets.subUnsigned(mTotalLiabilities);
 
-        updateAssets();
+        updateAccountListStatus();
+        updateAssetVisibility();
+    }
 
+    private void updateAssetVisibility() {
+        if (mAssetVisible) {
+            mAssetVisibility.setImageResource(R.drawable.ic_visible);
+            updateAmounts();
+        } else {
+            mAssetVisibility.setImageResource(R.drawable.ic_invisible);
+            hideAmounts();
+        }
+    }
+
+    private void updateAccountListStatus() {
+        if (mAccountListCollapsed) {
+            mAccountListCollapse.setImageResource(R.drawable.ic_status_collapsed);
+            mAccountList.setVisibility(View.GONE);
+        } else {
+            mAccountListCollapse.setImageResource(R.drawable.ic_status_expanded);
+            mAccountList.setVisibility(View.VISIBLE);
+        }
     }
 
     private void updateAccounts(List<Account> accounts, LayoutInflater inflater) {
 
         mAccountList.removeAllViews();
+        mAccountAmounts.clear();
 
         Deque<Account> accountDeque = new LinkedList<>();
         accountDeque.addAll(accounts);
@@ -160,6 +171,7 @@ public class PropertyFragment extends Fragment {
             if (amount.isNegative()) {
                 amountTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorLiability));
             }
+            mAccountAmounts.add(amountTextView);
 
             itemView.setOnClickListener(view -> {
                 Intent intent = new Intent(getActivity(), AccountDetailActivity.class);
@@ -178,15 +190,21 @@ public class PropertyFragment extends Fragment {
         }
     }
 
-    private void updateAssets() {
+    private void updateAmounts() {
         mNetAssetContent.setText(mNetAssets.toYuanString());
         mTotalAssetContent.setText(mTotalAssets.toYuanString());
         mTotalLiabilityContent.setText(mTotalLiabilities.toYuanString());
+        for (TextView amountView : mAccountAmounts) {
+            amountView.setVisibility(View.VISIBLE);
+        }
     }
 
-    private void hideAssets() {
+    private void hideAmounts() {
         mNetAssetContent.setText("******");
         mTotalAssetContent.setText("****");
         mTotalLiabilityContent.setText("****");
+        for (TextView amountView : mAccountAmounts) {
+            amountView.setVisibility(View.INVISIBLE);
+        }
     }
 }

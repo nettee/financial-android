@@ -22,6 +22,7 @@ import org.joda.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.InvestmentProjectLab;
@@ -49,8 +50,12 @@ public class AccountDetailActivity extends Activity {
         }
     };
 
-    private int getActionToolbarLayout(int accountType) {
-        return sAccountTypeActionToolbarMap.getOrDefault(accountType, R.layout.toolbar_account_detail_action_blank);
+    private Optional<Integer> getActionToolbarLayout(int accountType) {
+        if (sAccountTypeActionToolbarMap.containsKey(accountType)) {
+            return Optional.of(sAccountTypeActionToolbarMap.get(accountType));
+        } else {
+            return Optional.empty();
+        }
     }
 
     private Account mAccount;
@@ -101,8 +106,13 @@ public class AccountDetailActivity extends Activity {
     }
 
     private void constructActionToolbar() {
+        Optional<Integer> actionToolbarLayoutOptional = getActionToolbarLayout(mAccount.getType());
+        if (!actionToolbarLayoutOptional.isPresent()) {
+            return;
+        }
+
         ViewStub stub = findViewById(R.id.account_detail_action_toolbar_stub);
-        stub.setLayoutResource(getActionToolbarLayout(mAccount.getType()));
+        stub.setLayoutResource(actionToolbarLayoutOptional.get());
         mActionToolbar = stub.inflate();
 
         if (mAccount.getType() == Account.ALIPAY) {
