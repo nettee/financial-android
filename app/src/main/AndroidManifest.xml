@@ -16,17 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.AccountCandidateActivity">
+        <activity android:name=".ui.asset.AccountCandidateActivity">
         </activity>
-        <activity android:name=".ui.AccountDetailActivity">
+        <activity android:name=".ui.asset.AccountDetailActivity">
         </activity>
-        <activity android:name=".ui.EditAccountActivity">
+        <activity android:name=".ui.asset.EditAccountActivity">
         </activity>
-        <activity android:name=".ui.NewAccountActivity">
+        <activity android:name=".ui.asset.NewAccountActivity">
         </activity>
-        <activity android:name=".ui.InvestmentProjectCandidateActivity">
+        <activity android:name=".ui.asset.InvestmentProjectCandidateActivity">
         </activity>
-        <activity android:name=".ui.NewInvestmentProjectActivity">
+        <activity android:name=".ui.asset.NewInvestmentProjectActivity">
         </activity>
     </application>
 

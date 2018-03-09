@@ -1,4 +1,4 @@
-package me.nettee.financial.ui;
+package me.nettee.financial.ui.asset;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import me.nettee.financial.R;
-import me.nettee.financial.model.InvestmentProjectLab;
+import me.nettee.financial.model.investment.InvestmentProjectLab;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.InvestmentAccount;
 import me.nettee.financial.model.investment.InvestmentPlatform;

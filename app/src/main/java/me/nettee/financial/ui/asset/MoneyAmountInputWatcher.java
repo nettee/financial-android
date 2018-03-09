@@ -1,4 +1,4 @@
-package me.nettee.financial.ui;
+package me.nettee.financial.ui.asset;
 
 import android.text.Editable;
 import android.text.TextWatcher;

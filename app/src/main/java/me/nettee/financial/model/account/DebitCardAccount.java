@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
-import me.nettee.financial.model.Asset;
+import me.nettee.financial.model.asset.Asset;
 
 public final class DebitCardAccount extends BankCardAccount {
 

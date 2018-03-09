@@ -1,4 +1,4 @@
-package me.nettee.financial.ui;
+package me.nettee.financial.ui.asset;
 
 import android.app.Activity;
 import android.content.Context;
@@ -248,6 +248,14 @@ public abstract class WriteAccounts {
 
     static class CreditCardInputsInitializer implements InputsInitializer {
 
+        private static String[] getCreditDates() {
+            String[] creditDates = new String[28];
+            for (int i = 0; i < creditDates.length; i++) {
+                creditDates[i] = String.format("每月%d日", i + 1);
+            }
+            return creditDates;
+        }
+
         @Override
         public void init(Activity activity, View inputs) {
 
@@ -277,18 +285,18 @@ public abstract class WriteAccounts {
                     .setText(R.string.caption_current_arrears);
 
             {
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
-                        R.array.bill_dates_array,
-                        android.R.layout.simple_spinner_item);
+                ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(activity,
+                        android.R.layout.simple_spinner_item,
+                        getCreditDates());
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 inputs.findViewById(R.id.account_bill_date)
                         .<Spinner>findViewById(R.id.input_bar_credit_date_spinner)
                         .setAdapter(adapter);
             }
             {
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
-                        R.array.bill_dates_array,
-                        android.R.layout.simple_spinner_item);
+                ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(activity,
+                        android.R.layout.simple_spinner_item,
+                        getCreditDates());
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 inputs.findViewById(R.id.account_payment_date)
                         .<Spinner>findViewById(R.id.input_bar_credit_date_spinner)

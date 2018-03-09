@@ -1,4 +1,6 @@
-package me.nettee.financial.model;
+package me.nettee.financial.model.asset;
+
+import me.nettee.financial.model.Amount;
 
 public class AssetAndLiability {
 

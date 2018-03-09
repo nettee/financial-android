@@ -1,14 +1,11 @@
-package me.nettee.financial.ui;
+package me.nettee.financial.ui.asset;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import me.nettee.financial.R;
-import me.nettee.financial.model.InvestmentProjectLab;
+import me.nettee.financial.model.investment.InvestmentProjectLab;
 import me.nettee.financial.model.investment.InvestmentProject;
 
 public class NewInvestmentProjectActivity extends NewSomeBaseActivity<InvestmentProject> {

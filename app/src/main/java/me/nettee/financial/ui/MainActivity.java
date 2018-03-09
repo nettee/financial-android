@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import me.nettee.financial.R;
+import me.nettee.financial.ui.asset.PropertyFragment;
 
 public class MainActivity extends Activity {
 

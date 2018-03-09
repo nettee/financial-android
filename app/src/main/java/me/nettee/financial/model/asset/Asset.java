@@ -1,6 +1,8 @@
-package me.nettee.financial.model;
+package me.nettee.financial.model.asset;
 
 import java.util.List;
+
+import me.nettee.financial.model.Amount;
 
 public class Asset extends AssetAndLiability {
 

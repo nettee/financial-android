@@ -24,10 +24,8 @@
     <string name="account_name_campus_card">校园卡</string>
     <string name="account_name_bus_card">公交卡</string>
 
-    <string name="caption_note_information">备注信息</string>
     <string name="caption_account_balance">账户余额</string>
     <string name="caption_account_total">账户总额</string>
-
     <string name="caption_remark">备注信息</string>
     <string name="caption_balance">账户余额</string>
     <string name="caption_bank_card_number">银行卡号</string>
@@ -36,17 +34,18 @@
     <string name="caption_bill_date">账单日期</string>
     <string name="caption_payment_date">还款日期</string>
     <string name="caption_investment_platform">投资平台</string>
-    <string name="caption_investment_kind">投资品种</string>
     <string name="caption_principle">投入本金</string>
     <string name="caption_postscript">备注消息</string>
     <string name="caption_project_name">项目名称</string>
-    <string name="caption_investment_stock">股票</string>
-    <string name="caption_investment_fund">基金</string>
-    <string name="caption_investment_fixed">定期</string>
-    <string name="caption_investment_other">其他</string>
     <string name="caption_expected_annual_yield">预期年化</string>
     <string name="caption_buy_date">买入日期</string>
     <string name="caption_value_date">起息日期</string>
+    <string name="caption_current_earning">当前收益</string>
+    <string name="caption_yuebao_open">已开通余额宝</string>
+    <string name="caption_huabei_open">已开通花呗</string>
+    <string name="caption_my_net_asset">我的净资产</string>
+    <string name="caption_total_asset">总资产</string>
+    <string name="caption_total_liability">总负债</string>
 
     <string name="button_edit">编辑</string>
     <string name="button_save">保存</string>
@@ -80,43 +79,5 @@
     <string name="error_fail_new_account">添加账户失败</string>
     <string name="error_fail_edit_account">修改账户失败</string>
     <string name="message_success_deleted">删除成功</string>
-    <string name="caption_current_earning">当前收益</string>
-    <string name="caption_yuebao_open">已开通余额宝</string>
-    <string name="caption_huabei_open">已开通花呗</string>
-    <string name="caption_my_net_asset">我的净资产</string>
-    <string name="caption_total_asset">总资产</string>
-    <string name="caption_total_liability">总负债</string>
-
-
-    <string-array name="bill_dates_array">
-        <item>每月1日</item>
-        <item>每月2日</item>
-        <item>每月3日</item>
-        <item>每月4日</item>
-        <item>每月5日</item>
-        <item>每月6日</item>
-        <item>每月7日</item>
-        <item>每月8日</item>
-        <item>每月9日</item>
-        <item>每月10日</item>
-        <item>每月11日</item>
-        <item>每月12日</item>
-        <item>每月13日</item>
-        <item>每月14日</item>
-        <item>每月15日</item>
-        <item>每月16日</item>
-        <item>每月17日</item>
-        <item>每月18日</item>
-        <item>每月19日</item>
-        <item>每月20日</item>
-        <item>每月21日</item>
-        <item>每月22日</item>
-        <item>每月23日</item>
-        <item>每月24日</item>
-        <item>每月25日</item>
-        <item>每月26日</item>
-        <item>每月27日</item>
-        <item>每月28日</item>
-    </string-array>
 
 </resources>

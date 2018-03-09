@@ -1,4 +1,4 @@
-package me.nettee.financial.ui;
+package me.nettee.financial.ui.asset;
 
 import android.content.Intent;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.nettee.financial.R;
-import me.nettee.financial.model.InvestmentProjectLab;
+import me.nettee.financial.model.investment.InvestmentProjectLab;
 import me.nettee.financial.model.investment.InvestmentProject;
 
 public class InvestmentProjectCandidateActivity extends SomeCandidateBaseActivity<InvestmentProject> {

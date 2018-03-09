@@ -1,4 +1,4 @@
-package me.nettee.financial.ui;
+package me.nettee.financial.ui.asset;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -23,8 +23,8 @@ import me.nettee.financial.R;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.AccountLab;
 import me.nettee.financial.model.Amount;
-import me.nettee.financial.model.Liability;
-import me.nettee.financial.model.Asset;
+import me.nettee.financial.model.asset.Liability;
+import me.nettee.financial.model.asset.Asset;
 import me.nettee.financial.model.account.AlipayAccount;
 
 public class PropertyFragment extends Fragment {

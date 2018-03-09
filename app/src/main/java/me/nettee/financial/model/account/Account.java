@@ -5,8 +5,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import me.nettee.financial.model.Amount;
-import me.nettee.financial.model.Asset;
-import me.nettee.financial.model.Liability;
+import me.nettee.financial.model.asset.Asset;
+import me.nettee.financial.model.asset.Liability;
 
 public abstract class Account implements Serializable {
 

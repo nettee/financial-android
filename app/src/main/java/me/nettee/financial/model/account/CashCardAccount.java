@@ -3,7 +3,7 @@ package me.nettee.financial.model.account;
 import java.util.Optional;
 
 import me.nettee.financial.model.Amount;
-import me.nettee.financial.model.Asset;
+import me.nettee.financial.model.asset.Asset;
 
 public abstract class CashCardAccount extends Account {
 

@@ -1,16 +1,14 @@
-package me.nettee.financial.model;
+package me.nettee.financial.model.investment;
 
 import org.joda.time.LocalDate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import me.nettee.financial.R;
-import me.nettee.financial.model.investment.InvestmentPlatform;
-import me.nettee.financial.model.investment.InvestmentProject;
-import me.nettee.financial.model.investment.MonetaryFundInvestmentProject;
+import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.Percent;
 
 public class InvestmentProjectLab {
 

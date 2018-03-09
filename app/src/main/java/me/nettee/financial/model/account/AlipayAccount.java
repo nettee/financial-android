@@ -3,8 +3,8 @@ package me.nettee.financial.model.account;
 import java.util.Optional;
 
 import me.nettee.financial.R;
-import me.nettee.financial.model.Asset;
-import me.nettee.financial.model.Liability;
+import me.nettee.financial.model.asset.Asset;
+import me.nettee.financial.model.asset.Liability;
 
 public final class AlipayAccount extends MobilePaymentAccount {
 
