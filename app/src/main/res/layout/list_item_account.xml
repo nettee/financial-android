@@ -25,8 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_horizontal"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/account_list_item_remark"
         app:layout_constraintStart_toEndOf="@id/account_list_item_image"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="工商银行"
         />
 
@@ -35,13 +36,30 @@
         android:id="@+id/account_list_item_remark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_horizontal"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_list_item_name"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/account_list_item_name"
+        app:layout_constraintStart_toStartOf="@id/account_list_item_name"
         tools:visibility="visible"
         tools:text="借记卡 9395"
+        />
+
+    <TextView
+        android:id="@+id/account_list_item_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_horizontal_small"
+        android:background="@drawable/investment_account_badge"
+        android:paddingHorizontal="2dp"
+        android:paddingVertical="1dp"
+        android:text="投资账户"
+        android:textSize="10sp"
+        android:textColor="@color/colorAsset"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/account_list_item_name"
+        app:layout_constraintBottom_toBottomOf="@id/account_list_item_name"
+        app:layout_constraintStart_toEndOf="@id/account_list_item_name"
+        tools:visibility="visible"
         />
 
     <TextView

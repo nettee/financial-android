@@ -150,6 +150,11 @@ public class PropertyFragment extends Fragment {
                 remarkView.setText(remark);
             }
 
+            if (account.getType() == Account.INVESTMENT) {
+                TextView badgeView = itemView.findViewById(R.id.account_list_item_badge);
+                badgeView.setVisibility(View.VISIBLE);
+            }
+
             TextView amountTextView = itemView.findViewById(R.id.account_list_item_amount);
             amountTextView.setText(amount.toYuanString());
             if (amount.isNegative()) {
