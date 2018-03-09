@@ -42,10 +42,22 @@
 
         <Button
             style="@style/ActionToolbarButton"
+            android:id="@+id/button_accounting_for_alipay_account"
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:text="记一笔"
             app:layout_constraintStart_toEndOf="@id/button_open_alipay_payment_code"
+            app:layout_constraintEnd_toStartOf="@id/button_more_for_alipay_account"
+            />
+
+        <ImageView
+            android:id="@+id/button_more_for_alipay_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_horizontal_small"
+            android:src="@drawable/ic_action_more"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />
 
