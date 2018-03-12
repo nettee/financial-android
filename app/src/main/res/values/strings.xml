@@ -46,6 +46,9 @@
     <string name="caption_my_net_asset">我的净资产</string>
     <string name="caption_total_asset">总资产</string>
     <string name="caption_total_liability">总负债</string>
+    <string name="caption_my_cash_flow">我的现金流</string>
+    <string name="caption_monthly_inflow">月流入</string>
+    <string name="caption_monthly_outflow">月流出</string>
 
     <string name="button_edit">编辑</string>
     <string name="button_save">保存</string>

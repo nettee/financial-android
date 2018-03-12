@@ -35,4 +35,5 @@
     <dimen name="account_card_image_padding">8dp</dimen>
 
     <dimen name="investment_project_card_height">100dp</dimen>
+    <dimen name="height_title_bar_category">40dp</dimen>
 </resources>

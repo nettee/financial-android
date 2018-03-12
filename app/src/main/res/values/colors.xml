@@ -18,4 +18,7 @@
 
     <color name="colorAsset">#cc710f</color>
     <color name="colorLiability">#1cb2af</color>
+
+    <color name="colorInflow">#ff0000</color>
+    <color name="colorOutflow">#00ff00</color>
 </resources>
