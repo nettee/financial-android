@@ -17,8 +17,8 @@ public class HuabeiAccount extends Account {
     private Amount mArrears = Amount.zero();
 
     @Override
-    public int getType() {
-        return HUABEI;
+    public AccountType getType() {
+        return AccountType.HUABEI;
     }
 
     @Override

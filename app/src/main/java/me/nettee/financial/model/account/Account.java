@@ -12,16 +12,35 @@ public abstract class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public static final int GENERAL = 0;
-    public static final int CASH = 100;
-    public static final int CREDIT_CARD = 200;
-    public static final int HUABEI = 201;
-    public static final int DEBIT_CARD = 300;
-    public static final int ALIPAY = 400;
-    public static final int WEIXIN = 401;
-    public static final int CAMPUS_CARD = 500;
-    public static final int BUS_CARD = 501;
-    public static final int INVESTMENT = 600;
+    public enum AccountType {
+        GENERAL,
+        CASH,
+        CREDIT_CARD,
+        HUABEI,
+        DEBIT_CARD,
+        ALIPAY,
+        WEIXIN,
+        CAMPUS_CARD,
+        BUS_CARD,
+        INVESTMENT,
+        ;
+
+        public int getPriority() {
+            switch (this) {
+                case CASH: return 0;
+                case CREDIT_CARD: return 10;
+                case DEBIT_CARD: return 20;
+                case ALIPAY: return 30;
+                case HUABEI: return 40;
+                case WEIXIN: return 50;
+                case CAMPUS_CARD: return 60;
+                case BUS_CARD: return 70;
+                case INVESTMENT: return 80;
+                case GENERAL: return 90;
+                default: return 99;
+            }
+        }
+    }
 
     private final UUID mId;
     private String mRemark;
@@ -34,7 +53,7 @@ public abstract class Account implements Serializable {
         return mId;
     }
 
-    public abstract int getType();
+    public abstract AccountType getType();
 
     public abstract String getCandidateName();
 
@@ -94,7 +113,7 @@ public abstract class Account implements Serializable {
         return Optional.empty();
     }
 
-    public static CandidateAccount candidate(int type, String candidateName, int candidateImageResource) {
+    public static CandidateAccount candidate(AccountType type, String candidateName, int candidateImageResource) {
         return new CandidateAccount(type, candidateName, candidateImageResource);
     }
 
@@ -102,24 +121,27 @@ public abstract class Account implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
-        private int mType;
+        private AccountType mType;
         private String mCandidateName;
         private int mCandidateImageResource;
 
-        private CandidateAccount(int type, String candidateName, int candidateImageResource) {
+        private CandidateAccount(AccountType type, String candidateName, int candidateImageResource) {
             mType = type;
             mCandidateName = candidateName;
             mCandidateImageResource = candidateImageResource;
         }
 
-        public int getType() {
+        @Override
+        public AccountType getType() {
             return mType;
         }
 
+        @Override
         public String getCandidateName() {
             return mCandidateName;
         }
 
+        @Override
         public int getCandidateImageResource() {
             return mCandidateImageResource;
         }

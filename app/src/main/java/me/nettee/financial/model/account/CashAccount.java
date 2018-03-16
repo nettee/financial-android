@@ -13,8 +13,8 @@ public final class CashAccount extends Account {
     private Amount mBalance = Amount.zero();
 
     @Override
-    public int getType() {
-        return CASH;
+    public AccountType getType() {
+        return AccountType.CASH;
     }
 
     @Override

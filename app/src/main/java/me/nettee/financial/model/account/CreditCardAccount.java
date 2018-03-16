@@ -17,8 +17,8 @@ public final class CreditCardAccount extends BankCardAccount {
     private Amount mArrears = Amount.zero();
 
     @Override
-    public int getType() {
-        return CREDIT_CARD;
+    public AccountType getType() {
+        return AccountType.CREDIT_CARD;
     }
 
     @Override

@@ -161,7 +161,7 @@ public class PropertyFragment extends Fragment {
                 remarkView.setText(remark);
             }
 
-            if (account.getType() == Account.INVESTMENT) {
+            if (account.getType() == Account.AccountType.INVESTMENT) {
                 TextView badgeView = itemView.findViewById(R.id.account_list_item_badge);
                 badgeView.setVisibility(View.VISIBLE);
             }
@@ -181,7 +181,7 @@ public class PropertyFragment extends Fragment {
 
             mAccountList.addView(itemView);
 
-            if (account.getType() == Account.ALIPAY) {
+            if (account.getType() == Account.AccountType.ALIPAY) {
                 AlipayAccount alipayAccount = (AlipayAccount) account;
                 if (alipayAccount.isHuabeiOpen()) {
                     accountDeque.addFirst(alipayAccount.getHuabeiAccount());

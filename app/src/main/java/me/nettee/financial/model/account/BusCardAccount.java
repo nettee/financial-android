@@ -7,8 +7,8 @@ public class BusCardAccount extends CashCardAccount {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public int getType() {
-        return BUS_CARD;
+    public AccountType getType() {
+        return AccountType.BUS_CARD;
     }
 
     @Override

@@ -18,8 +18,8 @@ public final class InvestmentAccount extends Account {
     private List<InvestmentProject> mProjects;
 
     @Override
-    public int getType() {
-        return INVESTMENT;
+    public AccountType getType() {
+        return AccountType.INVESTMENT;
     }
 
     @Override

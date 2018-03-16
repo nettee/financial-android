@@ -42,15 +42,15 @@ public class AccountDetailActivity extends Activity {
     public static final int RESULT_CODE_DELETED = 100;
     public static final int RESULT_CODE_EDITED = 101;
 
-    private static final Map<Integer, Integer> sAccountTypeActionToolbarMap = new HashMap<Integer, Integer>() {
+    private static final Map<Account.AccountType, Integer> sAccountTypeActionToolbarMap = new HashMap<Account.AccountType, Integer>() {
         {
-            put(Account.ALIPAY, R.layout.toolbar_account_detail_action_alipay);
-            put(Account.WEIXIN, R.layout.toolbar_account_detail_action_weixin);
-            put(Account.INVESTMENT, R.layout.toolbar_account_detail_action_investment);
+            put(Account.AccountType.ALIPAY, R.layout.toolbar_account_detail_action_alipay);
+            put(Account.AccountType.WEIXIN, R.layout.toolbar_account_detail_action_weixin);
+            put(Account.AccountType.INVESTMENT, R.layout.toolbar_account_detail_action_investment);
         }
     };
 
-    private Optional<Integer> getActionToolbarLayout(int accountType) {
+    private Optional<Integer> getActionToolbarLayout(Account.AccountType accountType) {
         if (sAccountTypeActionToolbarMap.containsKey(accountType)) {
             return Optional.of(sAccountTypeActionToolbarMap.get(accountType));
         } else {
@@ -89,7 +89,7 @@ public class AccountDetailActivity extends Activity {
         mAccountCardAmountCaption = findViewById(R.id.account_card_amount_caption);
         mAccountCardAmount = findViewById(R.id.account_card_amount);
 
-        if (mAccount.getType() == Account.INVESTMENT) {
+        if (mAccount.getType() == Account.AccountType.INVESTMENT) {
             ViewStub stub = findViewById(R.id.account_detail_body_stub);
             stub.setLayoutResource(R.layout.account_detail_body_investment);
             mAccountDetailBody = stub.inflate();
@@ -115,7 +115,7 @@ public class AccountDetailActivity extends Activity {
         stub.setLayoutResource(actionToolbarLayoutOptional.get());
         mActionToolbar = stub.inflate();
 
-        if (mAccount.getType() == Account.ALIPAY) {
+        if (mAccount.getType() == Account.AccountType.ALIPAY) {
             mActionToolbar.findViewById(R.id.button_open_app).setOnClickListener(view -> {
                 PackageManager packageManager = getApplicationContext().getPackageManager();
                 Intent intent = packageManager.getLaunchIntentForPackage("com.eg.android.AlipayGphone");
@@ -134,7 +134,7 @@ public class AccountDetailActivity extends Activity {
                 startActivity(intent);
             });
 
-        } else if (mAccount.getType() == Account.WEIXIN) {
+        } else if (mAccount.getType() == Account.AccountType.WEIXIN) {
             mActionToolbar.findViewById(R.id.button_open_app).setOnClickListener(view -> {
                 Uri uri = Uri.parse("weixin://");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -147,7 +147,7 @@ public class AccountDetailActivity extends Activity {
                 startActivity(intent);
             });
 
-        } else if (mAccount.getType() == Account.INVESTMENT) {
+        } else if (mAccount.getType() == Account.AccountType.INVESTMENT) {
             InvestmentPlatform investmentPlatform = ((InvestmentAccount) mAccount).getPlatform();
             View newInvestmentProjectButton = mActionToolbar.findViewById(R.id.button_new_investment_project);
             newInvestmentProjectButton.setOnClickListener(view -> {
@@ -190,7 +190,7 @@ public class AccountDetailActivity extends Activity {
         mAccountCardAmountCaption.setText(mAccount.getDefaultAmountCaption());
         mAccountCardAmount.setText(mAccount.getDefaultAmount().toString());
 
-        if (mAccount.getType() == Account.INVESTMENT) {
+        if (mAccount.getType() == Account.AccountType.INVESTMENT) {
 
             InvestmentPlatform investmentPlatform = ((InvestmentAccount) mAccount).getPlatform();
 

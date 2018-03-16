@@ -44,59 +44,59 @@ import static android.view.View.GONE;
 
 public abstract class WriteAccounts {
 
-    private static final Map<Integer, Integer> sAccountInputsMap = new HashMap<Integer, Integer>() {
+    private static final Map<Account.AccountType, Integer> sAccountInputsMap = new HashMap<Account.AccountType, Integer>() {
         private static final long serialVersionUID = 1L;
         {
-            put(Account.CASH, R.layout.inputs_account_cash);
-            put(Account.CREDIT_CARD, R.layout.inputs_account_credit_card);
-            put(Account.DEBIT_CARD, R.layout.inputs_account_debit_card);
-            put(Account.ALIPAY, R.layout.inputs_account_alipay);
-            put(Account.WEIXIN, R.layout.inputs_account_weixin);
-            put(Account.CAMPUS_CARD, R.layout.inputs_account_cash_card);
-            put(Account.BUS_CARD, R.layout.inputs_account_cash_card);
-            put(Account.INVESTMENT, R.layout.inputs_account_investment);
+            put(Account.AccountType.CASH, R.layout.inputs_account_cash);
+            put(Account.AccountType.CREDIT_CARD, R.layout.inputs_account_credit_card);
+            put(Account.AccountType.DEBIT_CARD, R.layout.inputs_account_debit_card);
+            put(Account.AccountType.ALIPAY, R.layout.inputs_account_alipay);
+            put(Account.AccountType.WEIXIN, R.layout.inputs_account_weixin);
+            put(Account.AccountType.CAMPUS_CARD, R.layout.inputs_account_cash_card);
+            put(Account.AccountType.BUS_CARD, R.layout.inputs_account_cash_card);
+            put(Account.AccountType.INVESTMENT, R.layout.inputs_account_investment);
         }
     };
 
-    private static final Map<Integer, InputsInitializer> sInputsInitializerMap = new HashMap<Integer, InputsInitializer>() {
+    private static final Map<Account.AccountType, InputsInitializer> sInputsInitializerMap = new HashMap<Account.AccountType, InputsInitializer>() {
         private static final long serialVersionUID = 1L;
         {
-            put(Account.CASH, new CashInputsInitializer());
-            put(Account.CREDIT_CARD, new CreditCardInputsInitializer());
-            put(Account.DEBIT_CARD, new DebitCardInputsInitializer());
-            put(Account.ALIPAY, new AlipayInputsInitializer());
-            put(Account.WEIXIN, new WeixinInputsInitializer());
-            put(Account.CAMPUS_CARD, new CashCardInputsInitializer());
-            put(Account.BUS_CARD, new CashCardInputsInitializer());
-            put(Account.INVESTMENT, new InvestmentInputsInitializer());
+            put(Account.AccountType.CASH, new CashInputsInitializer());
+            put(Account.AccountType.CREDIT_CARD, new CreditCardInputsInitializer());
+            put(Account.AccountType.DEBIT_CARD, new DebitCardInputsInitializer());
+            put(Account.AccountType.ALIPAY, new AlipayInputsInitializer());
+            put(Account.AccountType.WEIXIN, new WeixinInputsInitializer());
+            put(Account.AccountType.CAMPUS_CARD, new CashCardInputsInitializer());
+            put(Account.AccountType.BUS_CARD, new CashCardInputsInitializer());
+            put(Account.AccountType.INVESTMENT, new InvestmentInputsInitializer());
         }
     };
 
-    private static final Map<Integer, AccountExtractor> sAccountExtractorMap = new HashMap<Integer, AccountExtractor>() {
+    private static final Map<Account.AccountType, AccountExtractor> sAccountExtractorMap = new HashMap<Account.AccountType, AccountExtractor>() {
         private static final long serialVersionUID = 1L;
         {
-            put(Account.CASH, new CashAccountExtractor());
-            put(Account.CREDIT_CARD, new CreditCardAccountExtractor());
-            put(Account.DEBIT_CARD, new DebitCardAccountExtractor());
-            put(Account.ALIPAY, new AlipayAccountExtractor());
-            put(Account.WEIXIN, new WeixinAccountExtractor());
-            put(Account.CAMPUS_CARD, new CampusCardAccountExtractor());
-            put(Account.BUS_CARD, new BusCardAccountExtractor());
-            put(Account.INVESTMENT, new InvestmentAccountExtractor());
+            put(Account.AccountType.CASH, new CashAccountExtractor());
+            put(Account.AccountType.CREDIT_CARD, new CreditCardAccountExtractor());
+            put(Account.AccountType.DEBIT_CARD, new DebitCardAccountExtractor());
+            put(Account.AccountType.ALIPAY, new AlipayAccountExtractor());
+            put(Account.AccountType.WEIXIN, new WeixinAccountExtractor());
+            put(Account.AccountType.CAMPUS_CARD, new CampusCardAccountExtractor());
+            put(Account.AccountType.BUS_CARD, new BusCardAccountExtractor());
+            put(Account.AccountType.INVESTMENT, new InvestmentAccountExtractor());
         }
     };
 
-    private static final Map<Integer, AccountFiller> sAccountFillerMap = new HashMap<Integer, AccountFiller>() {
+    private static final Map<Account.AccountType, AccountFiller> sAccountFillerMap = new HashMap<Account.AccountType, AccountFiller>() {
         private static final long serialVersionUID = 1L;
         {
-            put(Account.CASH, new CashAccountFiller());
-            put(Account.CREDIT_CARD, new CreditCardFiller());
-            put(Account.DEBIT_CARD, new DebitCardAccountFiller());
-            put(Account.ALIPAY, new AlipayAccountFiller());
-            put(Account.WEIXIN, new WeixinAccountFiller());
-            put(Account.CAMPUS_CARD, new CashCardAccountFiller());
-            put(Account.BUS_CARD, new CashCardAccountFiller());
-            put(Account.INVESTMENT, new InvestmentAccountFiller());
+            put(Account.AccountType.CASH, new CashAccountFiller());
+            put(Account.AccountType.CREDIT_CARD, new CreditCardFiller());
+            put(Account.AccountType.DEBIT_CARD, new DebitCardAccountFiller());
+            put(Account.AccountType.ALIPAY, new AlipayAccountFiller());
+            put(Account.AccountType.WEIXIN, new WeixinAccountFiller());
+            put(Account.AccountType.CAMPUS_CARD, new CashCardAccountFiller());
+            put(Account.AccountType.BUS_CARD, new CashCardAccountFiller());
+            put(Account.AccountType.INVESTMENT, new InvestmentAccountFiller());
         }
     };
 
@@ -108,7 +108,7 @@ public abstract class WriteAccounts {
 
     private static void constructTitleBar(Activity activity, Account account) {
         Integer layoutResource;
-        if (account.getType() == Account.CREDIT_CARD || account.getType() == Account.DEBIT_CARD) {
+        if (account.getType() == Account.AccountType.CREDIT_CARD || account.getType() == Account.AccountType.DEBIT_CARD) {
             layoutResource = R.layout.title_bar_account_write_bank_card;
         } else {
             layoutResource = R.layout.title_bar_account_write_ordinary;
@@ -144,7 +144,7 @@ public abstract class WriteAccounts {
         initializer.init(activity, inputs);
     }
 
-    static Account extractAccount(int accountType, View accountInputs) {
+    static Account extractAccount(Account.AccountType accountType, View accountInputs) {
         AccountExtractor extractor = sAccountExtractorMap
                 .getOrDefault(accountType, new NullAccountExtractor());
         return extractor.extract(accountInputs);

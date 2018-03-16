@@ -16,8 +16,8 @@ public final class AlipayAccount extends MobilePaymentAccount {
     private HuabeiAccount mHuabeiAccount;
 
     @Override
-    public int getType() {
-        return ALIPAY;
+    public AccountType getType() {
+        return AccountType.ALIPAY;
     }
 
     @Override

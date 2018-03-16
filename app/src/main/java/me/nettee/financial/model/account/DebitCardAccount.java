@@ -13,8 +13,8 @@ public final class DebitCardAccount extends BankCardAccount {
     private Amount mBalance = Amount.zero();
 
     @Override
-    public int getType() {
-        return DEBIT_CARD;
+    public AccountType getType() {
+        return AccountType.DEBIT_CARD;
     }
 
     @Override
