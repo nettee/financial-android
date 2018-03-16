@@ -1,5 +1,8 @@
 package me.nettee.financial.model.account;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.Optional;
 import java.util.UUID;
@@ -48,6 +51,14 @@ public abstract class Account implements Serializable {
 
     public Account() {
         mId = UUID.randomUUID();
+    }
+
+    public static Account fromJson(JSONObject jsonObject) throws JSONException {
+        AccountType type = AccountType.valueOf(jsonObject.getString("type"));
+        switch (type) {
+            case CASH: return CashAccount.fromJson(jsonObject);
+            default: throw new AssertionError();
+        }
     }
 
     public final UUID getId() {
@@ -128,8 +139,8 @@ public abstract class Account implements Serializable {
         return Optional.empty();
     }
 
-    public static CandidateAccount candidate(AccountType type, String candidateName) {
-        return new CandidateAccount(type, candidateName);
+    public static CandidateAccount candidate(JSONObject jsonObject) throws JSONException {
+        return CandidateAccount.fromJson(jsonObject);
     }
 
     private static final class CandidateAccount extends Account implements Serializable {
@@ -142,6 +153,12 @@ public abstract class Account implements Serializable {
         private CandidateAccount(AccountType type, String candidateName) {
             mType = type;
             mCandidateName = candidateName;
+        }
+
+        public static CandidateAccount fromJson(JSONObject jsonObject) throws JSONException {
+            String type = jsonObject.getString("type");
+            String name = jsonObject.getString("name");
+            return new CandidateAccount(AccountType.valueOf(type), name);
         }
 
         @Override

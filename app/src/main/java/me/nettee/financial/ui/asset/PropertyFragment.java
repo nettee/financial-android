@@ -2,6 +2,7 @@ package me.nettee.financial.ui.asset;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -37,12 +38,12 @@ public class PropertyFragment extends Fragment {
     private LinearLayout mAccountList;
     private List<TextView> mAccountAmounts = new ArrayList<>();
 
-    private Amount mTotalAssets;
-    private Amount mTotalLiabilities;
-    private Amount mNetAssets;
+    private Amount mTotalAssets = Amount.zero();
+    private Amount mTotalLiabilities = Amount.zero();
+    private Amount mNetAssets = Amount.zero();
 
-    private boolean mAssetVisible;
-    private boolean mAccountListCollapsed;
+    private boolean mAssetVisible = true;
+    private boolean mAccountListCollapsed = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -85,30 +86,43 @@ public class PropertyFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        new DownloadAccountsTask().execute();
+    }
 
-        List<Account> accounts = AccountLab.getInstance(getContext()).getAccounts();
-        updateAccounts(accounts, inflater);
+    private class DownloadAccountsTask extends AsyncTask<Void, Void, List<Account>> {
 
-        List<Asset> assets = new ArrayList<>();
-        List<Liability> liabilities = new ArrayList<>();
-        for (Account account : accounts) {
-            Optional<Asset> assetOptional = account.getAsset();
-            if (assetOptional.isPresent()) {
-                assets.add(assetOptional.get());
-            }
-            Optional<Liability> liabilityOptional = account.getLiability();
-            if (liabilityOptional.isPresent()) {
-                liabilities.add(liabilityOptional.get());
-            }
+        @Override
+        protected List<Account> doInBackground(Void... voids) {
+            List<Account> accounts = AccountLab.getInstance(getContext()).getAccounts();
+            return accounts;
         }
 
-        mTotalAssets = Asset.sum(assets);
-        mTotalLiabilities = Liability.sum(liabilities);
-        mNetAssets = mTotalAssets.subUnsigned(mTotalLiabilities);
+        @Override
+        protected void onPostExecute(List<Account> accounts) {
 
-        updateAccountListStatus();
-        updateAssetVisibility();
+            updateAccounts(accounts, LayoutInflater.from(getActivity()));
+
+            List<Asset> assets = new ArrayList<>();
+            List<Liability> liabilities = new ArrayList<>();
+            for (Account account : accounts) {
+                Optional<Asset> assetOptional = account.getAsset();
+                if (assetOptional.isPresent()) {
+                    assets.add(assetOptional.get());
+                }
+                Optional<Liability> liabilityOptional = account.getLiability();
+                if (liabilityOptional.isPresent()) {
+                    liabilities.add(liabilityOptional.get());
+                }
+            }
+
+            mTotalAssets = Asset.sum(assets);
+            mTotalLiabilities = Liability.sum(liabilities);
+            mNetAssets = mTotalAssets.subUnsigned(mTotalLiabilities);
+
+            updateAccountListStatus();
+            updateAssetVisibility();
+        }
+
     }
 
     private void updateAssetVisibility() {
