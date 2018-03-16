@@ -51,7 +51,7 @@ public class EditAccountActivity extends Activity {
                 return;
             }
 
-            AccountLab accountLab = AccountLab.getInstance();
+            AccountLab accountLab = AccountLab.getInstance(getApplicationContext());
             accountLab.deleteAccount(mOldAccount);
             accountLab.addAccount(newAccount);
 
@@ -66,7 +66,7 @@ public class EditAccountActivity extends Activity {
                     .setCancelable(true)
                     .setMessage("确定要删除该账户吗？")
                     .setPositiveButton("删除", (dialogInterface, i) -> {
-                        AccountLab.getInstance().deleteAccount(mOldAccount);
+                        AccountLab.getInstance(getApplicationContext()).deleteAccount(mOldAccount);
 
                         Toast.makeText(getApplicationContext(), R.string.message_success_deleted, Toast.LENGTH_SHORT).show();
                         setResult(AccountDetailActivity.RESULT_CODE_DELETED);

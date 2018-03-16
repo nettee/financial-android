@@ -44,7 +44,7 @@ public class NewAccountActivity extends NewSomeBaseActivity<Account> {
                 return;
             }
 
-            AccountLab.getInstance().addAccount(account);
+            AccountLab.getInstance(getApplicationContext()).addAccount(account);
 
             Intent intent = new Intent(getApplicationContext(), AccountDetailActivity.class);
             intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_OBJECT, account);

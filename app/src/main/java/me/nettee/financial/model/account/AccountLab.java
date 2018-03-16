@@ -1,9 +1,26 @@
 package me.nettee.financial.model.account;
 
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.RequestFuture;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
@@ -14,7 +31,10 @@ public class AccountLab {
 
     private static AccountLab sAccountLab;
 
+    private final Context mContext;
+
     private final List<Account> mAccounts;
+    private final RequestQueue mRequestQueue;
 
     private Comparator<Account> mAccountComparator = (one, another) -> {
         if (one.getType() < another.getType()) {
@@ -41,7 +61,11 @@ public class AccountLab {
         }
     };
 
-    private AccountLab() {
+    private AccountLab(Context context) {
+
+        mContext = context;
+        mRequestQueue =  Volley.newRequestQueue(mContext);
+
         mAccounts = new ArrayList<>();
         CashAccount cashAccount = new CashAccount();
         cashAccount.setBalance(Amount.integer(976));
@@ -87,9 +111,9 @@ public class AccountLab {
         mAccounts.add(investmentAccount3);
     }
 
-    public static AccountLab getInstance() {
+    public static AccountLab getInstance(Context context) {
         if (sAccountLab == null) {
-            sAccountLab = new AccountLab();
+            sAccountLab = new AccountLab(context);
         }
         return sAccountLab;
     }
@@ -108,6 +132,57 @@ public class AccountLab {
     }
 
     public List<Account> getCandidateAccounts() {
-        return sCandidateAccounts;
+
+        return fetchCandidateAccounts();
+
+//        return sCandidateAccounts;
+    }
+
+    public List<Account> fetchCandidateAccounts() {
+
+        String url = "http://106.14.207.119:5000/candidate_accounts";
+
+//        Response.Listener<JSONArray> onResponse = response -> {
+//            try {
+//                Log.d("TAG", response.toString());
+//                for (int i = 0; i < response.length(); i++) {
+//                    JSONObject jsonObject = response.getJSONObject(i);
+//                    String type = jsonObject.getString("type");
+//                    String name = jsonObject.getString("name");
+//                }
+//            } catch (JSONException e) {
+//                Toast.makeText(mContext, "错误: 解析数据失败", Toast.LENGTH_SHORT).show();
+//            }
+//        };
+//        Response.ErrorListener onError = error -> {
+//            Log.d("TAG", error.toString());
+//            Toast.makeText(mContext, "错误: 无法连接到服务器", Toast.LENGTH_SHORT).show();
+//        };
+
+        RequestFuture<JSONArray> future = RequestFuture.newFuture();
+        mRequestQueue.add(new JsonArrayRequest(Request.Method.GET, url, new JSONArray(), future, future));
+
+//        mRequestQueue.add(new JsonArrayRequest(Request.Method.GET, url, null, onResponse, onError));
+
+        try {
+            JSONArray jsonArray = future.get();
+            Log.d("TAG", jsonArray.toString());
+            List<Account> candidateAccounts = new ArrayList<>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String type = jsonObject.getString("type");
+                String name = jsonObject.getString("name");
+                candidateAccounts.add(Account.candidate(Account.CASH, name, R.drawable.ic_wallet));
+            }
+            return candidateAccounts;
+        } catch (InterruptedException | ExecutionException e) {
+            Log.d("TAG", e.getMessage());
+            Toast.makeText(mContext, "错误: 无法连接到服务器", Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            Log.d("TAG", e.getMessage());
+            Toast.makeText(mContext, "错误: 解析数据失败", Toast.LENGTH_SHORT).show();
+        }
+
+        return null;
     }
 }

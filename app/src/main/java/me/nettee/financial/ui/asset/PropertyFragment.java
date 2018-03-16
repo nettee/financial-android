@@ -87,7 +87,7 @@ public class PropertyFragment extends Fragment {
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
 
-        List<Account> accounts = AccountLab.getInstance().getAccounts();
+        List<Account> accounts = AccountLab.getInstance(getContext()).getAccounts();
         updateAccounts(accounts, inflater);
 
         List<Asset> assets = new ArrayList<>();
