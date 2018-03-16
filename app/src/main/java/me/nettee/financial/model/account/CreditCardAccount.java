@@ -1,5 +1,8 @@
 package me.nettee.financial.model.account;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Optional;
 
 import me.nettee.financial.R;
@@ -15,6 +18,19 @@ public final class CreditCardAccount extends BankCardAccount {
     private CreditDate mBillDate = CreditDate.first();
     private CreditDate mPaymentDate = CreditDate.first();
     private Amount mArrears = Amount.zero();
+
+    public static CreditCardAccount fromJson(JSONObject jsonObject) throws JSONException {
+        CreditCardAccount account = new CreditCardAccount();
+        account.setRemark(jsonObject.getString("remark"));
+        account.setBankCardNumber(jsonObject.getString("bankCardNumber"));
+        account.setCreditLimit(Amount.valueOf(jsonObject.getString("creditLimit")));
+        account.setBillDate(CreditDate.day(jsonObject.getInt("billDate")));
+        account.setPaymentDate(CreditDate.day(jsonObject.getInt("paymentDate")));
+        Amount arrears = Amount.valueOf(jsonObject.getString("arrears"));
+        arrears.setSign(Amount.NEGATIVE);
+        account.setArrears(arrears);
+        return account;
+    }
 
     @Override
     public AccountType getType() {

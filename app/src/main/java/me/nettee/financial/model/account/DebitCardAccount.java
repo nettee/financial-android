@@ -1,5 +1,8 @@
 package me.nettee.financial.model.account;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Optional;
 
 import me.nettee.financial.R;
@@ -11,6 +14,14 @@ public final class DebitCardAccount extends BankCardAccount {
     private static final long serialVersionUID = 1L;
 
     private Amount mBalance = Amount.zero();
+
+    public static DebitCardAccount fromJson(JSONObject jsonObject) throws JSONException {
+        DebitCardAccount account = new DebitCardAccount();
+        account.setRemark(jsonObject.getString("remark"));
+        account.setBankCardNumber(jsonObject.getString("bankCardNumber"));
+        account.setBalance(Amount.valueOf(jsonObject.getString("balance")));
+        return account;
+    }
 
     @Override
     public AccountType getType() {

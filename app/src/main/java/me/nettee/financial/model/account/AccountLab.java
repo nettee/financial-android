@@ -82,30 +82,6 @@ public class AccountLab {
     }
 
     private List<Account> fetchAccounts() {
-//        List<Account> accounts = new ArrayList<>();
-//        CashAccount cashAccount = new CashAccount();
-//        cashAccount.setBalance(Amount.integer(976));
-//        cashAccount.setRemark("钱包A");
-//        accounts.add(cashAccount);
-//        CreditCardAccount creditCardAccount = new CreditCardAccount();
-//        Amount arrears = Amount.integer(1234);
-//        arrears.setSign(Amount.NEGATIVE);
-//        creditCardAccount.setArrears(arrears);
-//        accounts.add(creditCardAccount);
-//        DebitCardAccount debitCardAccount = new DebitCardAccount();
-//        debitCardAccount.setBankCardNumber("669395");
-//        debitCardAccount.setBalance(Amount.decimal(6134, 77));
-//        accounts.add(debitCardAccount);
-//        AlipayAccount alipayAccount = new AlipayAccount();
-//        alipayAccount.setBalance(Amount.decimal(16431, 91));
-//        alipayAccount.setHuabeiOpen(true);
-//        HuabeiAccount huabeiAccount = new HuabeiAccount();
-//        huabeiAccount.setCreditLimit(Amount.integer(2000));
-//        huabeiAccount.setBillDate(CreditDate.day(1));
-//        huabeiAccount.setPaymentDate(CreditDate.day(9));
-//        huabeiAccount.setArrears(Amount.decimal(-413, 43));
-//        alipayAccount.setHuabeiAccount(huabeiAccount);
-//        accounts.add(alipayAccount);
 //        WeixinAccount weixinAccount = new WeixinAccount();
 //        weixinAccount.setBalance(Amount.decimal(92, 60));
 //        accounts.add(weixinAccount);
