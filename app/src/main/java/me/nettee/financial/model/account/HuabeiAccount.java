@@ -27,11 +27,6 @@ public class HuabeiAccount extends Account {
     }
 
     @Override
-    public int getCandidateImageResource() {
-        return R.drawable.ic_huabei;
-    }
-
-    @Override
     public Amount getDefaultAmount() {
         return getArrears();
     }

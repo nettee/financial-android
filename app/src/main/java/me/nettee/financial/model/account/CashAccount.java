@@ -23,11 +23,6 @@ public final class CashAccount extends Account {
     }
 
     @Override
-    public int getCandidateImageResource() {
-        return R.drawable.ic_wallet;
-    }
-
-    @Override
     public Amount getDefaultAmount() {
         return getBalance();
     }

@@ -49,6 +49,11 @@ public class AccountCandidateActivity extends Activity {
 
         @Override
         protected void onPostExecute(List<Account> accounts) {
+
+            if (accounts == null) {
+                return;
+            }
+
             LinearLayout candidateListView = findViewById(getCandidateListViewId());
             LayoutInflater inflater = LayoutInflater.from(AccountCandidateActivity.this);
 

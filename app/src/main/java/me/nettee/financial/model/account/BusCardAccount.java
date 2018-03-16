@@ -16,9 +16,4 @@ public class BusCardAccount extends CashCardAccount {
         return "公交卡";
     }
 
-    @Override
-    public int getCandidateImageResource() {
-        return R.drawable.ic_bus;
-    }
-
 }

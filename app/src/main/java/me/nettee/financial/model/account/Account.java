@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Optional;
 import java.util.UUID;
 
+import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.asset.Asset;
 import me.nettee.financial.model.asset.Liability;
@@ -57,7 +58,21 @@ public abstract class Account implements Serializable {
 
     public abstract String getCandidateName();
 
-    public abstract int getCandidateImageResource();
+    public final int getCandidateImageResource() {
+        switch (getType()) {
+            case CASH: return R.drawable.ic_wallet;
+            case CREDIT_CARD: return R.drawable.ic_bank_card;
+            case DEBIT_CARD: return R.drawable.ic_bank_card;
+            case ALIPAY: return R.drawable.ic_alipay;
+            case HUABEI: return R.drawable.ic_huabei;
+            case WEIXIN: return R.drawable.ic_weixin;
+            case CAMPUS_CARD: return R.drawable.ic_campus_card;
+            case BUS_CARD: return R.drawable.ic_bus;
+            case INVESTMENT: return R.drawable.ic_investment;
+            case GENERAL: return R.drawable.ic_account;
+            default: return R.drawable.ic_account;
+        }
+    }
 
     public abstract Amount getDefaultAmount();
 
@@ -113,8 +128,8 @@ public abstract class Account implements Serializable {
         return Optional.empty();
     }
 
-    public static CandidateAccount candidate(AccountType type, String candidateName, int candidateImageResource) {
-        return new CandidateAccount(type, candidateName, candidateImageResource);
+    public static CandidateAccount candidate(AccountType type, String candidateName) {
+        return new CandidateAccount(type, candidateName);
     }
 
     private static final class CandidateAccount extends Account implements Serializable {
@@ -123,12 +138,10 @@ public abstract class Account implements Serializable {
 
         private AccountType mType;
         private String mCandidateName;
-        private int mCandidateImageResource;
 
-        private CandidateAccount(AccountType type, String candidateName, int candidateImageResource) {
+        private CandidateAccount(AccountType type, String candidateName) {
             mType = type;
             mCandidateName = candidateName;
-            mCandidateImageResource = candidateImageResource;
         }
 
         @Override
@@ -139,11 +152,6 @@ public abstract class Account implements Serializable {
         @Override
         public String getCandidateName() {
             return mCandidateName;
-        }
-
-        @Override
-        public int getCandidateImageResource() {
-            return mCandidateImageResource;
         }
 
         @Override

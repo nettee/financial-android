@@ -26,11 +26,6 @@ public final class AlipayAccount extends MobilePaymentAccount {
     }
 
     @Override
-    public int getCandidateImageResource() {
-        return R.drawable.ic_alipay;
-    }
-
-    @Override
     public Optional<Asset> getAsset() {
         return Optional.of(new Asset(getBalance()));
     }

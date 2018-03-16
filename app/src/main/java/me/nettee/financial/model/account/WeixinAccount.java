@@ -16,9 +16,4 @@ public final class WeixinAccount extends MobilePaymentAccount {
         return "微信钱包";
     }
 
-    @Override
-    public int getCandidateImageResource() {
-        return R.drawable.ic_wxpay;
-    }
-
 }

@@ -28,11 +28,6 @@ public final class InvestmentAccount extends Account {
     }
 
     @Override
-    public int getCandidateImageResource() {
-        return R.drawable.ic_account_investment;
-    }
-
-    @Override
     public String getDisplayName() {
         return getPlatform().getName();
     }

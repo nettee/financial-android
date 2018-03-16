@@ -23,11 +23,6 @@ public final class DebitCardAccount extends BankCardAccount {
     }
 
     @Override
-    public int getCandidateImageResource() {
-        return R.drawable.ic_bank_card;
-    }
-
-    @Override
     public Amount getDefaultAmount() {
         return getBalance();
     }

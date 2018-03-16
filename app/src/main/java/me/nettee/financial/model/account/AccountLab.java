@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.CreditDate;
 import me.nettee.financial.model.investment.InvestmentPlatform;
@@ -34,20 +34,7 @@ public class AccountLab {
     private final List<Account> mAccounts;
     private final RequestQueue mRequestQueue;
 
-    private static List<Account> sCandidateAccounts = new ArrayList<Account>() {
-        private static final long serialVersionUID = 1L;
-        {
-            add(Account.candidate(Account.AccountType.CASH, "现金钱包", R.drawable.ic_wallet));
-            add(Account.candidate(Account.AccountType.CREDIT_CARD, "信用卡", R.drawable.ic_bank_card));
-            add(Account.candidate(Account.AccountType.DEBIT_CARD, "借记卡", R.drawable.ic_bank_card));
-            add(Account.candidate(Account.AccountType.ALIPAY, "支付宝", R.drawable.ic_alipay));
-            add(Account.candidate(Account.AccountType.WEIXIN, "微信钱包", R.drawable.ic_wxpay));
-            add(Account.candidate(Account.AccountType.CAMPUS_CARD, "校园卡", R.drawable.ic_campus_card));
-            add(Account.candidate(Account.AccountType.BUS_CARD, "公交卡", R.drawable.ic_bus));
-            add(Account.candidate(Account.AccountType.INVESTMENT, "投资账户", R.drawable.ic_account_investment));
-//            add(Account.candidate(Account.CASH, "其他账户", R.drawable.ic_account));
-        }
-    };
+    private Optional<List<Account>> mCandidateAccountsCache = Optional.empty();
 
     private AccountLab(Context context) {
 
@@ -121,12 +108,18 @@ public class AccountLab {
 
     public List<Account> getCandidateAccounts() {
 
-        return fetchCandidateAccounts();
-
-//        return sCandidateAccounts;
+        if (mCandidateAccountsCache.isPresent()) {
+            return mCandidateAccountsCache.get();
+        } else {
+            List<Account> candidateAccounts = fetchCandidateAccounts();
+            if (candidateAccounts != null) {
+                mCandidateAccountsCache = Optional.of(candidateAccounts);
+            }
+            return candidateAccounts;
+        }
     }
 
-    public List<Account> fetchCandidateAccounts() {
+    private List<Account> fetchCandidateAccounts() {
 
         String url = "http://106.14.207.119:5000/candidate_accounts";
 
@@ -141,7 +134,7 @@ public class AccountLab {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String type = jsonObject.getString("type");
                 String name = jsonObject.getString("name");
-                candidateAccounts.add(Account.candidate(Account.AccountType.valueOf(type), name, R.drawable.ic_wallet));
+                candidateAccounts.add(Account.candidate(Account.AccountType.valueOf(type), name));
             }
             return candidateAccounts;
         } catch (InterruptedException | ExecutionException e) {

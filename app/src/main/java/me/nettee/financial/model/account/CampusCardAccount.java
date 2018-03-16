@@ -16,8 +16,4 @@ public class CampusCardAccount extends CashCardAccount {
         return "校园卡";
     }
 
-    @Override
-    public int getCandidateImageResource() {
-        return R.drawable.ic_campus_card;
-    }
 }
