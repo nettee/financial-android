@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import java.util.Optional;
 
-import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.asset.Asset;
 
@@ -20,6 +19,14 @@ public final class CashAccount extends Account {
         account.setBalance(Amount.valueOf(jsonObject.getString("balance")));
         account.setRemark(jsonObject.getString("remark"));
         return account;
+    }
+
+    @Override
+    public JSONObject toJson() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("remark", getRemark());
+        object.put("balance", getBalance().toString());
+        return object;
     }
 
     @Override
@@ -54,4 +61,6 @@ public final class CashAccount extends Account {
     public void setBalance(Amount amount) {
         mBalance = amount;
     }
+
+
 }

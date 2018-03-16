@@ -64,6 +64,10 @@ public abstract class Account implements Serializable {
         }
     }
 
+    public JSONObject toJson() throws JSONException {
+        throw new UnsupportedOperationException();
+    }
+
     public final UUID getId() {
         return mId;
     }

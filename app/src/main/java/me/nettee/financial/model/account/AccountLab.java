@@ -30,9 +30,6 @@ public class AccountLab {
     private final Context mContext;
     private final RequestQueue mRequestQueue;
 
-    private Optional<List<Account>> mAccountsCache = Optional.empty();
-    private Optional<List<Account>> mCandidateAccountsCache = Optional.empty();
-
     private AccountLab(Context context) {
         mContext = context;
         mRequestQueue =  Volley.newRequestQueue(mContext);
@@ -46,38 +43,28 @@ public class AccountLab {
     }
 
     public void addAccount(Account account) {
+        pushAccount(account);
         // TODO
-        mAccountsCache.get().add(account);
-//        Collections.sort(mAccounts, Comparator.comparingInt(one -> one.getType().getPriority()));
     }
 
     public void deleteAccount(Account account) {
         // TODO
-        mAccountsCache.get().removeIf(acc -> acc.getId().equals(account.getId()));
     }
 
     public List<Account> getAccounts() {
-        if (mAccountsCache.isPresent()) {
-            return mAccountsCache.get();
-        } else {
-            List<Account> accounts = fetchAccounts();
-            if (accounts != null) {
-                mAccountsCache = Optional.of(accounts);
-            }
-            return accounts;
-        }
+        return fetchAccounts();
     }
 
     public List<Account> getCandidateAccounts() {
+        return fetchCandidateAccounts();
+    }
 
-        if (mCandidateAccountsCache.isPresent()) {
-            return mCandidateAccountsCache.get();
-        } else {
-            List<Account> candidateAccounts = fetchCandidateAccounts();
-            if (candidateAccounts != null) {
-                mCandidateAccountsCache = Optional.of(candidateAccounts);
-            }
-            return candidateAccounts;
+    private void pushAccount(Account account) {
+        try {
+            account.toJson();
+        } catch (JSONException e) {
+            Log.e("TAG", e.getMessage());
+            // TODO Toast
         }
     }
 
@@ -102,10 +89,8 @@ public class AccountLab {
 //        accounts.add(investmentAccount3);
 //        return accounts;
 
-        String url = "http://106.14.207.119:5000/accounts";
-
         RequestFuture<JSONArray> future = RequestFuture.newFuture();
-        mRequestQueue.add(new JsonArrayRequest(Request.Method.GET, url, new JSONArray(), future, future));
+        mRequestQueue.add(new JsonArrayRequest(Request.Method.GET, Server.accounts, new JSONArray(), future, future));
 
         try {
             JSONArray jsonArray = future.get();
@@ -117,10 +102,11 @@ public class AccountLab {
             }
             return accounts;
         } catch (InterruptedException | ExecutionException e) {
-            Log.d("TAG", e.getMessage());
+            Log.e("TAG", e.getMessage());
+            // TODO error number
             Toast.makeText(mContext, "错误: 无法连接到服务器", Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {
-            Log.d("TAG", e.getMessage());
+            Log.e("TAG", e.getMessage());
             Toast.makeText(mContext, "错误: 解析数据失败", Toast.LENGTH_SHORT).show();
         }
 
@@ -129,10 +115,8 @@ public class AccountLab {
 
     private List<Account> fetchCandidateAccounts() {
 
-        String url = "http://106.14.207.119:5000/candidate_accounts";
-
         RequestFuture<JSONArray> future = RequestFuture.newFuture();
-        mRequestQueue.add(new JsonArrayRequest(Request.Method.GET, url, new JSONArray(), future, future));
+        mRequestQueue.add(new JsonArrayRequest(Request.Method.GET, Server.candidate_accounts, new JSONArray(), future, future));
 
         try {
             JSONArray jsonArray = future.get();
