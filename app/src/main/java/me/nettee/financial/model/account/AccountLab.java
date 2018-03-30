@@ -14,27 +14,53 @@ import java.util.List;
 import me.nettee.financial.error.BadJsonDataException;
 import me.nettee.financial.error.BadNetworkException;
 import me.nettee.financial.model.Server;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class AccountLab {
 
     private static AccountLab sAccountLab;
 
-    private AccountLab(Context context) {
+    private AccountLab() {
     }
 
-    public static AccountLab getInstance(Context context) {
+    public static AccountLab getInstance() {
         if (sAccountLab == null) {
-            sAccountLab = new AccountLab(context);
+            sAccountLab = new AccountLab();
         }
         return sAccountLab;
     }
 
+    public static AccountLab getInstance(Context context) {
+        return getInstance();
+    }
+
     public void addAccount(Account account) {
-        pushAccount(account);
-        // TODO
+        try {
+            JSONObject jsonData = account.toJson();
+
+            OkHttpClient client = Server.getOkHttpClient();
+
+            RequestBody body = RequestBody.create(Server.JSON, jsonData.toString());
+            Request request = new Request.Builder()
+                    .url(Server.accounts)
+                    .post(body)
+                    .build();
+            Response response = client.newCall(request).execute();
+
+            if (!response.isSuccessful()) {
+                throw new AssertionError(response.code());
+            }
+
+        } catch (JSONException e) {
+            Log.e("TAG", e.getMessage());
+            throw new BadJsonDataException(e);
+        } catch (IOException e) {
+            throw new BadNetworkException(e);
+        }
     }
 
     public void deleteAccount(Account account) {
@@ -42,24 +68,7 @@ public class AccountLab {
     }
 
     public List<Account> getAccounts() {
-        return fetchAccounts();
-    }
-
-    public List<Account> getCandidateAccounts() {
-        return fetchCandidateAccounts();
-    }
-
-    private void pushAccount(Account account) {
-        try {
-            account.toJson();
-        } catch (JSONException e) {
-            Log.e("TAG", e.getMessage());
-            // TODO Toast
-        }
-    }
-
-    private List<Account> fetchAccounts() {
-//        WeixinAccount weixinAccount = new WeixinAccount();
+        //        WeixinAccount weixinAccount = new WeixinAccount();
 //        weixinAccount.setBalance(Amount.decimal(92, 60));
 //        accounts.add(weixinAccount);
 //        CampusCardAccount campusCardAccount = new CampusCardAccount();
@@ -109,6 +118,10 @@ public class AccountLab {
         } catch (JSONException e) {
             throw new BadJsonDataException(e);
         }
+    }
+
+    public List<Account> getCandidateAccounts() {
+        return fetchCandidateAccounts();
     }
 
     private List<Account> fetchCandidateAccounts() {

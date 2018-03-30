@@ -2,6 +2,7 @@ package me.nettee.financial.model;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 
 public class Server {
@@ -12,6 +13,8 @@ public class Server {
     public static String candidate_accounts = base + "/candidate_accounts";
 
     private static OkHttpClient sOkHttpClient;
+
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     public static OkHttpClient getOkHttpClient() {
         if (sOkHttpClient == null) {

@@ -1,6 +1,7 @@
 package me.nettee.financial.ui.asset;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Toast;
 
@@ -44,7 +45,7 @@ public class NewAccountActivity extends NewSomeBaseActivity<Account> {
                 return;
             }
 
-            AccountLab.getInstance(getApplicationContext()).addAccount(account);
+            new PushAccountTask().execute(account);
 
             Intent intent = new Intent(getApplicationContext(), AccountDetailActivity.class);
             intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_OBJECT, account);
@@ -52,5 +53,21 @@ public class NewAccountActivity extends NewSomeBaseActivity<Account> {
             setResult(RESULT_OK);
             finish();
         };
+    }
+
+    private class PushAccountTask extends AsyncTask<Account, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Account... accounts) {
+            if (accounts.length != 1) {
+                throw new IllegalArgumentException();
+            }
+
+            Account account = accounts[0];
+
+            AccountLab.getInstance().addAccount(account);
+
+            return null;
+        }
     }
 }

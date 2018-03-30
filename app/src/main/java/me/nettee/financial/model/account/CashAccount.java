@@ -24,6 +24,7 @@ public final class CashAccount extends Account {
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject object = new JSONObject();
+        object.put("type", getType().toString());
         object.put("remark", getRemark());
         object.put("balance", getBalance().toString());
         return object;
