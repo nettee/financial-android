@@ -16,12 +16,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-import me.nettee.financial.model.Amount;
-import me.nettee.financial.model.CreditDate;
-import me.nettee.financial.model.investment.InvestmentPlatform;
+import me.nettee.financial.error.BadJsonDataException;
+import me.nettee.financial.error.BadNetworkException;
 
 public class AccountLab {
 
@@ -104,13 +102,11 @@ public class AccountLab {
         } catch (InterruptedException | ExecutionException e) {
             Log.e("TAG", e.getMessage());
             // TODO error number
-            Toast.makeText(mContext, "错误: 无法连接到服务器", Toast.LENGTH_SHORT).show();
+            throw new BadNetworkException(e);
         } catch (JSONException e) {
             Log.e("TAG", e.getMessage());
-            Toast.makeText(mContext, "错误: 解析数据失败", Toast.LENGTH_SHORT).show();
+            throw new BadJsonDataException(e);
         }
-
-        return null;
     }
 
     private List<Account> fetchCandidateAccounts() {

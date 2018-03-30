@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,7 +22,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import me.nettee.financial.error.BadNetworkException;
 import me.nettee.financial.R;
+import me.nettee.financial.error.Errors;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.AccountLab;
 import me.nettee.financial.model.Amount;
@@ -89,16 +93,29 @@ public class PropertyFragment extends Fragment {
         new DownloadAccountsTask().execute();
     }
 
-    private class DownloadAccountsTask extends AsyncTask<Void, Void, List<Account>> {
+    private class DownloadAccountsTask extends AsyncTask<Void, Void, Pair<List<Account>, Throwable>> {
 
         @Override
-        protected List<Account> doInBackground(Void... voids) {
-            List<Account> accounts = AccountLab.getInstance(getContext()).getAccounts();
-            return accounts;
+        protected Pair<List<Account>, Throwable> doInBackground(Void... voids) {
+            try {
+                List<Account> accounts = AccountLab.getInstance(getContext()).getAccounts();
+                return new Pair<>(accounts, null);
+            } catch (BadNetworkException e) {
+                return new Pair<>(null, e);
+            }
         }
 
         @Override
-        protected void onPostExecute(List<Account> accounts) {
+        protected void onPostExecute(Pair<List<Account>, Throwable> result) {
+
+            Throwable e = result.second;
+            if (e != null) {
+                String message = Errors.getErrorMessage(e);
+                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            List<Account> accounts = result.first;
 
             updateAccounts(accounts, LayoutInflater.from(getActivity()));
 
