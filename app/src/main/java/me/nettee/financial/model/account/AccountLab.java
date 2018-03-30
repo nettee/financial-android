@@ -2,35 +2,27 @@ package me.nettee.financial.model.account;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.RequestFuture;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import me.nettee.financial.error.BadJsonDataException;
 import me.nettee.financial.error.BadNetworkException;
+import me.nettee.financial.model.Server;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class AccountLab {
 
     private static AccountLab sAccountLab;
 
-    private final Context mContext;
-    private final RequestQueue mRequestQueue;
-
     private AccountLab(Context context) {
-        mContext = context;
-        mRequestQueue =  Volley.newRequestQueue(mContext);
     }
 
     public static AccountLab getInstance(Context context) {
@@ -87,50 +79,70 @@ public class AccountLab {
 //        accounts.add(investmentAccount3);
 //        return accounts;
 
-        RequestFuture<JSONArray> future = RequestFuture.newFuture();
-        mRequestQueue.add(new JsonArrayRequest(Request.Method.GET, Server.accounts, new JSONArray(), future, future));
+        List<Account> accounts = new ArrayList<>();
+
+        OkHttpClient client = Server.getOkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(Server.accounts)
+                .build();
 
         try {
-            JSONArray jsonArray = future.get();
-            Log.d("TAG", jsonArray.toString());
-            List<Account> accounts = new ArrayList<>();
+            Response response = client.newCall(request).execute();
+
+            if (!response.isSuccessful()) {
+                throw new AssertionError(response.code());
+            }
+
+            String jsonData = response.body().string();
+            JSONArray jsonArray = new JSONArray(jsonData);
+
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 accounts.add(Account.fromJson(jsonObject));
             }
+
             return accounts;
-        } catch (InterruptedException | ExecutionException e) {
-            Log.e("TAG", e.getMessage());
-            // TODO error number
+
+        } catch (IOException e) {
             throw new BadNetworkException(e);
         } catch (JSONException e) {
-            Log.e("TAG", e.getMessage());
             throw new BadJsonDataException(e);
         }
     }
 
     private List<Account> fetchCandidateAccounts() {
 
-        RequestFuture<JSONArray> future = RequestFuture.newFuture();
-        mRequestQueue.add(new JsonArrayRequest(Request.Method.GET, Server.candidate_accounts, new JSONArray(), future, future));
+        List<Account> candidateAccounts = new ArrayList<>();
+
+        OkHttpClient client = Server.getOkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(Server.candidate_accounts)
+                .build();
 
         try {
-            JSONArray jsonArray = future.get();
-            Log.d("TAG", jsonArray.toString());
-            List<Account> candidateAccounts = new ArrayList<>();
+            Response response = client.newCall(request).execute();
+
+            if (!response.isSuccessful()) {
+                throw new AssertionError(response.code());
+            }
+
+            String jsonData = response.body().string();
+            JSONArray jsonArray = new JSONArray(jsonData);
+
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 candidateAccounts.add(Account.candidate(jsonObject));
             }
+
             return candidateAccounts;
-        } catch (InterruptedException | ExecutionException e) {
-            Log.d("TAG", e.getMessage());
-            Toast.makeText(mContext, "错误: 无法连接到服务器", Toast.LENGTH_SHORT).show();
+
+        } catch (IOException e) {
+            throw new BadNetworkException(e);
         } catch (JSONException e) {
-            Log.d("TAG", e.getMessage());
-            Toast.makeText(mContext, "错误: 解析数据失败", Toast.LENGTH_SHORT).show();
+            throw new BadJsonDataException(e);
         }
 
-        return null;
     }
 }
