@@ -46,11 +46,10 @@ public abstract class Account implements Serializable {
         }
     }
 
-    private final UUID mId;
+    private String mUuid;
     private String mRemark;
 
     public Account() {
-        mId = UUID.randomUUID();
     }
 
     public static Account fromJson(JSONObject jsonObject) throws JSONException {
@@ -68,8 +67,12 @@ public abstract class Account implements Serializable {
         throw new UnsupportedOperationException();
     }
 
-    public final UUID getId() {
-        return mId;
+    public String getUuid() {
+        return mUuid;
+    }
+
+    public void setUuid(String uuid) {
+        mUuid = uuid;
     }
 
     public abstract AccountType getType();

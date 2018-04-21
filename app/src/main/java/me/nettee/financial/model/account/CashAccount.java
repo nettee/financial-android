@@ -16,6 +16,7 @@ public final class CashAccount extends Account {
 
     public static CashAccount fromJson(JSONObject jsonObject) throws JSONException {
         CashAccount account = new CashAccount();
+        account.setUuid(jsonObject.getString("uuid"));
         account.setBalance(Amount.valueOf(jsonObject.getString("balance")));
         account.setRemark(jsonObject.getString("remark"));
         return account;
@@ -24,6 +25,7 @@ public final class CashAccount extends Account {
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject object = new JSONObject();
+        object.put("uuid", getUuid());
         object.put("type", getType().toString());
         object.put("remark", getRemark());
         object.put("balance", getBalance().toString());

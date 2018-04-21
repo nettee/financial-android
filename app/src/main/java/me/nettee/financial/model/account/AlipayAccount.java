@@ -22,6 +22,7 @@ public final class AlipayAccount extends MobilePaymentAccount {
 
     public static AlipayAccount fromJson(JSONObject jsonObject) throws JSONException {
         AlipayAccount account = new AlipayAccount();
+        account.setUuid(jsonObject.getString("uuid"));
         account.setRemark(jsonObject.getString("remark"));
         account.setBalance(Amount.valueOf(jsonObject.getString("balance")));
         account.setYuebaoOpen(false);

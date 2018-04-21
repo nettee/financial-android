@@ -3,11 +3,14 @@ package me.nettee.financial.ui.asset;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.Toolbar;
+
+import java.util.concurrent.ExecutionException;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.account.Account;
@@ -66,11 +69,18 @@ public class EditAccountActivity extends Activity {
                     .setCancelable(true)
                     .setMessage("确定要删除该账户吗？")
                     .setPositiveButton("删除", (dialogInterface, i) -> {
-                        AccountLab.getInstance(getApplicationContext()).deleteAccount(mOldAccount);
 
-                        Toast.makeText(getApplicationContext(), R.string.message_success_deleted, Toast.LENGTH_SHORT).show();
-                        setResult(AccountDetailActivity.RESULT_CODE_DELETED);
-                        finish();
+                        DeleteAccountTask deleteAccountTask = new DeleteAccountTask();
+                        deleteAccountTask.execute(mOldAccount);
+                        try {
+                            deleteAccountTask.get(); // Wait for the task to finish.
+                            Toast.makeText(getApplicationContext(), R.string.message_success_deleted, Toast.LENGTH_SHORT).show();
+                            setResult(AccountDetailActivity.RESULT_CODE_DELETED);
+                            finish();
+                        } catch (InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                        }
+
                     })
                     .setNegativeButton("取消", (dialogInterface, i) -> {
                         // Do nothing.
@@ -81,7 +91,16 @@ public class EditAccountActivity extends Activity {
 
     }
 
+    private static class DeleteAccountTask extends AsyncTask<Account, Void, Void> {
 
+        @Override
+        protected Void doInBackground(Account... accounts) {
+            for (Account account : accounts) {
+                AccountLab.getInstance().deleteAccount(account);
+            }
+            return null;
+        }
+    }
 
 
 }

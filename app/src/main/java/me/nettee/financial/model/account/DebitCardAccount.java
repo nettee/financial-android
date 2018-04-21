@@ -17,6 +17,7 @@ public final class DebitCardAccount extends BankCardAccount {
 
     public static DebitCardAccount fromJson(JSONObject jsonObject) throws JSONException {
         DebitCardAccount account = new DebitCardAccount();
+        account.setUuid(jsonObject.getString("uuid"));
         account.setRemark(jsonObject.getString("remark"));
         account.setBankCardNumber(jsonObject.getString("bankCardNumber"));
         account.setBalance(Amount.valueOf(jsonObject.getString("balance")));

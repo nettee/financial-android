@@ -14,7 +14,6 @@ import java.util.List;
 import me.nettee.financial.error.BadJsonDataException;
 import me.nettee.financial.error.BadNetworkException;
 import me.nettee.financial.model.Server;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -34,6 +33,7 @@ public class AccountLab {
         return sAccountLab;
     }
 
+    @Deprecated
     public static AccountLab getInstance(Context context) {
         return getInstance();
     }
@@ -64,7 +64,26 @@ public class AccountLab {
     }
 
     public void deleteAccount(Account account) {
-        // TODO
+        String uuid = account.getUuid();
+        if (uuid == null) {
+            throw new AssertionError();
+        }
+
+        try {
+            OkHttpClient client = Server.getOkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url(Server.account(uuid))
+                    .delete()
+                    .build();
+            Response response = client.newCall(request).execute();
+
+            if (!response.isSuccessful()) {
+                throw new AssertionError(response.code());
+            }
+        } catch (IOException e) {
+            throw new BadNetworkException(e);
+        }
     }
 
     public List<Account> getAccounts() {

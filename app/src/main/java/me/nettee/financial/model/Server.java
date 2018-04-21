@@ -25,4 +25,8 @@ public class Server {
         }
         return sOkHttpClient;
     }
+
+    public static String account(String id) {
+        return base + "/accounts/" + id;
+    }
 }

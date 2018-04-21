@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,6 +112,7 @@ public class PropertyFragment extends Fragment {
             Throwable e = result.second;
             if (e != null) {
                 String message = Errors.getErrorMessage(e);
+                Log.e("TAG", message);
                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                 return;
             }

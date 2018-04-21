@@ -21,6 +21,7 @@ public final class CreditCardAccount extends BankCardAccount {
 
     public static CreditCardAccount fromJson(JSONObject jsonObject) throws JSONException {
         CreditCardAccount account = new CreditCardAccount();
+        account.setUuid(jsonObject.getString("uuid"));
         account.setRemark(jsonObject.getString("remark"));
         account.setBankCardNumber(jsonObject.getString("bankCardNumber"));
         account.setCreditLimit(Amount.valueOf(jsonObject.getString("creditLimit")));
