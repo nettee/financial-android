@@ -30,16 +30,16 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(path: ':financial-model')
 
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:design:26.0.1'
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
+    testCompile 'junit:junit:4.12'
+
+    androidTestCompile 'com.android.support.test:runner:1.0.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:design:26.0.1'
-    compile 'com.squareup.okhttp3:okhttp:3.10.0'
-    compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
-    compile 'org.apache.commons:commons-lang3:3.7'
-    compile 'joda-time:joda-time:2.9.9'
-    testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
-    androidTestCompile 'com.android.support.test:runner:1.0.1'
 }
