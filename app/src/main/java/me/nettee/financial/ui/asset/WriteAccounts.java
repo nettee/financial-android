@@ -313,8 +313,8 @@ public abstract class WriteAccounts {
             account.setRemark(mRemark.getText().toString());
             account.setBankCardNumber(mBankCardNumber.getText().toString());
             account.setCreditLimit(Amount.valueOf(mCreditLimit.getText().toString()));
-            account.setBillDate(CreditDate.fromSpinner(mBillDate));
-            account.setPaymentDate(CreditDate.fromSpinner(mPaymentDate));
+            account.setBillDate(CreditDate.day(mBillDate.getSelectedItemPosition() + 1));
+            account.setPaymentDate(CreditDate.day(mPaymentDate.getSelectedItemPosition() + 1));
             Amount arrears = Amount.valueOf(mCurrentArrears.getText().toString());
             arrears.setSign(Amount.NEGATIVE);
             account.setArrears(arrears);
