@@ -1,6 +1,8 @@
 package me.nettee.financial.model.investment;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import me.nettee.financial.model.Amount;
 
@@ -18,7 +20,15 @@ public abstract class InvestmentProject implements Serializable {
 
     public abstract String getCandidateName();
 
-    public abstract int getCandidateImageResource();
+    public final int getCandidateImageResource() {
+        try {
+            Class<?> class_ = Class.forName("me.nettee.financial.model.ImageResource");
+            Method method = class_.getMethod("getInvestmentProjectCandidateImageResource", InvestmentProject.class);
+            return (int) (Integer) method.invoke(null, this);
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            return 0;
+        }
+    }
 
     public abstract String getName();
 

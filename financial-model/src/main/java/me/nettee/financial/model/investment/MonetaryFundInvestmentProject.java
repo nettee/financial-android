@@ -3,7 +3,6 @@ package me.nettee.financial.model.investment;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
 
-import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.Percent;
 
@@ -24,11 +23,6 @@ public class MonetaryFundInvestmentProject extends InvestmentProject {
     @Override
     public String getCandidateName() {
         return "货币基金";
-    }
-
-    @Override
-    public int getCandidateImageResource() {
-        return R.drawable.ic_account_investment;
     }
 
     public static LocalDate getValueDateFromBuyDate(LocalDate buyDate) {

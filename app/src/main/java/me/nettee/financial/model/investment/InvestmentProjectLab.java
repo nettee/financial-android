@@ -110,11 +110,6 @@ public class InvestmentProjectLab {
         }
 
         @Override
-        public int getCandidateImageResource() {
-            return mCandidateImageResource;
-        }
-
-        @Override
         public String getName() {
             throw new UnsupportedOperationException();
         }

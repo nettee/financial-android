@@ -2,6 +2,7 @@ package me.nettee.financial.model;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.account.Account;
+import me.nettee.financial.model.investment.InvestmentProject;
 
 public class ImageResource {
 
@@ -18,6 +19,13 @@ public class ImageResource {
             case INVESTMENT: return R.drawable.ic_investment;
             case GENERAL: return R.drawable.ic_account;
             default: return R.drawable.ic_account;
+        }
+    }
+
+    public static int getInvestmentProjectCandidateImageResource(InvestmentProject investmentProject) {
+        switch (investmentProject.getType()) {
+            case InvestmentProject.MONETARY_FUND: return R.drawable.ic_account_investment;
+            default: return R.drawable.ic_account_investment;
         }
     }
 
