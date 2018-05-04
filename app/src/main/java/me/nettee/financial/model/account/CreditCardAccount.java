@@ -33,8 +33,8 @@ public final class CreditCardAccount extends BankCardAccount {
     }
 
     @Override
-    public AccountType getType() {
-        return AccountType.CREDIT_CARD;
+    public Account.AccountType getType() {
+        return Account.AccountType.CREDIT_CARD;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package me.nettee.financial.model.account;
 
-import me.nettee.financial.R;
-
 public class BusCardAccount extends CashCardAccount {
 
     private static final long serialVersionUID = 1L;

@@ -24,8 +24,8 @@ public final class DebitCardAccount extends BankCardAccount {
     }
 
     @Override
-    public AccountType getType() {
-        return AccountType.DEBIT_CARD;
+    public Account.AccountType getType() {
+        return Account.AccountType.DEBIT_CARD;
     }
 
     @Override

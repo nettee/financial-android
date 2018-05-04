@@ -4,9 +4,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Optional;
 
-import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.asset.Asset;
 import me.nettee.financial.model.asset.Liability;
@@ -55,9 +56,9 @@ public abstract class Account implements Serializable {
         AccountType type = AccountType.valueOf(jsonObject.getString("type"));
         switch (type) {
             case CASH: return CashAccount.fromJson(jsonObject);
-            case CREDIT_CARD: return CreditCardAccount.fromJson(jsonObject);
+//            case CREDIT_CARD: return CreditCardAccount.fromJson(jsonObject);
             case DEBIT_CARD: return DebitCardAccount.fromJson(jsonObject);
-            case ALIPAY: return AlipayAccount.fromJson(jsonObject);
+//            case ALIPAY: return AlipayAccount.fromJson(jsonObject);
             default: throw new AssertionError();
         }
     }
@@ -79,18 +80,12 @@ public abstract class Account implements Serializable {
     public abstract String getCandidateName();
 
     public final int getCandidateImageResource() {
-        switch (getType()) {
-            case CASH: return R.drawable.ic_wallet;
-            case CREDIT_CARD: return R.drawable.ic_bank_card;
-            case DEBIT_CARD: return R.drawable.ic_bank_card;
-            case ALIPAY: return R.drawable.ic_alipay;
-            case HUABEI: return R.drawable.ic_huabei;
-            case WEIXIN: return R.drawable.ic_weixin;
-            case CAMPUS_CARD: return R.drawable.ic_campus_card;
-            case BUS_CARD: return R.drawable.ic_bus;
-            case INVESTMENT: return R.drawable.ic_investment;
-            case GENERAL: return R.drawable.ic_account;
-            default: return R.drawable.ic_account;
+        try {
+            Class<?> class_ = Class.forName("me.nettee.financial.model.ImageResource");
+            Method method = class_.getMethod("getAccountCandidateImageResource", Account.class);
+            return (int) (Integer) method.invoke(null, this);
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            return 0;
         }
     }
 
