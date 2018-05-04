@@ -1,7 +1,5 @@
 package me.nettee.financial.model;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -68,7 +66,6 @@ public class Amount implements Serializable {
             int cent = Integer.valueOf(s.substring(i + 1, i + 3));
             return Amount.decimal(yuan, cent);
         } catch (ParseException e) {
-            Log.e("Amount", e.getMessage());
             return Amount.zero();
         }
     }

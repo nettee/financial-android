@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.Optional;
-import java.util.UUID;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;

@@ -2,7 +2,6 @@ package me.nettee.financial.model.account;
 
 import java.util.Optional;
 
-import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.CreditDate;
 import me.nettee.financial.model.asset.Liability;

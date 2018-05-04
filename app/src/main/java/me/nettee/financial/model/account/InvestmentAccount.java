@@ -3,7 +3,6 @@ package me.nettee.financial.model.account;
 import java.util.List;
 import java.util.Optional;
 
-import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.asset.Asset;
 import me.nettee.financial.model.investment.InvestmentProjectLab;

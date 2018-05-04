@@ -1,10 +1,7 @@
 package me.nettee.financial.model.investment;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 
 public abstract class InvestmentProject implements Serializable {
