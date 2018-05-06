@@ -9,9 +9,4 @@ public class BusCardAccount extends CashCardAccount {
         return AccountType.BUS_CARD;
     }
 
-    @Override
-    public String getCandidateName() {
-        return "公交卡";
-    }
-
 }

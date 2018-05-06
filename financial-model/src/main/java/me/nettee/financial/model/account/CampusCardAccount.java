@@ -9,9 +9,4 @@ public class CampusCardAccount extends CashCardAccount {
         return AccountType.CAMPUS_CARD;
     }
 
-    @Override
-    public String getCandidateName() {
-        return "校园卡";
-    }
-
 }

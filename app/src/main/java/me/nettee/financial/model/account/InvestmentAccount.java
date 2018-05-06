@@ -22,16 +22,6 @@ public final class InvestmentAccount extends Account {
     }
 
     @Override
-    public String getCandidateName() {
-        return "投资账户";
-    }
-
-    @Override
-    public String getDisplayName() {
-        return getPlatform().getName();
-    }
-
-    @Override
     public Amount getDefaultAmount() {
         return getAllInvestmentProjectsSum();
     }

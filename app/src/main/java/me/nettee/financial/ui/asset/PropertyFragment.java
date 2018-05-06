@@ -178,8 +178,8 @@ public class PropertyFragment extends Fragment {
             Account account = accountDeque.pollFirst();
 
             int imageResource = Display.of(account).icon();
-            String name = account.getDisplayName();
-            String remark = account.getDisplayRemark();
+            String name = Display.of(account).name();
+            String remark = Display.of(account).remark();
             Amount amount = account.getDefaultAmount();
 
             View itemView = inflater.inflate(R.layout.list_item_account, null);

@@ -38,11 +38,6 @@ public final class CashAccount extends Account {
     }
 
     @Override
-    public String getCandidateName() {
-        return "现金钱包";
-    }
-
-    @Override
     public Amount getDefaultAmount() {
         return getBalance();
     }

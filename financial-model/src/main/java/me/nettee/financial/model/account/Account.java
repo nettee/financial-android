@@ -75,8 +75,6 @@ public abstract class Account implements Serializable {
 
     public abstract AccountType getType();
 
-    public abstract String getCandidateName();
-
     public abstract Amount getDefaultAmount();
 
     public abstract String getDefaultAmountCaption();
@@ -87,23 +85,6 @@ public abstract class Account implements Serializable {
 
     public final void setRemark(String remark) {
         mRemark = remark;
-    }
-
-    /**
-     * Displayed in account list, and account detail card.
-     * Sub-classes can override this default implementation.
-     * @return account name
-     */
-    public String getDisplayName() {
-        return getCandidateName();
-    }
-
-    /** Displayed in account list, and account detail card.
-     * Sub-classes can override this default implementation.
-     * @return remark
-     */
-    public String getDisplayRemark() {
-        return getRemark();
     }
 
     /**
@@ -147,11 +128,6 @@ public abstract class Account implements Serializable {
         @Override
         public AccountType getType() {
             return mType;
-        }
-
-        @Override
-        public String getCandidateName() {
-            return mCandidateName;
         }
 
         @Override

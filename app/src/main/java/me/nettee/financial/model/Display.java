@@ -1,5 +1,7 @@
 package me.nettee.financial.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 import me.nettee.financial.R;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.BankCardAccount;
@@ -31,6 +33,10 @@ public abstract class Display {
         return mName;
     }
 
+    public String remark() {
+        throw new UnsupportedOperationException();
+    }
+
     protected void setIcon(int icon) {
         mIcon = icon;
     }
@@ -47,6 +53,8 @@ public abstract class Display {
         private AccountDisplay(Account account) {
             mAccount = account;
             setIcon(Display.getAccountDisplayImageResource(account));
+            setName(Display.getAccountDisplayName(account));
+            setRemark(Display.getAccountDisplayRemark(account));
         }
 
         @Override
@@ -54,7 +62,8 @@ public abstract class Display {
             return new CandidateAccountDisplay(mAccount);
         }
 
-        public String getRemark() {
+        @Override
+        public String remark() {
             return mRemark;
         }
 
@@ -68,6 +77,7 @@ public abstract class Display {
 
         private CandidateAccountDisplay(Account account) {
             setIcon(Display.getAccountCandidateImageResource(account));
+            setName(Display.getAccountCandidateName(account));
         }
     }
 
@@ -87,6 +97,22 @@ public abstract class Display {
         }
     }
 
+    private static String getAccountCandidateName(Account account) {
+        switch (account.getType()) {
+            case CASH: return "现金钱包";
+            case CREDIT_CARD: return "信用卡";
+            case DEBIT_CARD: return "借记卡";
+            case ALIPAY: return "支付宝";
+            case HUABEI: return "花呗";
+            case WEIXIN: return "微信钱包";
+            case CAMPUS_CARD: return "校园卡";
+            case BUS_CARD: return "公交卡";
+            case INVESTMENT: return "投资账户";
+            case GENERAL: return "其他账户";
+            default: return "账户";
+        }
+    }
+
     private static int getAccountDisplayImageResource(Account account) {
         if (account instanceof BankCardAccount) {
             return ((BankCardAccount) account).getBank().getImageResource();
@@ -94,6 +120,29 @@ public abstract class Display {
             return ((InvestmentAccount) account).getPlatform().getImageResource();
         } else {
             return getAccountCandidateImageResource(account);
+        }
+    }
+
+    private static String getAccountDisplayName(Account account) {
+        if (account instanceof BankCardAccount) {
+            return ((BankCardAccount) account).getBank().getName();
+        } else if (account instanceof InvestmentAccount) {
+            return ((InvestmentAccount) account).getPlatform().getName();
+        } else {
+            return getAccountCandidateName(account);
+        }
+    }
+
+    private static String getAccountDisplayRemark(Account account) {
+        if (account instanceof BankCardAccount) {
+            BankCardAccount bankCardAccount = ((BankCardAccount) account);
+            if (StringUtils.isEmpty(bankCardAccount.getBankCardNumber())) {
+                return bankCardAccount.getBank().getName();
+            } else {
+                return String.format("%s %s", bankCardAccount.getBank().getName(), bankCardAccount.getBankCardNumberTail());
+            }
+        } else {
+            return account.getRemark();
         }
     }
 

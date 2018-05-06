@@ -67,7 +67,7 @@ public class AccountCandidateActivity extends Activity {
                 itemView.<ImageView>findViewById(R.id.candidate_account_list_item_image)
                         .setImageResource(Display.of(candidate).candidate().icon());
                 itemView.<TextView>findViewById(R.id.candidate_account_list_item_name)
-                        .setText(candidate.getCandidateName());
+                        .setText(Display.of(candidate).candidate().name());
 
                 candidateListView.addView(itemView);
 

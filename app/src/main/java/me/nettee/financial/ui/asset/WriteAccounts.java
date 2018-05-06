@@ -122,7 +122,7 @@ public abstract class WriteAccounts {
         titleBar.<ImageView>findViewById(R.id.account_name_image)
                 .setImageResource(Display.of(account).candidate().icon());
         titleBar.<TextView>findViewById(R.id.account_name_text)
-                .setText(account.getCandidateName());
+                .setText(Display.of(account).candidate().name());
     }
 
     private static View constructInputs(Activity activity, Account account) {

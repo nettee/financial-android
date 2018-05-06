@@ -9,9 +9,4 @@ public final class WeixinAccount extends MobilePaymentAccount {
         return AccountType.WEIXIN;
     }
 
-    @Override
-    public String getCandidateName() {
-        return "微信钱包";
-    }
-
 }

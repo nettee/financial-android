@@ -21,11 +21,6 @@ public class HuabeiAccount extends Account {
     }
 
     @Override
-    public String getCandidateName() {
-        return "花呗";
-    }
-
-    @Override
     public Amount getDefaultAmount() {
         return getArrears();
     }

@@ -180,8 +180,8 @@ public class AccountDetailActivity extends Activity {
 
     private void updateView() {
         mAccountCardImage.setImageResource(Display.of(mAccount).icon());
-        mAccountCardName.setText(mAccount.getDisplayName());
-        String remark = mAccount.getDisplayRemark();
+        mAccountCardName.setText(Display.of(mAccount).name());
+        String remark = Display.of(mAccount).remark();
         if (StringUtils.isEmpty(remark)) {
             mAccountCardNameSplit.setVisibility(View.INVISIBLE);
             mAccountCardRemark.setVisibility(View.INVISIBLE);
