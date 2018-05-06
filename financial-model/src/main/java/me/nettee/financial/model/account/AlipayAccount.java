@@ -46,11 +46,6 @@ public final class AlipayAccount extends MobilePaymentAccount {
     }
 
     @Override
-    public String getCandidateName() {
-        return "支付宝";
-    }
-
-    @Override
     public Optional<Asset> getAsset() {
         return Optional.of(new Asset(getBalance()));
     }

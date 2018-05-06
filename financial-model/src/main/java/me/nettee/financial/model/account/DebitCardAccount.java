@@ -29,11 +29,6 @@ public final class DebitCardAccount extends BankCardAccount {
     }
 
     @Override
-    public String getCandidateName() {
-        return "借记卡";
-    }
-
-    @Override
     public Amount getDefaultAmount() {
         return getBalance();
     }

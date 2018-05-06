@@ -38,11 +38,6 @@ public final class CreditCardAccount extends BankCardAccount {
     }
 
     @Override
-    public String getCandidateName() {
-        return "信用卡";
-    }
-
-    @Override
     public Amount getDefaultAmount() {
         return getArrears();
     }

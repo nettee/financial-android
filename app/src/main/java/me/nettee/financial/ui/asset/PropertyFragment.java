@@ -26,6 +26,7 @@ import java.util.Optional;
 import me.nettee.financial.error.BadNetworkException;
 import me.nettee.financial.R;
 import me.nettee.financial.error.Errors;
+import me.nettee.financial.model.Display;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.AccountLab;
 import me.nettee.financial.model.Amount;
@@ -176,9 +177,9 @@ public class PropertyFragment extends Fragment {
 
             Account account = accountDeque.pollFirst();
 
-            int imageResource = account.getDisplayImageResource();
-            String name = account.getDisplayName();
-            String remark = account.getDisplayRemark();
+            int imageResource = Display.of(account).icon();
+            String name = Display.of(account).name();
+            String remark = Display.of(account).remark();
             Amount amount = account.getDefaultAmount();
 
             View itemView = inflater.inflate(R.layout.list_item_account, null);

@@ -4,8 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Optional;
 
 import me.nettee.financial.model.Amount;
@@ -56,9 +54,9 @@ public abstract class Account implements Serializable {
         AccountType type = AccountType.valueOf(jsonObject.getString("type"));
         switch (type) {
             case CASH: return CashAccount.fromJson(jsonObject);
-//            case CREDIT_CARD: return CreditCardAccount.fromJson(jsonObject);
+            case CREDIT_CARD: return CreditCardAccount.fromJson(jsonObject);
             case DEBIT_CARD: return DebitCardAccount.fromJson(jsonObject);
-//            case ALIPAY: return AlipayAccount.fromJson(jsonObject);
+            case ALIPAY: return AlipayAccount.fromJson(jsonObject);
             default: throw new AssertionError();
         }
     }
@@ -77,18 +75,6 @@ public abstract class Account implements Serializable {
 
     public abstract AccountType getType();
 
-    public abstract String getCandidateName();
-
-    public final int getCandidateImageResource() {
-        try {
-            Class<?> class_ = Class.forName("me.nettee.financial.model.ImageResource");
-            Method method = class_.getMethod("getAccountCandidateImageResource", Account.class);
-            return (int) (Integer) method.invoke(null, this);
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            return 0;
-        }
-    }
-
     public abstract Amount getDefaultAmount();
 
     public abstract String getDefaultAmountCaption();
@@ -99,32 +85,6 @@ public abstract class Account implements Serializable {
 
     public final void setRemark(String remark) {
         mRemark = remark;
-    }
-
-    /**
-     * Displayed in account list, and account detail card.
-     * Sub-classes can override this default implementation.
-     * @return account name
-     */
-    public String getDisplayName() {
-        return getCandidateName();
-    }
-
-    /**
-     * Displayed in account list, and account detail card.
-     * Sub-classes can override this default implementation.
-     * @return account image (icon)
-     */
-    public int getDisplayImageResource() {
-        return getCandidateImageResource();
-    }
-
-    /** Displayed in account list, and account detail card.
-     * Sub-classes can override this default implementation.
-     * @return remark
-     */
-    public String getDisplayRemark() {
-        return getRemark();
     }
 
     /**
@@ -168,11 +128,6 @@ public abstract class Account implements Serializable {
         @Override
         public AccountType getType() {
             return mType;
-        }
-
-        @Override
-        public String getCandidateName() {
-            return mCandidateName;
         }
 
         @Override

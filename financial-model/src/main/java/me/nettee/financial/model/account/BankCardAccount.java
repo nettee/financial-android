@@ -33,22 +33,4 @@ public abstract class BankCardAccount extends Account {
         mBankCardNumber = bankCardNumber;
     }
 
-    @Override
-    public String getDisplayName() {
-        return getBank().getName();
-    }
-
-    @Override
-    public int getDisplayImageResource() {
-        return getBank().getImageResource();
-    }
-
-    @Override
-    public final String getDisplayRemark() {
-        if (StringUtils.isEmpty(mBankCardNumber)) {
-            return getCandidateName();
-        } else {
-            return String.format("%s %s", getCandidateName(), getBankCardNumberTail());
-        }
-    }
 }

@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.Display;
 import me.nettee.financial.model.investment.InvestmentProjectLab;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.InvestmentAccount;
@@ -178,9 +179,9 @@ public class AccountDetailActivity extends Activity {
     }
 
     private void updateView() {
-        mAccountCardImage.setImageResource(mAccount.getDisplayImageResource());
-        mAccountCardName.setText(mAccount.getDisplayName());
-        String remark = mAccount.getDisplayRemark();
+        mAccountCardImage.setImageResource(Display.of(mAccount).icon());
+        mAccountCardName.setText(Display.of(mAccount).name());
+        String remark = Display.of(mAccount).remark();
         if (StringUtils.isEmpty(remark)) {
             mAccountCardNameSplit.setVisibility(View.INVISIBLE);
             mAccountCardRemark.setVisibility(View.INVISIBLE);

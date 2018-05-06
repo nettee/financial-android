@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.CreditDate;
+import me.nettee.financial.model.Display;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.AlipayAccount;
 import me.nettee.financial.model.account.BusCardAccount;
@@ -119,9 +120,9 @@ public abstract class WriteAccounts {
         View titleBar = stub.inflate();
 
         titleBar.<ImageView>findViewById(R.id.account_name_image)
-                .setImageResource(account.getCandidateImageResource());
+                .setImageResource(Display.of(account).candidate().icon());
         titleBar.<TextView>findViewById(R.id.account_name_text)
-                .setText(account.getCandidateName());
+                .setText(Display.of(account).candidate().name());
     }
 
     private static View constructInputs(Activity activity, Account account) {
