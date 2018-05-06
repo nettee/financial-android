@@ -56,9 +56,9 @@ public abstract class Account implements Serializable {
         AccountType type = AccountType.valueOf(jsonObject.getString("type"));
         switch (type) {
             case CASH: return CashAccount.fromJson(jsonObject);
-//            case CREDIT_CARD: return CreditCardAccount.fromJson(jsonObject);
+            case CREDIT_CARD: return CreditCardAccount.fromJson(jsonObject);
             case DEBIT_CARD: return DebitCardAccount.fromJson(jsonObject);
-//            case ALIPAY: return AlipayAccount.fromJson(jsonObject);
+            case ALIPAY: return AlipayAccount.fromJson(jsonObject);
             default: throw new AssertionError();
         }
     }
