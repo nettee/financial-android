@@ -2,6 +2,7 @@ package me.nettee.financial.ui.asset;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -26,6 +27,7 @@ import java.util.Optional;
 import me.nettee.financial.error.BadNetworkException;
 import me.nettee.financial.R;
 import me.nettee.financial.error.Errors;
+import me.nettee.financial.model.ImageResource;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.AccountLab;
 import me.nettee.financial.model.Amount;
@@ -176,7 +178,7 @@ public class PropertyFragment extends Fragment {
 
             Account account = accountDeque.pollFirst();
 
-            int imageResource = account.getDisplayImageResource();
+            int imageResource = ImageResource.getAccountDisplayImageResource(account);
             String name = account.getDisplayName();
             String remark = account.getDisplayRemark();
             Amount amount = account.getDefaultAmount();

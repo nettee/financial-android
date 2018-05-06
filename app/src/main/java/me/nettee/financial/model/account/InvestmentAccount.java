@@ -32,11 +32,6 @@ public final class InvestmentAccount extends Account {
     }
 
     @Override
-    public int getDisplayImageResource() {
-        return getPlatform().getImageResource();
-    }
-
-    @Override
     public Amount getDefaultAmount() {
         return getAllInvestmentProjectsSum();
     }

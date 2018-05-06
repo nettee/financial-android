@@ -4,8 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Optional;
 
 import me.nettee.financial.model.Amount;
@@ -79,16 +77,6 @@ public abstract class Account implements Serializable {
 
     public abstract String getCandidateName();
 
-    public final int getCandidateImageResource() {
-        try {
-            Class<?> class_ = Class.forName("me.nettee.financial.model.ImageResource");
-            Method method = class_.getMethod("getAccountCandidateImageResource", Account.class);
-            return (int) (Integer) method.invoke(null, this);
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            return 0;
-        }
-    }
-
     public abstract Amount getDefaultAmount();
 
     public abstract String getDefaultAmountCaption();
@@ -108,15 +96,6 @@ public abstract class Account implements Serializable {
      */
     public String getDisplayName() {
         return getCandidateName();
-    }
-
-    /**
-     * Displayed in account list, and account detail card.
-     * Sub-classes can override this default implementation.
-     * @return account image (icon)
-     */
-    public int getDisplayImageResource() {
-        return getCandidateImageResource();
     }
 
     /** Displayed in account list, and account detail card.

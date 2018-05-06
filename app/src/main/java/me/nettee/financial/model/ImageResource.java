@@ -2,6 +2,8 @@ package me.nettee.financial.model;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.account.Account;
+import me.nettee.financial.model.account.BankCardAccount;
+import me.nettee.financial.model.account.InvestmentAccount;
 import me.nettee.financial.model.investment.InvestmentProject;
 
 public class ImageResource {
@@ -19,6 +21,16 @@ public class ImageResource {
             case INVESTMENT: return R.drawable.ic_investment;
             case GENERAL: return R.drawable.ic_account;
             default: return R.drawable.ic_account;
+        }
+    }
+
+    public static int getAccountDisplayImageResource(Account account) {
+        if (account instanceof BankCardAccount) {
+            return ((BankCardAccount) account).getBank().getImageResource();
+        } else if (account instanceof InvestmentAccount) {
+            return ((InvestmentAccount) account).getPlatform().getImageResource();
+        } else {
+            return getAccountCandidateImageResource(account);
         }
     }
 
