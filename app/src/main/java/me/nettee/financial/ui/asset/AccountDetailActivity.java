@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import me.nettee.financial.R;
-import me.nettee.financial.model.ImageResource;
+import me.nettee.financial.model.Display;
 import me.nettee.financial.model.investment.InvestmentProjectLab;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.InvestmentAccount;
@@ -179,7 +179,7 @@ public class AccountDetailActivity extends Activity {
     }
 
     private void updateView() {
-        mAccountCardImage.setImageResource(ImageResource.getAccountDisplayImageResource(mAccount));
+        mAccountCardImage.setImageResource(Display.of(mAccount).icon());
         mAccountCardName.setText(mAccount.getDisplayName());
         String remark = mAccount.getDisplayRemark();
         if (StringUtils.isEmpty(remark)) {

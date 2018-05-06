@@ -16,7 +16,7 @@ import android.widget.Toolbar;
 import java.util.List;
 
 import me.nettee.financial.R;
-import me.nettee.financial.model.ImageResource;
+import me.nettee.financial.model.Display;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.AccountLab;
 
@@ -65,7 +65,7 @@ public class AccountCandidateActivity extends Activity {
                 itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight));
 
                 itemView.<ImageView>findViewById(R.id.candidate_account_list_item_image)
-                        .setImageResource(ImageResource.getAccountCandidateImageResource(candidate));
+                        .setImageResource(Display.of(candidate).candidate().icon());
                 itemView.<TextView>findViewById(R.id.candidate_account_list_item_name)
                         .setText(candidate.getCandidateName());
 
