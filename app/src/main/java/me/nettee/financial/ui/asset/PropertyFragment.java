@@ -137,7 +137,7 @@ public class PropertyFragment extends Fragment {
 
             mTotalAssets = Asset.sum(assets);
             mTotalLiabilities = Liability.sum(liabilities);
-            mNetAssets = mTotalAssets.subUnsigned(mTotalLiabilities);
+            mNetAssets = mTotalAssets.sub(mTotalLiabilities.abs());
 
             updateAccountListStatus();
             updateAssetVisibility();

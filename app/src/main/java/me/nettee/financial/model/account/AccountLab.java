@@ -38,9 +38,7 @@ public class AccountLab {
         cashAccount.setRemark("钱包A");
         mAccounts.add(cashAccount);
         CreditCardAccount creditCardAccount = new CreditCardAccount();
-        Amount arrears = Amount.integer(1234);
-        arrears.setSign(Amount.NEGATIVE);
-        creditCardAccount.setArrears(arrears);
+        creditCardAccount.setArrears(Amount.integer(1234).neg());
         mAccounts.add(creditCardAccount);
         DebitCardAccount debitCardAccount = new DebitCardAccount();
         debitCardAccount.setBankCardNumber("669395");
