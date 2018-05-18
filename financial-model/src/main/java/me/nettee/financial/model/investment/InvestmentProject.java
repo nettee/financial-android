@@ -1,34 +1,23 @@
 package me.nettee.financial.model.investment;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import me.nettee.financial.model.Amount;
 
 public abstract class InvestmentProject implements Serializable {
 
-    public static final int MONETARY_FUND = 1;
-    public static final int FIXED = 2;
-    public static final int FUND = 3;
-    public static final int STOCK = 4;
-    public static final int OTHER = 5;
+    public enum InvestmentProjectType {
+        MONETARY_FUND,
+        FIXED,
+        FUND,
+        STOCK,
+        OTHER,
+        ;
+    }
 
     private int mInvestmentPlatformType;
 
-    public abstract int getType();
-
-    public abstract String getCandidateName();
-
-    public final int getCandidateImageResource() {
-        try {
-            Class<?> class_ = Class.forName("me.nettee.financial.model.ImageResource");
-            Method method = class_.getMethod("getInvestmentProjectCandidateImageResource", InvestmentProject.class);
-            return (int) (Integer) method.invoke(null, this);
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            return 0;
-        }
-    }
+    public abstract InvestmentProjectType getType();
 
     public abstract String getName();
 
@@ -44,6 +33,36 @@ public abstract class InvestmentProject implements Serializable {
 
     public final void setInvestmentPlatformType(int investmentPlatformType) {
         mInvestmentPlatformType = investmentPlatformType;
+    }
+
+    public static CandidateInvestmentProject candidate(InvestmentProjectType type) {
+        return new CandidateInvestmentProject(type);
+    }
+
+    private static final class CandidateInvestmentProject extends InvestmentProject implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
+        private final InvestmentProjectType mType;
+
+        private CandidateInvestmentProject(InvestmentProjectType type) {
+            mType = type;
+        }
+
+        @Override
+        public InvestmentProjectType getType() {
+            return mType;
+        }
+
+        @Override
+        public String getName() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Amount getPrinciple() {
+            throw new UnsupportedOperationException();
+        }
     }
 
 }

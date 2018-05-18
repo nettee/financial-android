@@ -91,6 +91,15 @@ public abstract class Account implements Comparable<Account>, Serializable {
         mRemark = remark;
     }
 
+    public boolean isBankCardAccount() {
+        return getType().equals(AccountType.CREDIT_CARD)
+                || getType().equals(AccountType.DEBIT_CARD);
+    }
+
+    public boolean isInvestmentAccount() {
+        return getType().equals(AccountType.INVESTMENT);
+    }
+
     /**
      * Asset correspond to this account.
      * Sub-classes can override this default implementation.
@@ -112,8 +121,8 @@ public abstract class Account implements Comparable<Account>, Serializable {
     }
 
     // Note: for test only
-    public static CandidateAccount candidate(AccountType type, String candidateName) {
-        return new CandidateAccount(type, candidateName);
+    public static CandidateAccount candidate(AccountType type) {
+        return new CandidateAccount(type);
     }
 
     private static final class CandidateAccount extends Account implements Serializable {
@@ -121,17 +130,15 @@ public abstract class Account implements Comparable<Account>, Serializable {
         private static final long serialVersionUID = 1L;
 
         private AccountType mType;
-        private String mCandidateName;
 
-        private CandidateAccount(AccountType type, String candidateName) {
+        private CandidateAccount(AccountType type) {
             mType = type;
-            mCandidateName = candidateName;
         }
 
         public static CandidateAccount fromJson(JSONObject jsonObject) throws JSONException {
+            // TODO test whether this is correct
             String type = jsonObject.getString("type");
-            String name = jsonObject.getString("name");
-            return new CandidateAccount(AccountType.valueOf(type), name);
+            return new CandidateAccount(AccountType.valueOf(type));
         }
 
         @Override

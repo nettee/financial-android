@@ -17,14 +17,19 @@ public class AccountLab {
     private static List<Account> sCandidateAccounts = new ArrayList<Account>() {
         private static final long serialVersionUID = 1L;
         {
-            add(Account.candidate(Account.AccountType.CASH,"现金钱包"));
-            add(Account.candidate(Account.AccountType.CREDIT_CARD,"信用卡"));
-            add(Account.candidate(Account.AccountType.DEBIT_CARD,"借记卡"));
-            add(Account.candidate(Account.AccountType.ALIPAY,"支付宝"));
-            add(Account.candidate(Account.AccountType.WEIXIN,"微信钱包"));
-            add(Account.candidate(Account.AccountType.CAMPUS_CARD,"校园卡"));
-            add(Account.candidate(Account.AccountType.BUS_CARD,"公交卡"));
-            add(Account.candidate(Account.AccountType.INVESTMENT,"投资账户"));
+            Account.AccountType[] types = {
+                    Account.AccountType.CASH,
+                    Account.AccountType.CREDIT_CARD,
+                    Account.AccountType.DEBIT_CARD,
+                    Account.AccountType.ALIPAY,
+                    Account.AccountType.WEIXIN,
+                    Account.AccountType.CAMPUS_CARD,
+                    Account.AccountType.BUS_CARD,
+                    Account.AccountType.INVESTMENT,
+            };
+            for (Account.AccountType type : types) {
+                add(Account.candidate(type));
+            }
         }
     };
 

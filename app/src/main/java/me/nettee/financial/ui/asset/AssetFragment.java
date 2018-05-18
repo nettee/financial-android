@@ -35,7 +35,7 @@ import me.nettee.financial.model.asset.Liability;
 import me.nettee.financial.model.asset.Asset;
 import me.nettee.financial.model.account.AlipayAccount;
 
-public class PropertyFragment extends Fragment {
+public class AssetFragment extends Fragment {
 
     private ImageView mAssetVisibility;
     private TextView mNetAssetContent;

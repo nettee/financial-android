@@ -6,6 +6,8 @@ import org.joda.time.LocalDate;
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.Percent;
 
+import static me.nettee.financial.model.investment.InvestmentProject.InvestmentProjectType.MONETARY_FUND;
+
 public class MonetaryFundInvestmentProject extends InvestmentProject {
 
     private String mName;
@@ -16,13 +18,8 @@ public class MonetaryFundInvestmentProject extends InvestmentProject {
     private String mPostscript;
 
     @Override
-    public int getType() {
+    public InvestmentProjectType getType() {
         return MONETARY_FUND;
-    }
-
-    @Override
-    public String getCandidateName() {
-        return "货币基金";
     }
 
     public static LocalDate getValueDateFromBuyDate(LocalDate buyDate) {

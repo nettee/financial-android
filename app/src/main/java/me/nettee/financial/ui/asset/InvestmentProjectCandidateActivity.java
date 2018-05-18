@@ -8,6 +8,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.Display;
 import me.nettee.financial.model.investment.InvestmentProjectLab;
 import me.nettee.financial.model.investment.InvestmentProject;
 
@@ -49,9 +50,9 @@ public class InvestmentProjectCandidateActivity extends SomeCandidateBaseActivit
     public void initItemView(View itemView, InvestmentProject candidate) {
 
         itemView.<ImageView>findViewById(R.id.candidate_investment_project_list_item_image)
-                .setImageResource(candidate.getCandidateImageResource());
+                .setImageResource(Display.ofCandidate(candidate).icon());
         itemView.<TextView>findViewById(R.id.candidate_investment_project_list_item_name)
-                .setText(candidate.getCandidateName());
+                .setText(Display.ofCandidate(candidate).name());
     }
 
     @Override

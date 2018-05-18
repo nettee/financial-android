@@ -121,9 +121,9 @@ public abstract class WriteAccounts {
         View titleBar = stub.inflate();
 
         titleBar.<ImageView>findViewById(R.id.account_name_image)
-                .setImageResource(Display.of(account).candidate().icon());
+                .setImageResource(Display.ofCandidate(account).icon());
         titleBar.<TextView>findViewById(R.id.account_name_text)
-                .setText(Display.of(account).candidate().name());
+                .setText(Display.ofCandidate(account).name());
     }
 
     private static View constructInputs(Activity activity, Account account) {

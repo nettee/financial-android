@@ -19,12 +19,18 @@ public abstract class Display {
         if (object instanceof Account) {
             return new AccountDisplay(((Account) object));
         } else {
-            throw new AssertionError();
+            throw new IllegalArgumentException();
         }
     }
 
-    public Display candidate() {
-        throw new UnsupportedOperationException();
+    public static Display ofCandidate(Object object) {
+        if (object instanceof Account) {
+            return new CandidateAccountDisplay((Account) object);
+        } else if (object instanceof InvestmentProject) {
+            return new CandidateInvestmentProjectDisplay((InvestmentProject) object);
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     public int icon() {
@@ -49,19 +55,12 @@ public abstract class Display {
 
     private static class AccountDisplay extends Display {
 
-        private Account mAccount;
         private String mRemark;
 
         private AccountDisplay(Account account) {
-            mAccount = account;
-            setIcon(Display.getAccountDisplayImageResource(account));
-            setName(Display.getAccountDisplayName(account));
-            setRemark(Display.getAccountDisplayRemark(account));
-        }
-
-        @Override
-        public Display candidate() {
-            return new CandidateAccountDisplay(mAccount);
+            setIcon(Display.accountIcon(account));
+            setName(Display.accountName(account));
+            setRemark(Display.accountRemark(account));
         }
 
         @Override
@@ -78,12 +77,20 @@ public abstract class Display {
     private static class CandidateAccountDisplay extends Display {
 
         private CandidateAccountDisplay(Account account) {
-            setIcon(Display.getAccountCandidateImageResource(account));
-            setName(getAccountCandidateName(account.getType()));
+            setIcon(candidateAccountIcon(account));
+            setName(candidateAccountName(account));
         }
     }
 
-    private static int getAccountCandidateImageResource(Account account) {
+    private static class CandidateInvestmentProjectDisplay extends Display {
+
+        private CandidateInvestmentProjectDisplay(InvestmentProject investmentProject) {
+            setIcon(candidateInvestmentProjectIcon(investmentProject));
+            setName(candidateInvestmentProjectName(investmentProject));
+        }
+    }
+
+    private static int candidateAccountIcon(Account account) {
         switch (account.getType()) {
             case CASH: return R.drawable.ic_wallet;
             case CREDIT_CARD: return R.drawable.ic_bank_card;
@@ -100,8 +107,8 @@ public abstract class Display {
     }
 
     @NonNull
-    private static String getAccountCandidateName(Account.AccountType accountType) {
-        switch (accountType) {
+    private static String candidateAccountName(Account account) {
+        switch (account.getType()) {
             case CASH: return "现金钱包";
             case CREDIT_CARD: return "信用卡";
             case DEBIT_CARD: return "借记卡";
@@ -116,48 +123,59 @@ public abstract class Display {
         }
     }
 
-    private static int getAccountDisplayImageResource(Account account) {
-        if (account instanceof BankCardAccount) {
+    private static int accountIcon(Account account) {
+        if (account.isBankCardAccount()) {
             return R.drawable.ic_bank_card;
-        } else if (account instanceof InvestmentAccount) {
+        } else if (account.isInvestmentAccount()) {
             return ((InvestmentAccount) account).getPlatform().getImageResource();
         } else {
-            return getAccountCandidateImageResource(account);
+            return candidateAccountIcon(account);
         }
     }
 
-    private static String getAccountDisplayName(Account account) {
-        if (account instanceof BankCardAccount) {
+    private static String accountName(Account account) {
+        if (account.isBankCardAccount()) {
             return ((BankCardAccount) account).getBank().getName();
-        } else if (account instanceof InvestmentAccount) {
+        } else if (account.isInvestmentAccount()) {
             return ((InvestmentAccount) account).getPlatform().getName();
         } else {
-            return getAccountCandidateName(account.getType());
+            return candidateAccountName(account);
         }
     }
 
-    private static String getAccountDisplayRemark(Account account) {
-        if (account instanceof BankCardAccount) {
+    private static String accountRemark(Account account) {
+        if (account.isBankCardAccount()) {
+            String candidateName = candidateAccountName(account);
             BankCardAccount bankCardAccount = ((BankCardAccount) account);
             if (StringUtils.isEmpty(bankCardAccount.getBankCardNumber())) {
-                return bankCardAccount.getBank().getName();
+                return candidateName;
             } else {
-                return String.format("%s %s", bankCardAccount.getBank().getName(), bankCardAccount.getBankCardNumberTail());
+                return String.format("%s %s", candidateName, bankCardAccount.getBankCardNumberTail());
             }
         } else {
             return account.getRemark();
         }
     }
 
-    private static int getInvestmentProjectCandidateImageResource(InvestmentProject investmentProject) {
+    private static int candidateInvestmentProjectIcon(InvestmentProject investmentProject) {
         switch (investmentProject.getType()) {
-            case InvestmentProject.MONETARY_FUND: return R.drawable.ic_account_investment;
-            default: return R.drawable.ic_account_investment;
+            case MONETARY_FUND: return R.drawable.ic_investment_project_monetary_fund;
+            case FIXED: return R.drawable.ic_investment_project_fixed;
+            case FUND: return R.drawable.ic_investment_project_fund;
+            case STOCK: return R.drawable.ic_investment_project_stock;
+            case OTHER: return R.drawable.ic_investment_project_other;
+            default: return 0;
         }
     }
 
-    private static int getBankImageResource(Bank bank) {
-        return R.drawable.ic_bank_icbc;
+    private static String candidateInvestmentProjectName(InvestmentProject investmentProject) {
+        switch (investmentProject.getType()) {
+            case MONETARY_FUND: return "货币基金";
+            case FIXED: return "定期类";
+            case FUND: return "基金类";
+            case STOCK: return "股票";
+            case OTHER: return "其他投资项目";
+            default: return "其他投资项目";
+        }
     }
-
 }

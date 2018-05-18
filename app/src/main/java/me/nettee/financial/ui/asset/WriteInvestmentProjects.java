@@ -15,16 +15,18 @@ import java.util.Map;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.Display;
 import me.nettee.financial.model.Percent;
 import me.nettee.financial.model.investment.InvestmentProject;
 import me.nettee.financial.model.investment.MonetaryFundInvestmentProject;
 
 public class WriteInvestmentProjects {
 
-    private static Map<Integer, InvestmentProjectExtractor> sExtractorMap = new HashMap<Integer, InvestmentProjectExtractor>() {
+    private static Map<InvestmentProject.InvestmentProjectType, InvestmentProjectExtractor> sExtractorMap
+            = new HashMap<InvestmentProject.InvestmentProjectType, InvestmentProjectExtractor>() {
         private static final long serialVersionUID = 1L;
         {
-            put(InvestmentProject.MONETARY_FUND, new MonetaryFundInvestmentProjectExtractor());
+            put(InvestmentProject.InvestmentProjectType.MONETARY_FUND, new MonetaryFundInvestmentProjectExtractor());
         }
     };
 
@@ -43,9 +45,9 @@ public class WriteInvestmentProjects {
         View titleBar = stub.inflate();
 
         titleBar.<ImageView>findViewById(R.id.investment_project_name_image)
-                .setImageResource(investmentProject.getCandidateImageResource());
+                .setImageResource(Display.ofCandidate(investmentProject).icon());
         titleBar.<TextView>findViewById(R.id.investment_project_name_text)
-                .setText(investmentProject.getCandidateName());
+                .setText(Display.ofCandidate(investmentProject).name());
     }
 
     private static View constructInputs(Activity activity, InvestmentProject investmentProject) {
@@ -55,7 +57,7 @@ public class WriteInvestmentProjects {
         return constructor.construct(activity, investmentProject);
     }
 
-    public static InvestmentProject extractInvestmentProject(int investmentProjectType, View inputs) {
+    public static InvestmentProject extractInvestmentProject(InvestmentProject.InvestmentProjectType investmentProjectType, View inputs) {
         InvestmentProjectExtractor extractor = sExtractorMap.getOrDefault(investmentProjectType, new NullExtractor());
         return extractor.extract(inputs);
     }
@@ -96,7 +98,7 @@ public class WriteInvestmentProjects {
         void initInputs(Activity activity, View inputs) {
 
             View nameView = inputs.findViewById(R.id.investment_project_name);
-            nameView.<TextView>findViewById(R.id.input_bar_text_multiline_caption).setText(R.string.caption_project_name);
+            nameView.<TextView>findViewById(R.id.input_bar_text_caption).setText(R.string.caption_project_name);
             nameView.<EditText>findViewById(R.id.input_bar_text_content).setHint(R.string.hint_project_name);
 
             View principleView = inputs.findViewById(R.id.investment_project_principle);
