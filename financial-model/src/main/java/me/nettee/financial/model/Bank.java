@@ -27,14 +27,4 @@ public class Bank {
         return mName;
     }
 
-    public int getImageResource() {
-        try {
-            Class<?> class_ = Class.forName("me.nettee.financial.model.ImageResource");
-            Method method = class_.getMethod("getBankImageResource", Bank.class);
-            Object o = method.invoke(null, this);
-            return (int) (Integer) o;
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            return 0;
-        }
-    }
 }

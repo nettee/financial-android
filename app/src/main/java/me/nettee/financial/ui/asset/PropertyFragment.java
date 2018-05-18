@@ -100,7 +100,7 @@ public class PropertyFragment extends Fragment {
         @Override
         protected Pair<List<Account>, Throwable> doInBackground(Void... voids) {
             try {
-                List<Account> accounts = AccountLab.getInstance(getContext()).getAccounts();
+                List<Account> accounts = AccountLab.getInstance().getAccounts();
                 return new Pair<>(accounts, null);
             } catch (BadNetworkException e) {
                 return new Pair<>(null, e);

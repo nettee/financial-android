@@ -44,7 +44,7 @@ public class AccountCandidateActivity extends Activity {
 
         @Override
         protected List<Account> doInBackground(Void... voids) {
-            List<Account> candidates = AccountLab.getInstance(getApplicationContext()).getCandidateAccounts();
+            List<Account> candidates = AccountLab.getInstance().getCandidateAccounts();
             return candidates;
         }
 

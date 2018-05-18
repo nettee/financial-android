@@ -115,7 +115,7 @@ public abstract class Display {
 
     private static int getAccountDisplayImageResource(Account account) {
         if (account instanceof BankCardAccount) {
-            return ((BankCardAccount) account).getBank().getImageResource();
+            return R.drawable.ic_bank_card;
         } else if (account instanceof InvestmentAccount) {
             return ((InvestmentAccount) account).getPlatform().getImageResource();
         } else {

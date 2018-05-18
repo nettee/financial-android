@@ -107,6 +107,11 @@ public abstract class Account implements Serializable {
         return CandidateAccount.fromJson(jsonObject);
     }
 
+    // Note: for test only
+    public static CandidateAccount candidate(AccountType type, String candidateName) {
+        return new CandidateAccount(type, candidateName);
+    }
+
     private static final class CandidateAccount extends Account implements Serializable {
 
         private static final long serialVersionUID = 1L;
