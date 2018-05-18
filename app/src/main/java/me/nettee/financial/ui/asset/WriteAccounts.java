@@ -40,6 +40,7 @@ import me.nettee.financial.model.account.DebitCardAccount;
 import me.nettee.financial.model.account.InvestmentAccount;
 import me.nettee.financial.model.account.WeixinAccount;
 import me.nettee.financial.model.investment.InvestmentPlatform;
+import me.nettee.financial.model.investment.InvestmentPlatformLab;
 
 import static android.view.View.GONE;
 
@@ -599,7 +600,7 @@ public abstract class WriteAccounts {
                     .findViewById(R.id.input_bar_investment_platform_content);
             ImageView investmentPlatformImage = inputs.findViewById(R.id.account_investment_platform)
                     .findViewById(R.id.input_bar_investment_platform_image);
-            InvestmentPlatformAdapter adapter = new InvestmentPlatformAdapter(activity, InvestmentPlatform.getPlatforms());
+            InvestmentPlatformAdapter adapter = new InvestmentPlatformAdapter(activity, InvestmentPlatformLab.getPlatforms());
             investmentPlatform.setAdapter(adapter);
             investmentPlatform.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -609,7 +610,7 @@ public abstract class WriteAccounts {
 
                 @Override
                 public void onTextChanged(CharSequence text, int i, int i1, int i2) {
-                    InvestmentPlatform platform = InvestmentPlatform.getPlatformByName(text.toString());
+                    InvestmentPlatform platform = InvestmentPlatformLab.getPlatformByName(text.toString());
                     if (platform != null) {
                         investmentPlatformImage.setVisibility(View.VISIBLE);
                         investmentPlatformImage.setImageResource(platform.getImageResource());
@@ -631,7 +632,7 @@ public abstract class WriteAccounts {
         public Account extract(View accountInputs) {
             pre(accountInputs);
             InvestmentAccount account = new InvestmentAccount();
-            account.setPlatform(InvestmentPlatform.getPlatformOrGeneral(mPlatform.getText().toString()));
+            account.setPlatform(InvestmentPlatformLab.getPlatformOrGeneral(mPlatform.getText().toString()));
             return account;
         }
     }
