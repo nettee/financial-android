@@ -33,6 +33,10 @@ public class AccountLab {
 
     private AccountLab() {
         mAccounts = new ArrayList<>();
+//        fillTestAccounts();
+    }
+
+    private void fillTestAccounts() {
         CashAccount cashAccount = new CashAccount();
         cashAccount.setBalance(Amount.integer(976));
         cashAccount.setRemark("钱包A");

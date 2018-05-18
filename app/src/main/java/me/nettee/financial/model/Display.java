@@ -1,5 +1,7 @@
 package me.nettee.financial.model;
 
+import android.support.annotation.NonNull;
+
 import org.apache.commons.lang3.StringUtils;
 
 import me.nettee.financial.R;
@@ -77,7 +79,7 @@ public abstract class Display {
 
         private CandidateAccountDisplay(Account account) {
             setIcon(Display.getAccountCandidateImageResource(account));
-            setName(Display.getAccountCandidateName(account));
+            setName(getAccountCandidateName(account.getType()));
         }
     }
 
@@ -97,8 +99,9 @@ public abstract class Display {
         }
     }
 
-    private static String getAccountCandidateName(Account account) {
-        switch (account.getType()) {
+    @NonNull
+    private static String getAccountCandidateName(Account.AccountType accountType) {
+        switch (accountType) {
             case CASH: return "现金钱包";
             case CREDIT_CARD: return "信用卡";
             case DEBIT_CARD: return "借记卡";
@@ -129,7 +132,7 @@ public abstract class Display {
         } else if (account instanceof InvestmentAccount) {
             return ((InvestmentAccount) account).getPlatform().getName();
         } else {
-            return getAccountCandidateName(account);
+            return getAccountCandidateName(account.getType());
         }
     }
 

@@ -16,6 +16,15 @@
     <string name="title_edit_account">编辑账户</string>
     <string name="title_new_investment_project">添加投资项目</string>
 
+    <string name="candidate_account_name_cash">现金钱包</string>
+    <string name="candidate_account_name_credit_card">信用卡</string>
+    <string name="candidate_account_name_debit_card">借记卡</string>
+    <string name="candidate_account_name_alipay">支付宝</string>
+    <string name="candidate_account_name_weixin">微信钱包</string>
+    <string name="candidate_account_name_campus_card">校园卡</string>
+    <string name="candidate_account_name_bus_card">公交卡</string>
+    <string name="candidate_account_name_investment">投资账户</string>
+
     <string name="account_name_cash">现金钱包</string>
     <string name="account_name_credit_card">信用卡</string>
     <string name="account_name_debit_card">借记卡</string>
@@ -23,6 +32,7 @@
     <string name="account_name_weixin">微信钱包</string>
     <string name="account_name_campus_card">校园卡</string>
     <string name="account_name_bus_card">公交卡</string>
+    <string name="account_name_investment">投资账户</string>
 
     <string name="caption_account_balance">账户余额</string>
     <string name="caption_account_total">账户总额</string>
