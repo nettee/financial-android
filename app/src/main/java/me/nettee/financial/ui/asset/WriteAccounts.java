@@ -332,8 +332,8 @@ public abstract class WriteAccounts {
             mRemark.setText(creditCardAccount.getRemark());
             mBankCardNumber.setText(creditCardAccount.getBankCardNumber());
             mCreditLimit.setText(creditCardAccount.getCreditLimit().toString());
-            mBillDate.setSelection(creditCardAccount.getBillDate().toPosition());
-            mPaymentDate.setSelection(creditCardAccount.getPaymentDate().toPosition());
+            mBillDate.setSelection(creditCardAccount.getBillDate().getDay() - 1);
+            mPaymentDate.setSelection(creditCardAccount.getPaymentDate().getDay() - 1);
             mCurrentArrears.setText(creditCardAccount.getArrears().abs().toString());
         }
     }

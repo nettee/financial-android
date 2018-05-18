@@ -1,30 +1,29 @@
 package me.nettee.financial.model;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 public class Bank {
 
-    public static final int ICBC = 1;
+    public enum BankType {
+        ICBC,
+    }
 
-    private final int mType;
-    private final String mName;
+    private final BankType type;
+    private final String name;
 
-    private Bank(int type, String name) {
-        mType = type;
-        mName = name;
+    private Bank(BankType type, String name) {
+        this.type = type;
+        this.name = name;
     }
 
     public static Bank icbc() {
-        return new Bank(ICBC, "工商银行");
+        return new Bank(BankType.ICBC, "工商银行");
     }
 
-    public int getType() {
-        return mType;
+    public BankType getType() {
+        return type;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
 }
