@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.asset.Asset;
-import me.nettee.financial.model.investment.InvestmentProjectLab;
 import me.nettee.financial.model.investment.InvestmentPlatform;
 import me.nettee.financial.model.investment.InvestmentProject;
 
@@ -23,7 +22,7 @@ public final class InvestmentAccount extends Account {
 
     @Override
     public Amount getDefaultAmount() {
-        return getAllInvestmentProjectsSum();
+        return Amount.zero();
     }
 
     @Override
@@ -31,18 +30,9 @@ public final class InvestmentAccount extends Account {
         return "账户总额";
     }
 
-    public Amount getAllInvestmentProjectsSum() {
-        List<InvestmentProject> investmentProjects = InvestmentProjectLab.getInstance().getInvestmentProjects(getPlatform().getType());
-        Amount sum = Amount.zero();
-        for (InvestmentProject investmentProject : investmentProjects) {
-            sum = sum.add(investmentProject.getTotalAmount());
-        }
-        return sum;
-    }
-
     @Override
     public Optional<Asset> getAsset() {
-        return Optional.of(new Asset(getAllInvestmentProjectsSum()));
+        return Optional.of(new Asset(Amount.zero()));
     }
 
     public InvestmentPlatform getPlatform() {

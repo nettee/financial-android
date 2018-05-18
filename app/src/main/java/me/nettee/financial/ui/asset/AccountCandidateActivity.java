@@ -44,7 +44,7 @@ public class AccountCandidateActivity extends Activity {
 
         @Override
         protected List<Account> doInBackground(Void... voids) {
-            List<Account> candidates = AccountLab.getInstance(getApplicationContext()).getCandidateAccounts();
+            List<Account> candidates = AccountLab.getInstance().getCandidateAccounts();
             return candidates;
         }
 
@@ -65,9 +65,9 @@ public class AccountCandidateActivity extends Activity {
                 itemView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight));
 
                 itemView.<ImageView>findViewById(R.id.candidate_account_list_item_image)
-                        .setImageResource(Display.of(candidate).candidate().icon());
+                        .setImageResource(Display.ofCandidate(candidate).icon());
                 itemView.<TextView>findViewById(R.id.candidate_account_list_item_name)
-                        .setText(Display.of(candidate).candidate().name());
+                        .setText(Display.ofCandidate(candidate).name());
 
                 candidateListView.addView(itemView);
 

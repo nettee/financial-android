@@ -5,12 +5,15 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.Optional;
+import java.util.UUID;
+
+import javax.annotation.Nonnull;
 
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.asset.Asset;
 import me.nettee.financial.model.asset.Liability;
 
-public abstract class Account implements Serializable {
+public abstract class Account implements Comparable<Account>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,6 +51,7 @@ public abstract class Account implements Serializable {
     private String mRemark;
 
     public Account() {
+        setUuid(UUID.randomUUID().toString());
     }
 
     public static Account fromJson(JSONObject jsonObject) throws JSONException {
@@ -87,6 +91,15 @@ public abstract class Account implements Serializable {
         mRemark = remark;
     }
 
+    public boolean isBankCardAccount() {
+        return getType().equals(AccountType.CREDIT_CARD)
+                || getType().equals(AccountType.DEBIT_CARD);
+    }
+
+    public boolean isInvestmentAccount() {
+        return getType().equals(AccountType.INVESTMENT);
+    }
+
     /**
      * Asset correspond to this account.
      * Sub-classes can override this default implementation.
@@ -107,22 +120,25 @@ public abstract class Account implements Serializable {
         return CandidateAccount.fromJson(jsonObject);
     }
 
+    // Note: for test only
+    public static CandidateAccount candidate(AccountType type) {
+        return new CandidateAccount(type);
+    }
+
     private static final class CandidateAccount extends Account implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
         private AccountType mType;
-        private String mCandidateName;
 
-        private CandidateAccount(AccountType type, String candidateName) {
+        private CandidateAccount(AccountType type) {
             mType = type;
-            mCandidateName = candidateName;
         }
 
         public static CandidateAccount fromJson(JSONObject jsonObject) throws JSONException {
+            // TODO test whether this is correct
             String type = jsonObject.getString("type");
-            String name = jsonObject.getString("name");
-            return new CandidateAccount(AccountType.valueOf(type), name);
+            return new CandidateAccount(AccountType.valueOf(type));
         }
 
         @Override
@@ -141,4 +157,24 @@ public abstract class Account implements Serializable {
         }
     }
 
+    @Override
+    public int compareTo(@Nonnull Account that) {
+        if (this.getType().getPriority() < that.getType().getPriority()) {
+            return -1;
+        } else if (this.getType().getPriority() > that.getType().getPriority()) {
+            return 1;
+        } else {
+            return this.getUuid().compareTo(that.getUuid());
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Account) {
+            Account that = (Account) o;
+            return getUuid().equals(that.getUuid());
+        } else {
+            return false;
+        }
+    }
 }

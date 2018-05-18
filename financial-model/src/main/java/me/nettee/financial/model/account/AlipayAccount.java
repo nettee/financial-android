@@ -31,8 +31,7 @@ public final class AlipayAccount extends MobilePaymentAccount {
             huabeiAccount.setCreditLimit(Amount.valueOf(huabeiObject.getString("creditLimit")));
             huabeiAccount.setBillDate(CreditDate.day(huabeiObject.getInt("billDate")));
             huabeiAccount.setPaymentDate(CreditDate.day(huabeiObject.getInt("paymentDate")));
-            Amount arrears = Amount.valueOf(huabeiObject.getString("arrears"));
-            arrears.setSign(Amount.NEGATIVE);
+            Amount arrears = Amount.valueOf(huabeiObject.getString("arrears")).neg();
             huabeiAccount.setArrears(arrears);
             account.setHuabeiOpen(true);
             account.setHuabeiAccount(huabeiAccount);

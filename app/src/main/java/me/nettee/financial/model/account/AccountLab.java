@@ -1,31 +1,88 @@
 package me.nettee.financial.model.account;
 
-import android.content.Context;
-import android.util.Log;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
-import me.nettee.financial.error.BadJsonDataException;
-import me.nettee.financial.error.BadNetworkException;
-import me.nettee.financial.model.Server;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import me.nettee.financial.model.Amount;
+import me.nettee.financial.model.CreditDate;
+import me.nettee.financial.model.investment.InvestmentPlatformLab;
 
 public class AccountLab {
 
     private static AccountLab sAccountLab;
 
+    private static List<Account> sCandidateAccounts = new ArrayList<Account>() {
+        private static final long serialVersionUID = 1L;
+        {
+            Account.AccountType[] types = {
+                    Account.AccountType.CASH,
+                    Account.AccountType.CREDIT_CARD,
+                    Account.AccountType.DEBIT_CARD,
+                    Account.AccountType.ALIPAY,
+                    Account.AccountType.WEIXIN,
+                    Account.AccountType.CAMPUS_CARD,
+                    Account.AccountType.BUS_CARD,
+                    Account.AccountType.INVESTMENT,
+            };
+            for (Account.AccountType type : types) {
+                add(Account.candidate(type));
+            }
+        }
+    };
+
+    private TreeSet<Account> mAccounts;
+
     private AccountLab() {
+        mAccounts = new TreeSet<>();
+        fillTestAccounts();
     }
 
+    private void fillTestAccounts() {
+        CashAccount cashAccount = new CashAccount();
+        cashAccount.setBalance(Amount.integer(976));
+        cashAccount.setRemark("钱包A");
+        addAccount(cashAccount);
+        CreditCardAccount creditCardAccount = new CreditCardAccount();
+        creditCardAccount.setArrears(Amount.integer(1234).neg());
+        addAccount(creditCardAccount);
+        DebitCardAccount debitCardAccount = new DebitCardAccount();
+        debitCardAccount.setBankCardNumber("669395");
+        debitCardAccount.setBalance(Amount.decimal(6134, 77));
+        addAccount(debitCardAccount);
+        AlipayAccount alipayAccount = new AlipayAccount();
+        alipayAccount.setBalance(Amount.decimal(16431, 91));
+        alipayAccount.setHuabeiOpen(true);
+        HuabeiAccount huabeiAccount = new HuabeiAccount();
+        huabeiAccount.setCreditLimit(Amount.integer(2000));
+        huabeiAccount.setBillDate(CreditDate.day(1));
+        huabeiAccount.setPaymentDate(CreditDate.day(9));
+        huabeiAccount.setArrears(Amount.decimal(-413, 43));
+        alipayAccount.setHuabeiAccount(huabeiAccount);
+        addAccount(alipayAccount);
+        WeixinAccount weixinAccount = new WeixinAccount();
+        weixinAccount.setBalance(Amount.decimal(92, 60));
+        addAccount(weixinAccount);
+        CampusCardAccount campusCardAccount = new CampusCardAccount();
+        campusCardAccount.setBalance(Amount.decimal(49, 20));
+        addAccount(campusCardAccount);
+        BusCardAccount busCardAccount = new BusCardAccount();
+        busCardAccount.setBalance(Amount.decimal(67, 3));
+        addAccount(busCardAccount);
+        InvestmentAccount investmentAccount1 = new InvestmentAccount();
+        investmentAccount1.setPlatform(InvestmentPlatformLab.getPlatformByName("蚂蚁财富"));
+        addAccount(investmentAccount1);
+        InvestmentAccount investmentAccount2 = new InvestmentAccount();
+        investmentAccount2.setPlatform(InvestmentPlatformLab.getPlatformByName("陆金所"));
+        addAccount(investmentAccount2);
+        InvestmentAccount investmentAccount3 = new InvestmentAccount();
+        investmentAccount3.setPlatform(InvestmentPlatformLab.getPlatformByName("天天基金"));
+        addAccount(investmentAccount3);
+    }
+
+    // Singleton pattern
     public static AccountLab getInstance() {
         if (sAccountLab == null) {
             sAccountLab = new AccountLab();
@@ -33,152 +90,24 @@ public class AccountLab {
         return sAccountLab;
     }
 
-    @Deprecated
-    public static AccountLab getInstance(Context context) {
-        return getInstance();
+    public void addAccount(Account account) {
+        mAccounts.add(account);
     }
 
-    public void addAccount(Account account) {
-        try {
-            JSONObject jsonData = account.toJson();
-
-            OkHttpClient client = Server.getOkHttpClient();
-
-            RequestBody body = RequestBody.create(Server.JSON, jsonData.toString());
-            Request request = new Request.Builder()
-                    .url(Server.accounts)
-                    .post(body)
-                    .build();
-            Response response = client.newCall(request).execute();
-
-            if (!response.isSuccessful()) {
-                throw new AssertionError(response.code());
-            }
-
-        } catch (JSONException e) {
-            Log.e("TAG", e.getMessage());
-            throw new BadJsonDataException(e);
-        } catch (IOException e) {
-            throw new BadNetworkException(e);
-        }
+    public void modifyAccount(Account oldAccount, Account newAccount) {
+        mAccounts.remove(oldAccount);
+        addAccount(newAccount);
     }
 
     public void deleteAccount(Account account) {
-//        String uuid = account.getUuid();
-//        if (uuid == null) {
-//            throw new AssertionError();
-//        }
-//
-//        try {
-//            OkHttpClient client = Server.getOkHttpClient();
-//
-//            Request request = new Request.Builder()
-//                    .url(Server.account(uuid))
-//                    .delete()
-//                    .build();
-//            Response response = client.newCall(request).execute();
-//
-//            if (!response.isSuccessful()) {
-//                throw new AssertionError(response.code());
-//            }
-//        } catch (IOException e) {
-//            throw new BadNetworkException(e);
-//        }
+        mAccounts.remove(account);
     }
 
-    public List<Account> getAccounts() {
-        //        WeixinAccount weixinAccount = new WeixinAccount();
-//        weixinAccount.setBalance(Amount.decimal(92, 60));
-//        accounts.add(weixinAccount);
-//        CampusCardAccount campusCardAccount = new CampusCardAccount();
-//        campusCardAccount.setBalance(Amount.decimal(49, 20));
-//        accounts.add(campusCardAccount);
-//        BusCardAccount busCardAccount = new BusCardAccount();
-//        busCardAccount.setBalance(Amount.decimal(67, 3));
-//        accounts.add(busCardAccount);
-//        InvestmentAccount investmentAccount1 = new InvestmentAccount();
-//        investmentAccount1.setPlatform(InvestmentPlatform.getPlatformByName("蚂蚁财富"));
-//        accounts.add(investmentAccount1);
-//        InvestmentAccount investmentAccount2 = new InvestmentAccount();
-//        investmentAccount2.setPlatform(InvestmentPlatform.getPlatformByName("陆金所"));
-//        accounts.add(investmentAccount2);
-//        InvestmentAccount investmentAccount3 = new InvestmentAccount();
-//        investmentAccount3.setPlatform(InvestmentPlatform.getPlatformByName("天天基金"));
-//        accounts.add(investmentAccount3);
-//        return accounts;
-
-        String jsonData = "[{\"bankCardNumber\": \"669395\", \"type\": \"DEBIT_CARD\", \"balance\": \"6134.77\", \"remark\": \"\", \"uuid\": \"8ce0c4de-5106-11e8-9f40-68071509b9bf\"}, {\"paymentDate\": 10, \"remark\": \"\", \"uuid\": \"8ce0c4dd-5106-11e8-9f40-68071509b9bf\", \"bankCardNumber\": \"4237\", \"creditLimit\": \"2000\", \"type\": \"CREDIT_CARD\", \"arrears\": \"1234\", \"billDate\": 1}, {\"type\": \"CASH\", \"balance\": \"976.00\", \"remark\": \"\\u94b1\\u5305A\", \"uuid\": \"8ce0c4dc-5106-11e8-9f40-68071509b9bf\"}, {\"type\": \"ALIPAY\", \"yuebao\": null, \"remark\": \"\", \"uuid\": \"8ce0c4e0-5106-11e8-9f40-68071509b9bf\", \"balance\": \"16431.91\", \"huabei\": {\"creditLimit\": \"2000\", \"type\": \"HUABEI\", \"paymentDate\": 9, \"billDate\": 1, \"arrears\": \"413.43\"}}]";
-
-        List<Account> accounts = new ArrayList<>();
-
-//        OkHttpClient client = Server.getOkHttpClient();
-//
-//        Request request = new Request.Builder()
-//                .url(Server.accounts)
-//                .build();
-
-        try {
-//            Response response = client.newCall(request).execute();
-//
-//            if (!response.isSuccessful()) {
-//                throw new AssertionError(response.code());
-//            }
-//
-//            String jsonData = response.body().string();
-            JSONArray jsonArray = new JSONArray(jsonData);
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                accounts.add(Account.fromJson(jsonObject));
-            }
-
-            return accounts;
-
-//        } catch (IOException e) {
-//            throw new BadNetworkException(e);
-        } catch (JSONException e) {
-            throw new BadJsonDataException(e);
-        }
+    public Collection<Account> getAccounts() {
+        return mAccounts;
     }
 
     public List<Account> getCandidateAccounts() {
-        return fetchCandidateAccounts();
-    }
-
-    private List<Account> fetchCandidateAccounts() {
-
-        String jsonData = "[{\"type\": \"CASH\", \"name\": \"\u73b0\u91d1\u94b1\u5305\"}, {\"type\": \"CREDIT_CARD\", \"name\": \"\u4fe1\u7528\u5361\"}, {\"type\": \"DEBIT_CARD\", \"name\": \"\u501f\u8bb0\u5361\"}, {\"type\": \"ALIPAY\", \"name\": \"\u652f\u4ed8\u5b9d\"}, {\"type\": \"WEIXIN\", \"name\": \"\u5fae\u4fe1\u94b1\u5305\"}, {\"type\": \"CAMPUS_CARD\", \"name\": \"\u6821\u56ed\u5361\"}, {\"type\": \"BUS_CARD\", \"name\": \"\u516c\u4ea4\u5361\"}, {\"type\": \"INVESTMENT\", \"name\": \"\u6295\u8d44\u8d26\u6237\"}]";
-
-        List<Account> candidateAccounts = new ArrayList<>();
-//
-//        OkHttpClient client = Server.getOkHttpClient();
-//
-//        Request request = new Request.Builder()
-//                .url(Server.candidate_accounts)
-//                .build();
-
-        try {
-//            Response response = client.newCall(request).execute();
-//
-//            if (!response.isSuccessful()) {
-//                throw new AssertionError(response.code());
-//            }
-//
-//            String jsonData = response.body().string();
-            JSONArray jsonArray = new JSONArray(jsonData);
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                candidateAccounts.add(Account.candidate(jsonObject));
-            }
-
-            return candidateAccounts;
-
-//        } catch (IOException e) {
-//            throw new BadNetworkException(e);
-        } catch (JSONException e) {
-            throw new BadJsonDataException(e);
-        }
-
+        return sCandidateAccounts;
     }
 }

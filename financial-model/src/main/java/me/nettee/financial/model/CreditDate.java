@@ -1,24 +1,31 @@
 package me.nettee.financial.model;
 
+import com.google.common.base.Preconditions;
+
 import java.io.Serializable;
 
 public class CreditDate implements Serializable {
 
-    int dateCount;
+    private final int day;
+
+    private CreditDate(int day) {
+        Preconditions.checkArgument(day >= 1 && day <= 28);
+        this.day = day;
+    }
 
     public static CreditDate first() {
-        CreditDate creditDate = new CreditDate();
-        creditDate.dateCount = 1;
-        return creditDate;
+        return day(1);
     }
 
     public static CreditDate day(int day) {
-        CreditDate creditDate = new CreditDate();
-        creditDate.dateCount = day;
-        return creditDate;
+        if (day < 1 || day > 28) {
+            throw new IllegalArgumentException();
+        }
+        return new CreditDate(day);
     }
 
-    public int toPosition() {
-        return dateCount - 1;
+    public int getDay() {
+        return day;
     }
+
 }

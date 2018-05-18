@@ -54,9 +54,7 @@ public class EditAccountActivity extends Activity {
                 return;
             }
 
-            AccountLab accountLab = AccountLab.getInstance(getApplicationContext());
-            accountLab.deleteAccount(mOldAccount);
-            accountLab.addAccount(newAccount);
+            AccountLab.getInstance().modifyAccount(mOldAccount, newAccount);
 
             Intent intent = new Intent();
             intent.putExtra(AccountDetailActivity.EXTRA_EDITED_ACCOUNT_OBJECT, newAccount);

@@ -40,6 +40,7 @@ import me.nettee.financial.model.account.DebitCardAccount;
 import me.nettee.financial.model.account.InvestmentAccount;
 import me.nettee.financial.model.account.WeixinAccount;
 import me.nettee.financial.model.investment.InvestmentPlatform;
+import me.nettee.financial.model.investment.InvestmentPlatformLab;
 
 import static android.view.View.GONE;
 
@@ -120,9 +121,9 @@ public abstract class WriteAccounts {
         View titleBar = stub.inflate();
 
         titleBar.<ImageView>findViewById(R.id.account_name_image)
-                .setImageResource(Display.of(account).candidate().icon());
+                .setImageResource(Display.ofCandidate(account).icon());
         titleBar.<TextView>findViewById(R.id.account_name_text)
-                .setText(Display.of(account).candidate().name());
+                .setText(Display.ofCandidate(account).name());
     }
 
     private static View constructInputs(Activity activity, Account account) {
@@ -316,9 +317,7 @@ public abstract class WriteAccounts {
             account.setCreditLimit(Amount.valueOf(mCreditLimit.getText().toString()));
             account.setBillDate(CreditDate.day(mBillDate.getSelectedItemPosition() + 1));
             account.setPaymentDate(CreditDate.day(mPaymentDate.getSelectedItemPosition() + 1));
-            Amount arrears = Amount.valueOf(mCurrentArrears.getText().toString());
-            arrears.setSign(Amount.NEGATIVE);
-            account.setArrears(arrears);
+            account.setArrears(Amount.valueOf(mCurrentArrears.getText().toString()).neg());
             return account;
         }
 
@@ -333,8 +332,8 @@ public abstract class WriteAccounts {
             mRemark.setText(creditCardAccount.getRemark());
             mBankCardNumber.setText(creditCardAccount.getBankCardNumber());
             mCreditLimit.setText(creditCardAccount.getCreditLimit().toString());
-            mBillDate.setSelection(creditCardAccount.getBillDate().toPosition());
-            mPaymentDate.setSelection(creditCardAccount.getPaymentDate().toPosition());
+            mBillDate.setSelection(creditCardAccount.getBillDate().getDay() - 1);
+            mPaymentDate.setSelection(creditCardAccount.getPaymentDate().getDay() - 1);
             mCurrentArrears.setText(creditCardAccount.getArrears().abs().toString());
         }
     }
@@ -599,7 +598,7 @@ public abstract class WriteAccounts {
                     .findViewById(R.id.input_bar_investment_platform_content);
             ImageView investmentPlatformImage = inputs.findViewById(R.id.account_investment_platform)
                     .findViewById(R.id.input_bar_investment_platform_image);
-            InvestmentPlatformAdapter adapter = new InvestmentPlatformAdapter(activity, InvestmentPlatform.getPlatforms());
+            InvestmentPlatformAdapter adapter = new InvestmentPlatformAdapter(activity, InvestmentPlatformLab.getPlatforms());
             investmentPlatform.setAdapter(adapter);
             investmentPlatform.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -609,7 +608,7 @@ public abstract class WriteAccounts {
 
                 @Override
                 public void onTextChanged(CharSequence text, int i, int i1, int i2) {
-                    InvestmentPlatform platform = InvestmentPlatform.getPlatformByName(text.toString());
+                    InvestmentPlatform platform = InvestmentPlatformLab.getPlatformByName(text.toString());
                     if (platform != null) {
                         investmentPlatformImage.setVisibility(View.VISIBLE);
                         investmentPlatformImage.setImageResource(platform.getImageResource());
@@ -631,7 +630,7 @@ public abstract class WriteAccounts {
         public Account extract(View accountInputs) {
             pre(accountInputs);
             InvestmentAccount account = new InvestmentAccount();
-            account.setPlatform(InvestmentPlatform.getPlatformOrGeneral(mPlatform.getText().toString()));
+            account.setPlatform(InvestmentPlatformLab.getPlatformOrGeneral(mPlatform.getText().toString()));
             return account;
         }
     }

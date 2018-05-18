@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import me.nettee.financial.R;
-import me.nettee.financial.ui.asset.PropertyFragment;
+import me.nettee.financial.ui.asset.AssetFragment;
 
 public class MainActivity extends Activity {
 
@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
 
     private void initFragments() {
 
-        mCurrentFragment = new PropertyFragment();
+        mCurrentFragment = new AssetFragment();
         mFragmentMap.put(R.id.menu_asset, mCurrentFragment);
         mFragmentMap.put(R.id.menu_bill, new BillFragment());
         mFragmentMap.put(R.id.menu_statement, new StatementFragment());

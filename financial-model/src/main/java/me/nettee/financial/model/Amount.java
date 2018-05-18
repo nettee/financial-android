@@ -1,28 +1,27 @@
 package me.nettee.financial.model;
 
+import com.google.common.base.Preconditions;
+
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.Locale;
 
-public class Amount implements Serializable {
+public class Amount implements Comparable<Amount>, Serializable {
 
-    public static final int POSITIVE = 0;
-    public static final int NEGATIVE = 1;
-
-    int sign;
-    int yuan;
-    int cent;
+    private final boolean positive;
+    private final int yuan;
+    private final int cent;
 
     private Amount() {
-        this(POSITIVE, 0, 0);
+        this(true, 0, 0);
     }
 
-    private Amount(int yuan, int cent) {
-        this(POSITIVE, yuan, cent);
-    }
-
-    private Amount(int sign, int yuan, int cent) {
-        this.sign = sign;
+    private Amount(boolean positive, int yuan, int cent) {
+        Preconditions.checkArgument(yuan >= 0);
+        Preconditions.checkArgument(!(yuan == 0 && !positive));
+        Preconditions.checkArgument(cent >= 0 && cent < 100);
+        this.positive = positive;
         this.yuan = yuan;
         this.cent = cent;
     }
@@ -36,19 +35,18 @@ public class Amount implements Serializable {
     }
 
     public static Amount decimal(int yuan, int cent) {
-        Amount amount = new Amount();
-        amount.sign = yuan >= 0 ? POSITIVE : NEGATIVE;
-        amount.yuan = Math.abs(yuan);
-        amount.cent = cent;
-        return amount;
+        return new Amount(yuan >= 0, Math.abs(yuan), cent);
     }
 
     private static Amount fromCents(int cents) {
-        int sign = cents >= 0 ? POSITIVE : NEGATIVE;
+        boolean positive = cents >= 0;
         cents = Math.abs(cents);
-        int yuan = cents / 100;
-        int cent = cents % 100;
-        return new Amount(sign, yuan, cent);
+        return new Amount(positive, cents / 100, cents % 100);
+    }
+
+    private int toCents() {
+        int c = yuan * 100 + cent;
+        return positive ? c : -c;
     }
 
     public static Amount valueOf(String s) {
@@ -71,62 +69,51 @@ public class Amount implements Serializable {
     }
 
     public Amount abs() {
-        return new Amount(POSITIVE, this.yuan, this.cent);
+        return new Amount(true, this.yuan, this.cent);
     }
 
     public Amount neg() {
-        int sign = this.sign == POSITIVE ? NEGATIVE : POSITIVE;
-        return new Amount(sign, this.yuan, this.cent);
+        return new Amount(!this.positive, this.yuan, this.cent);
     }
 
     public Amount add(Amount that) {
         int c1 = this.toCents();
         int c2 = that.toCents();
-        int c = c1 + c2;
-        return Amount.fromCents(c);
+        return Amount.fromCents(c1 + c2);
     }
 
     public Amount sub(Amount that) {
         int c1 = this.toCents();
         int c2 = that.toCents();
-        int c = c1 - c2;
-        return Amount.fromCents(c);
-    }
-
-    public Amount subUnsigned(Amount that) {
-        int c1 = this.toCents();
-        int c2 = that.toCents();
-        int c = Math.abs(c1) - Math.abs(c2);
-        return Amount.fromCents(c);
-    }
-
-    private int toCents() {
-        int c = yuan * 100 + cent;
-        if (isNegative()) {
-            c = -c;
-        }
-        return c;
+        return Amount.fromCents(c1 - c2);
     }
 
     public boolean isPositive() {
-        return sign == POSITIVE;
+        return positive;
     }
 
     public boolean isNegative() {
-        return sign == NEGATIVE;
-    }
-
-    public int getSign() {
-        return sign;
-    }
-
-    public void setSign(int sign) {
-        this.sign = sign;
+        return !positive;
     }
 
     private String format(boolean withYuan) {
         String a = new DecimalFormat(",###").format(yuan);
-        return String.format("%s%s%s.%02d", isNegative() ? "-" : "", withYuan ? "¥" : "", a, cent);
+        return String.format(Locale.CHINA, "%s%s%s.%02d", isNegative() ? "-" : "", withYuan ? "¥" : "", a, cent);
+    }
+
+    @Override
+    public int compareTo(Amount that) {
+        return this.toCents() - that.toCents();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Amount) {
+            Amount that = (Amount) o;
+            return this.compareTo(that) == 0;
+        } else {
+            return false;
+        }
     }
 
     @Override

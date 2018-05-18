@@ -17,10 +17,6 @@ public class Percent {
         return new Percent(0.0);
     }
 
-    public static Percent integer(int i) {
-        return new Percent((double) i);
-    }
-
     public static Percent valueOf(double d) {
         return new Percent(d);
     }

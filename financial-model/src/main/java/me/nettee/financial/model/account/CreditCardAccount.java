@@ -26,8 +26,7 @@ public final class CreditCardAccount extends BankCardAccount {
         account.setCreditLimit(Amount.valueOf(jsonObject.getString("creditLimit")));
         account.setBillDate(CreditDate.day(jsonObject.getInt("billDate")));
         account.setPaymentDate(CreditDate.day(jsonObject.getInt("paymentDate")));
-        Amount arrears = Amount.valueOf(jsonObject.getString("arrears"));
-        arrears.setSign(Amount.NEGATIVE);
+        Amount arrears = Amount.valueOf(jsonObject.getString("arrears")).neg();
         account.setArrears(arrears);
         return account;
     }
