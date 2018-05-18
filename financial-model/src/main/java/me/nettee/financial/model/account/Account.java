@@ -5,12 +5,15 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.Optional;
+import java.util.UUID;
+
+import javax.annotation.Nonnull;
 
 import me.nettee.financial.model.Amount;
 import me.nettee.financial.model.asset.Asset;
 import me.nettee.financial.model.asset.Liability;
 
-public abstract class Account implements Serializable {
+public abstract class Account implements Comparable<Account>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,6 +51,7 @@ public abstract class Account implements Serializable {
     private String mRemark;
 
     public Account() {
+        setUuid(UUID.randomUUID().toString());
     }
 
     public static Account fromJson(JSONObject jsonObject) throws JSONException {
@@ -146,4 +150,24 @@ public abstract class Account implements Serializable {
         }
     }
 
+    @Override
+    public int compareTo(@Nonnull Account that) {
+        if (this.getType().getPriority() < that.getType().getPriority()) {
+            return -1;
+        } else if (this.getType().getPriority() > that.getType().getPriority()) {
+            return 1;
+        } else {
+            return this.getUuid().compareTo(that.getUuid());
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Account) {
+            Account that = (Account) o;
+            return getUuid().equals(that.getUuid());
+        } else {
+            return false;
+        }
+    }
 }

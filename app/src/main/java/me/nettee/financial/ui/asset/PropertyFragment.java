@@ -18,6 +18,7 @@ import android.widget.Toast;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -95,12 +96,12 @@ public class PropertyFragment extends Fragment {
         new DownloadAccountsTask().execute();
     }
 
-    private class DownloadAccountsTask extends AsyncTask<Void, Void, Pair<List<Account>, Throwable>> {
+    private class DownloadAccountsTask extends AsyncTask<Void, Void, Pair<Collection<Account>, Throwable>> {
 
         @Override
-        protected Pair<List<Account>, Throwable> doInBackground(Void... voids) {
+        protected Pair<Collection<Account>, Throwable> doInBackground(Void... voids) {
             try {
-                List<Account> accounts = AccountLab.getInstance().getAccounts();
+                Collection<Account> accounts = AccountLab.getInstance().getAccounts();
                 return new Pair<>(accounts, null);
             } catch (BadNetworkException e) {
                 return new Pair<>(null, e);
@@ -108,7 +109,7 @@ public class PropertyFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(Pair<List<Account>, Throwable> result) {
+        protected void onPostExecute(Pair<Collection<Account>, Throwable> result) {
 
             Throwable e = result.second;
             if (e != null) {
@@ -118,7 +119,7 @@ public class PropertyFragment extends Fragment {
                 return;
             }
 
-            List<Account> accounts = result.first;
+            Collection<Account> accounts = result.first;
 
             updateAccounts(accounts, LayoutInflater.from(getActivity()));
 
@@ -165,7 +166,7 @@ public class PropertyFragment extends Fragment {
         }
     }
 
-    private void updateAccounts(List<Account> accounts, LayoutInflater inflater) {
+    private void updateAccounts(Collection<Account> accounts, LayoutInflater inflater) {
 
         mAccountList.removeAllViews();
         mAccountAmounts.clear();
