@@ -61,6 +61,10 @@
     <string name="caption_monthly_inflow">月流入</string>
     <string name="caption_monthly_outflow">月流出</string>
 
+    <string name="caption_book_entry_type_income">流入</string>
+    <string name="caption_book_entry_type_outcome">流出</string>
+    <string name="caption_book_entry_type_transfer">内部转帐</string>
+
     <string name="button_edit">编辑</string>
     <string name="button_save">保存</string>
     <string name="button_delete">删除</string>

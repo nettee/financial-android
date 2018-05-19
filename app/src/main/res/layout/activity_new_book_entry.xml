@@ -7,4 +7,33 @@
 
     <include layout="@layout/toolbar_new_book_entry"/>
 
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout_book_entry_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/caption_book_entry_type_income"
+            />
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/caption_book_entry_type_outcome"
+            />
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/caption_book_entry_type_transfer"
+            />
+    </android.support.design.widget.TabLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+    </FrameLayout>
+
 </LinearLayout>
