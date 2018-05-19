@@ -31,6 +31,8 @@
         </activity>
         <activity android:name=".ui.asset.NewInvestmentProjectActivity">
         </activity>
+        <activity android:name=".ui.bill.NewBookEntryActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -1,49 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorLightGray"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/title_bill"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            />
-    </Toolbar>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        >
-
-        <LinearLayout
+        <Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:background="@color/colorLightGray"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/title_bill"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                />
+        </Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
             >
 
-            <include layout="@layout/card_cash_flow"
-                     android:id="@+id/cash_flow_card"
-                />
-
             <LinearLayout
-                style="@style/InputLines"
-                android:id="@+id/bill_list_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                />
+                >
 
-        </LinearLayout>
+                <include layout="@layout/card_cash_flow"
+                         android:id="@+id/cash_flow_card"
+                    />
 
-    </ScrollView>
+                <LinearLayout
+                    style="@style/InputLines"
+                    android:id="@+id/bill_list_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    />
 
-</LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_new_book_entry"
+        android:src="@drawable/ic_action_add_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        app:fabSize="normal"
+        app:backgroundTint="@android:color/holo_red_light"
+        />
+
+</android.support.design.widget.CoordinatorLayout>

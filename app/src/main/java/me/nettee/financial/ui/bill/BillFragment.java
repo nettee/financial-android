@@ -1,7 +1,9 @@
 package me.nettee.financial.ui.bill;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,12 @@ public class BillFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        FloatingActionButton newBookEntryButton = view.findViewById(R.id.button_new_book_entry);
+        newBookEntryButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), NewBookEntryActivity.class);
+            startActivity(intent);
+        });
 
         mBillListList = view.findViewById(R.id.bill_list_list);
 
