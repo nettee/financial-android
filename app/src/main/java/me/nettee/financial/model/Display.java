@@ -21,6 +21,8 @@ public abstract class Display {
             return new AccountDisplay(((Account) object));
         } else if (object instanceof InvestmentPlatform) {
             return new InvestmentPlatformDisplay((InvestmentPlatform) object);
+        } else if (object instanceof Bank) {
+            return new BankDisplay((Bank) object);
         } else {
             throw new IllegalArgumentException();
         }
@@ -99,6 +101,22 @@ public abstract class Display {
         }
     }
 
+    private static class BankDisplay extends Display {
+
+        private BankDisplay(Bank bank) {
+            setIcon(bankIcon(bank));
+            setName(bankName(bank));
+        }
+
+        private static int bankIcon(Bank bank) {
+            return R.drawable.ic_bank_icbc;
+        }
+
+        private static String bankName(Bank bank) {
+            return bank.getName();
+        }
+    }
+
     private static class CandidateAccountDisplay extends Display {
 
         private CandidateAccountDisplay(Account account) {
@@ -150,7 +168,8 @@ public abstract class Display {
 
     private static int accountIcon(Account account) {
         if (account.isBankCardAccount()) {
-            return R.drawable.ic_bank_card;
+            Bank bank = ((BankCardAccount) account).getBank();
+            return Display.of(bank).icon();
         } else if (account.isInvestmentAccount()) {
             InvestmentPlatform platform = ((InvestmentAccount) account).getPlatform();
             return Display.of(platform).icon();
@@ -161,7 +180,8 @@ public abstract class Display {
 
     private static String accountName(Account account) {
         if (account.isBankCardAccount()) {
-            return ((BankCardAccount) account).getBank().getName();
+            Bank bank = ((BankCardAccount) account).getBank();
+            return Display.of(bank).name();
         } else if (account.isInvestmentAccount()) {
             InvestmentPlatform platform = ((InvestmentAccount) account).getPlatform();
             return Display.of(platform).name();
