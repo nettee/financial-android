@@ -71,15 +71,15 @@ public class AccountLab {
         BusCardAccount busCardAccount = new BusCardAccount();
         busCardAccount.setBalance(Amount.decimal(67, 3));
         addAccount(busCardAccount);
-        InvestmentAccount investmentAccount1 = new InvestmentAccount();
-        investmentAccount1.setPlatform(InvestmentPlatformLab.getPlatformByName("蚂蚁财富"));
-        addAccount(investmentAccount1);
-        InvestmentAccount investmentAccount2 = new InvestmentAccount();
-        investmentAccount2.setPlatform(InvestmentPlatformLab.getPlatformByName("陆金所"));
-        addAccount(investmentAccount2);
-        InvestmentAccount investmentAccount3 = new InvestmentAccount();
-        investmentAccount3.setPlatform(InvestmentPlatformLab.getPlatformByName("天天基金"));
-        addAccount(investmentAccount3);
+//        InvestmentAccount investmentAccount1 = new InvestmentAccount();
+//        investmentAccount1.setPlatform(InvestmentPlatformLab.getPlatformByName("蚂蚁财富"));
+//        addAccount(investmentAccount1);
+//        InvestmentAccount investmentAccount2 = new InvestmentAccount();
+//        investmentAccount2.setPlatform(InvestmentPlatformLab.getPlatformByName("陆金所"));
+//        addAccount(investmentAccount2);
+//        InvestmentAccount investmentAccount3 = new InvestmentAccount();
+//        investmentAccount3.setPlatform(InvestmentPlatformLab.getPlatformByName("天天基金"));
+//        addAccount(investmentAccount3);
     }
 
     // Singleton pattern

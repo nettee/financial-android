@@ -611,7 +611,7 @@ public abstract class WriteAccounts {
                     InvestmentPlatform platform = InvestmentPlatformLab.getPlatformByName(text.toString());
                     if (platform != null) {
                         investmentPlatformImage.setVisibility(View.VISIBLE);
-                        investmentPlatformImage.setImageResource(platform.getImageResource());
+                        investmentPlatformImage.setImageResource(Display.of(platform).icon());
                     } else {
                         investmentPlatformImage.setVisibility(GONE);
                     }
@@ -666,9 +666,9 @@ public abstract class WriteAccounts {
             }
 
             convertView.<ImageView>findViewById(R.id.investment_platform_image)
-                    .setImageResource(platform.getImageResource());
+                    .setImageResource(Display.of(platform).icon());
             convertView.<TextView>findViewById(R.id.investment_platform_text)
-                    .setText(platform.getName());
+                    .setText(Display.of(platform).name());
 
             return convertView;
         }

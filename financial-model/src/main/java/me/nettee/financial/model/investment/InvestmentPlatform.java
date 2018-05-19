@@ -1,36 +1,53 @@
 package me.nettee.financial.model.investment;
 
+import com.google.common.base.Preconditions;
+
 import java.io.Serializable;
 
 public class InvestmentPlatform implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public static final int GENERAL = 0;
-    public static final int ANT_FORTUNE = 1;
-    public static final int LUFAX = 2;
-    public static final int TIANTIAN_FUND = 3;
-
-    private final int mType;
-    private final String mName;
-    private final int mImageResource;
-
-    InvestmentPlatform(int type, String name, int imageResource) {
-        mType = type;
-        mName = name;
-        mImageResource = imageResource;
+    public enum Type {
+        ANT_FORTUNE,
+        LUFAX,
+        TIANTIAN_FUND,
+        GENERAL,
     }
 
-    public int getType() {
+    private final Type mType;
+    private final String mName;
+
+    private InvestmentPlatform(Type type, String name) {
+        mType = type;
+        mName = name;
+    }
+
+    static InvestmentPlatform predefined(Type type) {
+        Preconditions.checkArgument(!type.equals(Type.GENERAL));
+        String name = getPredefinedName(type);
+        return new InvestmentPlatform(type, name);
+    }
+
+    static InvestmentPlatform general(String name) {
+        return new InvestmentPlatform(Type.GENERAL, name);
+    }
+
+    private static String getPredefinedName(Type type) {
+        switch (type) {
+            case ANT_FORTUNE: return "蚂蚁财富";
+            case LUFAX: return "陆金所";
+            case TIANTIAN_FUND: return "天天基金";
+            default: throw new IllegalArgumentException();
+        }
+    }
+
+    public Type getType() {
         return mType;
     }
 
     public String getName() {
         return mName;
-    }
-
-    public int getImageResource() {
-        return mImageResource;
     }
 
     @Override

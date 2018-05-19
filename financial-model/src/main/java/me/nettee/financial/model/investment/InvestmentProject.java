@@ -15,7 +15,7 @@ public abstract class InvestmentProject implements Serializable {
         ;
     }
 
-    private int mInvestmentPlatformType;
+    private InvestmentPlatform.Type mInvestmentPlatformType;
 
     public abstract InvestmentProjectType getType();
 
@@ -27,11 +27,11 @@ public abstract class InvestmentProject implements Serializable {
         return getPrinciple();
     }
 
-    public final int getInvestmentPlatformType() {
+    public final InvestmentPlatform.Type getInvestmentPlatformType() {
         return mInvestmentPlatformType;
     }
 
-    public final void setInvestmentPlatformType(int investmentPlatformType) {
+    public final void setInvestmentPlatformType(InvestmentPlatform.Type investmentPlatformType) {
         mInvestmentPlatformType = investmentPlatformType;
     }
 

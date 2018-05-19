@@ -35,14 +35,14 @@ public class InvestmentProjectLab {
     private InvestmentProjectLab() {
         mInvestmentProjects = new ArrayList<>();
         MonetaryFundInvestmentProject monetaryFundInvestmentProject1 = new MonetaryFundInvestmentProject();
-        monetaryFundInvestmentProject1.setInvestmentPlatformType(InvestmentPlatform.ANT_FORTUNE);
+        monetaryFundInvestmentProject1.setInvestmentPlatformType(InvestmentPlatform.Type.ANT_FORTUNE);
         monetaryFundInvestmentProject1.setName("超值基金");
         monetaryFundInvestmentProject1.setPrinciple(Amount.integer(10000));
         monetaryFundInvestmentProject1.setAnnualYield(Percent.valueOf(4.5521));
         monetaryFundInvestmentProject1.setBuyDate(new LocalDate("2018-02-01"));
         mInvestmentProjects.add(monetaryFundInvestmentProject1);
         MonetaryFundInvestmentProject ljb = new MonetaryFundInvestmentProject();
-        ljb.setInvestmentPlatformType(InvestmentPlatform.LUFAX);
+        ljb.setInvestmentPlatformType(InvestmentPlatform.Type.LUFAX);
         ljb.setName("陆金宝T+1");
         ljb.setPrinciple(Amount.integer(1000));
         ljb.setAnnualYield(Percent.valueOf(4.38));
@@ -50,7 +50,7 @@ public class InvestmentProjectLab {
         ljb.setValueDate(new LocalDate("2018-02-13"));
         mInvestmentProjects.add(ljb);
         MonetaryFundInvestmentProject nfttl = new MonetaryFundInvestmentProject();
-        nfttl.setInvestmentPlatformType(InvestmentPlatform.TIANTIAN_FUND);
+        nfttl.setInvestmentPlatformType(InvestmentPlatform.Type.TIANTIAN_FUND);
         nfttl.setName("南方天天利货币B");
         nfttl.setPrinciple(Amount.integer(2000));
         nfttl.setAnnualYield(Percent.valueOf(4.7290));
@@ -70,10 +70,10 @@ public class InvestmentProjectLab {
         return mInvestmentProjects;
     }
 
-    public List<InvestmentProject> getInvestmentProjects(int investmentPlatformType) {
+    public List<InvestmentProject> getInvestmentProjects(InvestmentPlatform.Type investmentPlatformType) {
         List<InvestmentProject> results = new ArrayList<>();
         for (InvestmentProject investmentProject : mInvestmentProjects) {
-            if (investmentProject.getInvestmentPlatformType() == investmentPlatformType) {
+            if (investmentProject.getInvestmentPlatformType().equals(investmentPlatformType)) {
                 results.add(investmentProject);
             }
         }

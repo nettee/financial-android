@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import me.nettee.financial.R;
+import me.nettee.financial.model.investment.InvestmentPlatform;
 import me.nettee.financial.model.investment.InvestmentProjectLab;
 import me.nettee.financial.model.investment.InvestmentProject;
 
@@ -13,7 +14,7 @@ public class NewInvestmentProjectActivity extends NewSomeBaseActivity<Investment
     public static final String EXTRA_INVESTMENT_PLATFORM_TYPE = "me.nettee.financial.extra_investment_platform_type";
     public static final String EXTRA_CANDIDATE_INVESTMENT_PROJECT_OBJECT = "me.nettee.financial.extra_candidate_investment_project";
 
-    private int mInvestmentPlatformType;
+    private InvestmentPlatform.Type mInvestmentPlatformType;
 
     @Override
     public int getLayout() {
@@ -27,7 +28,7 @@ public class NewInvestmentProjectActivity extends NewSomeBaseActivity<Investment
 
     @Override
     public InvestmentProject getCandidate() {
-        mInvestmentPlatformType = (int) getIntent().getSerializableExtra(EXTRA_INVESTMENT_PLATFORM_TYPE);
+        mInvestmentPlatformType = (InvestmentPlatform.Type) getIntent().getSerializableExtra(EXTRA_INVESTMENT_PLATFORM_TYPE);
         Log.d("TAG", "investment platform type = " + mInvestmentPlatformType);
         InvestmentProject candidate = (InvestmentProject) getIntent().getSerializableExtra(EXTRA_CANDIDATE_INVESTMENT_PROJECT_OBJECT);
         return candidate;

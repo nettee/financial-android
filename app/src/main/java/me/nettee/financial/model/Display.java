@@ -8,6 +8,7 @@ import me.nettee.financial.R;
 import me.nettee.financial.model.account.Account;
 import me.nettee.financial.model.account.BankCardAccount;
 import me.nettee.financial.model.account.InvestmentAccount;
+import me.nettee.financial.model.investment.InvestmentPlatform;
 import me.nettee.financial.model.investment.InvestmentProject;
 
 public abstract class Display {
@@ -18,6 +19,8 @@ public abstract class Display {
     public static Display of(Object object) {
         if (object instanceof Account) {
             return new AccountDisplay(((Account) object));
+        } else if (object instanceof InvestmentPlatform) {
+            return new InvestmentPlatformDisplay((InvestmentPlatform) object);
         } else {
             throw new IllegalArgumentException();
         }
@@ -74,6 +77,28 @@ public abstract class Display {
 
     }
 
+    private static class InvestmentPlatformDisplay extends Display {
+
+        private InvestmentPlatformDisplay(InvestmentPlatform investmentPlatform) {
+            setIcon(investmentPlatformIcon(investmentPlatform));
+            setName(investmentPlatformName(investmentPlatform));
+        }
+
+        private static int investmentPlatformIcon(InvestmentPlatform investmentPlatform) {
+            switch (investmentPlatform.getType()) {
+                case ANT_FORTUNE: return R.drawable.ic_ant_fortune;
+                case LUFAX: return R.drawable.ic_lufax;
+                case TIANTIAN_FUND: return R.drawable.ic_tiantian_fund;
+                case GENERAL: return R.drawable.ic_investment;
+                default: throw new IllegalArgumentException();
+            }
+        }
+
+        private static String investmentPlatformName(InvestmentPlatform investmentPlatform) {
+            return investmentPlatform.getName();
+        }
+    }
+
     private static class CandidateAccountDisplay extends Display {
 
         private CandidateAccountDisplay(Account account) {
@@ -127,7 +152,8 @@ public abstract class Display {
         if (account.isBankCardAccount()) {
             return R.drawable.ic_bank_card;
         } else if (account.isInvestmentAccount()) {
-            return ((InvestmentAccount) account).getPlatform().getImageResource();
+            InvestmentPlatform platform = ((InvestmentAccount) account).getPlatform();
+            return Display.of(platform).icon();
         } else {
             return candidateAccountIcon(account);
         }
@@ -137,7 +163,8 @@ public abstract class Display {
         if (account.isBankCardAccount()) {
             return ((BankCardAccount) account).getBank().getName();
         } else if (account.isInvestmentAccount()) {
-            return ((InvestmentAccount) account).getPlatform().getName();
+            InvestmentPlatform platform = ((InvestmentAccount) account).getPlatform();
+            return Display.of(platform).name();
         } else {
             return candidateAccountName(account);
         }

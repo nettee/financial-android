@@ -9,6 +9,7 @@ import java.util.List;
 
 import me.nettee.financial.R;
 import me.nettee.financial.model.Display;
+import me.nettee.financial.model.investment.InvestmentPlatform;
 import me.nettee.financial.model.investment.InvestmentProjectLab;
 import me.nettee.financial.model.investment.InvestmentProject;
 
@@ -18,7 +19,7 @@ public class InvestmentProjectCandidateActivity extends SomeCandidateBaseActivit
 
     private int REQUEST_CODE_CREATE_INVESTMENT_PROJECT_STATUS = 1;
 
-    private int mInvestmentPlatformType;
+    private InvestmentPlatform.Type mInvestmentPlatformType;
 
     @Override
     public int getLayout() {
@@ -42,7 +43,7 @@ public class InvestmentProjectCandidateActivity extends SomeCandidateBaseActivit
 
     @Override
     public List getData() {
-        mInvestmentPlatformType = (int) getIntent().getSerializableExtra(EXTRA_INVESTMENT_PLATFORM_TYPE);
+        mInvestmentPlatformType = (InvestmentPlatform.Type) getIntent().getSerializableExtra(EXTRA_INVESTMENT_PLATFORM_TYPE);
         return InvestmentProjectLab.getCandidateInvestmentProjects();
     }
 
