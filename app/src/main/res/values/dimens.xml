@@ -25,7 +25,8 @@
     <dimen name="height_title_bar">50dp</dimen>
     <dimen name="height_action_bar">50dp</dimen>
     <dimen name="height_input">50dp</dimen>
-    <dimen name="height_input_large">100dp</dimen>
+    <dimen name="height_input_large">75dp</dimen>
+    <dimen name="height_input_very_large">100dp</dimen>
     <dimen name="height_hint">50dp</dimen>
 
     <dimen name="divide_bar_height_large">20dp</dimen>
