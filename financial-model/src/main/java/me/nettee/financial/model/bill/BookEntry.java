@@ -1,6 +1,7 @@
 package me.nettee.financial.model.bill;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.io.Serializable;
 
@@ -17,6 +18,7 @@ public abstract class BookEntry implements Serializable {
     private Amount amount;
     private DateTime createdTime;
     private DateTime lastModifiedTime;
+    private LocalDate date;
     private String remark;
     private BookCategory category;
 
@@ -44,6 +46,14 @@ public abstract class BookEntry implements Serializable {
 
     public void setLastModifiedTime(DateTime lastModifiedTime) {
         this.lastModifiedTime = lastModifiedTime;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getRemark() {

@@ -4,34 +4,10 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_input_large"
-        >
+    <include layout="@layout/input_entry_account_and_amount"
+        />
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-
-            <include layout="@layout/input_entry_account"
-                />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-
-            <include layout="@layout/input_entry_amount"
-                />
-
-        </RelativeLayout>
-
-    </LinearLayout>
+    <include layout="@layout/input_entry_date_and_remark"
+         />
 
 </LinearLayout>

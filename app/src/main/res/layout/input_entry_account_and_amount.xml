@@ -45,4 +45,17 @@
         tools:text="借记卡 9395"
         />
 
+    <EditText
+        style="@style/Input"
+        android:id="@+id/entry_amount_content"
+        android:gravity="center_vertical|end"
+        android:hint="@string/hint_money_amount"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_input"
+        android:layout_marginEnd="@dimen/margin_horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
 </android.support.constraint.ConstraintLayout>
