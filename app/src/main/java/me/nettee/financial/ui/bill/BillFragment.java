@@ -1,4 +1,4 @@
-package me.nettee.financial.ui;
+package me.nettee.financial.ui.bill;
 
 import android.app.Fragment;
 import android.os.Bundle;

@@ -15,6 +15,7 @@ import java.util.Map;
 
 import me.nettee.financial.R;
 import me.nettee.financial.ui.asset.AssetFragment;
+import me.nettee.financial.ui.bill.BillFragment;
 
 public class MainActivity extends Activity {
 
