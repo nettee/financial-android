@@ -4,10 +4,18 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <include layout="@layout/input_entry_account_and_amount"
+    <include
+        android:id="@+id/income_entry_sink_account_and_amount"
+        layout="@layout/input_entry_account_and_amount"
         />
 
-    <include layout="@layout/input_entry_date_and_remark"
+    <include
+        android:id="@+id/income_entry_date_and_remark"
+        layout="@layout/input_entry_date_and_remark"
          />
+
+    <include
+        layout="@layout/button_save"
+        />
 
 </LinearLayout>

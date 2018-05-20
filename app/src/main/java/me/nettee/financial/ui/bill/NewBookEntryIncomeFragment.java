@@ -11,9 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.w3c.dom.Text;
 
 import java.util.Locale;
 
@@ -39,17 +36,26 @@ public class NewBookEntryIncomeFragment extends Fragment {
     private void fillBookEntry(IncomeEntry entry, View view) {
 
         Display sinkAccountDisplay = Display.of(entry.getSinkAccount());
-        view.<ImageView>findViewById(R.id.entry_account_image).setImageResource(sinkAccountDisplay.icon());
-        view.<TextView>findViewById(R.id.entry_account_name).setText(sinkAccountDisplay.name());
-        view.<TextView>findViewById(R.id.entry_account_remark).setText(sinkAccountDisplay.remark());
-
-        view.<EditText>findViewById(R.id.entry_amount_content).setText(entry.getAmount().toString());
+        View sinkAccountAndAmountView = view.findViewById(R.id.income_entry_sink_account_and_amount);
+        sinkAccountAndAmountView.<ImageView>findViewById(R.id.entry_account_image)
+                .setImageResource(sinkAccountDisplay.icon());
+        sinkAccountAndAmountView.<TextView>findViewById(R.id.entry_account_name)
+                .setText(sinkAccountDisplay.name());
+        sinkAccountAndAmountView.<TextView>findViewById(R.id.entry_account_remark)
+                .setText(sinkAccountDisplay.remark());
+        sinkAccountAndAmountView.<EditText>findViewById(R.id.entry_amount_content)
+                .setText(entry.getAmount().toString());
 
         LocalDate date = entry.getDate();
-        String dateString = String.format(Locale.CHINA, "%d月%d日", date.getMonthOfYear(), date.getDayOfMonth());
-        view.<TextView>findViewById(R.id.entry_date_display).setText(dateString);
+        String dateString = String.format(Locale.CHINA, "%d月%d日",
+                date.getMonthOfYear(), date.getDayOfMonth());
 
-        view.<EditText>findViewById(R.id.entry_remark_content).setText(entry.getRemark());
+        View dateAndRemarkView = view.findViewById(R.id.income_entry_date_and_remark);
+        dateAndRemarkView.<TextView>findViewById(R.id.entry_date_display)
+                .setText(dateString);
+        dateAndRemarkView.<EditText>findViewById(R.id.entry_remark_content)
+                .setText(entry.getRemark());
 
     }
+
 }
